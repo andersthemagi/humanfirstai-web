@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+
+// Only posts written here get a page. Linked-out pieces live on the article site.
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft && !data.externalUrl);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base title={post.data.title} description={post.data.subtitle}>
+  <article class="wrap post">
+    <header class="post__head">
+      <h1>{post.data.title}</h1>
+      {post.data.subtitle && <p class="lead">{post.data.subtitle}</p>}
+      <p class="post__meta">
+        {post.data.author} · <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time>
+      </p>
+    </header>
+    <div class="prose post__body">
+      <Content />
+    </div>
+    <p class="post__back"><a href="/blog/">More writing <Arrow /></a></p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    padding-bottom: var(--section);
+  }
+  .post__head {
+    max-width: 900px;
+    padding-block: clamp(48px, 7vw, 104px) 40px;
+    display: grid;
+    gap: 16px;
+  }
+  .post__meta {
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+  }
+  .post__body {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .post__back {
+    margin-top: 64px;
+  }
+  .post__back a {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    min-height: 44px;
+    font: 700 17px/1 var(--font-brand);
+  }
+</style>

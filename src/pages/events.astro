@@ -1,0 +1,201 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Door from '../components/Door.astro';
+import Arrow from '../components/Arrow.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+
+const now = new Date();
+const all = await Promise.all(
+  (await getCollection('events', ({ data }) => !data.draft)).map(async (e) => ({ ...e, Content: (await render(e)).Content })),
+);
+const upcoming = all.filter((e) => (e.data.end ?? e.data.start) >= now).sort((a, b) => +a.data.start - +b.data.start);
+const past = all.filter((e) => (e.data.end ?? e.data.start) < now).sort((a, b) => +b.data.start - +a.data.start);
+
+const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric' });
+const month = new Intl.DateTimeFormat('en-GB', { month: 'short' });
+const full = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
+---
+
+<Base title="Events" description="Free Human First AI workshops and get-togethers.">
+  <header class="wrap page-head">
+    <h1>Events</h1>
+    <p class="lead">Every workshop is free. No account, no laptop needed, no question too basic.</p>
+  </header>
+
+  <div class="wrap events">
+    {
+      upcoming.length === 0 ? (
+        <section class="empty" aria-labelledby="empty-title">
+          <Door class="empty__door" shut />
+          <div class="empty__text">
+            <h2 id="empty-title">Nothing on the calendar yet</h2>
+            <p class="lead">
+              Our first workshop is being planned right now. Leave your email and we will tell you the date and the
+              place as soon as we know them.
+            </p>
+            <NewsletterForm id="newsletter-events" label="Hear when the first workshop is on" button="Send me the letters" />
+            <p class="empty__host">
+              Have a room we could use? <a href="/contact/?reason=host">Offer it here</a>.
+            </p>
+          </div>
+        </section>
+      ) : (
+        <section aria-labelledby="upcoming-title">
+          <h2 id="upcoming-title" class="visually-hidden">Coming up</h2>
+          <ul class="agenda">
+            {upcoming.map((e) => (
+              <li class="agenda__item">
+                <p class="agenda__date" aria-hidden="true">
+                  <span class="agenda__day">{day.format(e.data.start)}</span>
+                  <span class="agenda__month">{month.format(e.data.start)}</span>
+                </p>
+                <div class="agenda__body">
+                  <h3>{e.data.title}</h3>
+                  <p class="agenda__when">
+                    <time datetime={e.data.start.toISOString()}>
+                      {full.format(e.data.start)}, {time.format(e.data.start)}
+                      {e.data.end && <> to {time.format(e.data.end)}</>}
+                    </time>
+                  </p>
+                  <p class="agenda__where">
+                    {e.data.place}, {e.data.city} · {e.data.type} in {e.data.language} · Free
+                  </p>
+                  <div class="agenda__desc">
+                    <e.Content />
+                  </div>
+                  {e.data.signupUrl && (
+                    <a class="btn agenda__cta" href={e.data.signupUrl}>
+                      Save me a seat <Arrow external />
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      past.length > 0 && (
+        <section class="past" aria-labelledby="past-title">
+          <h2 id="past-title">Already happened</h2>
+          <ul>
+            {past.map((e) => (
+              <li>
+                <time datetime={e.data.start.toISOString()}>{full.format(e.data.start)}</time>
+                <span>
+                  {e.data.title}, {e.data.city}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .events {
+    padding-bottom: var(--section);
+  }
+  .empty {
+    display: grid;
+    grid-template-columns: clamp(180px, 26vw, 340px) minmax(0, 1fr);
+    gap: 40px clamp(40px, 7vw, 112px);
+    align-items: end;
+    padding-top: 24px;
+  }
+  .empty__text {
+    display: grid;
+    gap: 24px;
+    padding-bottom: 8px;
+  }
+  .empty__host {
+    font-size: var(--size-small);
+  }
+  @media (max-width: 760px) {
+    .empty {
+      grid-template-columns: 1fr;
+    }
+    :global(.empty__door) {
+      width: 180px;
+    }
+  }
+
+  .agenda {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid var(--hf-ink);
+  }
+  .agenda__item {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 24px 40px;
+    padding-block: 36px;
+    border-top: 2px solid var(--hf-ink);
+  }
+  .agenda__date {
+    display: grid;
+    font-family: var(--font-brand);
+    line-height: 1;
+  }
+  .agenda__day {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .agenda__month {
+    margin-top: 6px;
+    font-size: var(--size-subhead);
+    font-weight: 700;
+    color: var(--hf-sunrise-deep);
+  }
+  .agenda__body {
+    display: grid;
+    gap: 8px;
+    max-width: var(--measure);
+  }
+  .agenda__when {
+    font-weight: 700;
+  }
+  .agenda__where {
+    color: var(--hf-text-muted);
+  }
+  .agenda__desc {
+    margin-top: 8px;
+  }
+  .agenda__cta {
+    justify-self: start;
+    margin-top: 12px;
+  }
+  @media (max-width: 560px) {
+    .agenda__item {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .past {
+    margin-top: var(--section);
+  }
+  .past ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+  }
+  .past li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding-block: 12px;
+    border-top: 1px solid var(--hf-border);
+  }
+  .past time {
+    min-width: 16em;
+    color: var(--hf-text-muted);
+  }
+</style>

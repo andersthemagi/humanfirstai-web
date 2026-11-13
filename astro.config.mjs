@@ -1,0 +1,8 @@
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
+// Set SITE_URL in Netlify once the domain is decided.
+export default defineConfig({
+  site: process.env.SITE_URL ?? 'https://humanfirstai.netlify.app',
+  integrations: [sitemap()],
+});

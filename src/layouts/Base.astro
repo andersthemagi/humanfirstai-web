@@ -1,0 +1,304 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Sets the header on Deep Ink, for pages whose first section is ink. */
+  inkHead?: boolean;
+}
+
+const {
+  inkHead = false,
+  title,
+  description = 'Free, hands-on workshops that make AI usable by everyone. No computer science degree required.',
+} = Astro.props;
+
+const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Make AI an open door, not a locked lab';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const nav = [
+  { href: '/about/', label: 'About' },
+  { href: '/team/', label: 'Team' },
+  { href: '/events/', label: 'Events' },
+  { href: '/blog/', label: 'Writing' },
+  { href: '/contact/', label: 'Contact' },
+];
+const isCurrent = (href: string) => path === href.replace(/\/$/, '') || path.startsWith(href);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#FFF6EC" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline>
+      // Motion is an enhancement: only mark the page for it when the reader has not asked
+      // their system to reduce motion. Without this class every door is drawn open.
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-head" data-theme={inkHead ? 'ink' : undefined}>
+      <div class="wrap site-head__inner">
+        <a class="site-head__mark" href="/" aria-label="Human First AI, home">
+          <img src={inkHead ? '/brand/hfai-horizontal-reversed.svg' : '/brand/hfai-horizontal-full.svg'} alt="" width="1154" height="172" />
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <a class="btn site-head__cta" href="/#newsletter">Subscribe</a>
+
+        <details class="site-menu">
+          <summary>Menu</summary>
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li><a class="btn" href="/#newsletter">Subscribe</a></li>
+          </ul>
+        </details>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-foot" data-theme="ink">
+      <div class="wrap site-foot__inner">
+        <div class="site-foot__about">
+          <img src="/brand/hfai-horizontal-reversed.svg" alt="Human First AI" width="1154" height="172" />
+          <p>Free workshops. Plain words. Run by volunteers. Nothing we do has a price.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          </ul>
+        </nav>
+        <p class="site-foot__small">
+          Brand assets <a href="https://github.com/hkcarre/humanfirstai">CC BY-NC 4.0</a>. Use them to do the
+          work, not to sell something.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: 16px;
+    top: -100px;
+    z-index: 20;
+    padding: 12px 16px;
+    background: var(--hf-ink);
+    color: var(--hf-cream);
+    font: 700 16px/1 var(--font-brand);
+    border-radius: var(--radius);
+  }
+  .skip:focus {
+    top: 16px;
+  }
+
+  .site-head {
+    position: relative;
+    z-index: 10;
+    background: var(--hf-surface);
+    color: var(--hf-text);
+  }
+  .site-head__inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    min-height: 88px;
+  }
+  .site-head__mark {
+    display: block;
+    margin-right: auto;
+    view-transition-name: site-mark;
+  }
+  .site-head__mark img {
+    width: auto;
+    height: 34px;
+  }
+
+  .site-nav ul,
+  .site-menu ul,
+  .site-foot ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav ul {
+    display: flex;
+    gap: 4px;
+  }
+  .site-nav a,
+  .site-menu a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    color: var(--hf-text);
+    font: 600 16px/1 var(--font-brand);
+    text-decoration: none;
+  }
+  .site-nav a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  .site-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--hf-text-accent);
+  }
+
+  .site-head__cta {
+    min-height: 46px;
+    padding-inline: 18px;
+    font-size: 16px;
+  }
+
+  .site-menu {
+    display: none;
+    position: relative;
+  }
+  .site-menu summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--radius);
+    box-shadow: inset 0 0 0 2px currentColor;
+    font: 700 16px/1 var(--font-brand);
+    cursor: pointer;
+    list-style: none;
+  }
+  .site-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-menu[open] summary {
+    background: var(--hf-text);
+    color: var(--hf-surface);
+  }
+  .site-menu ul {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    display: grid;
+    gap: 2px;
+    min-width: 220px;
+    padding: 10px;
+    background: var(--hf-white);
+    --hf-text: var(--hf-ink);
+    --hf-surface: var(--hf-white);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px -12px rgb(31 42 68 / 0.35);
+  }
+  .site-menu .btn {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  @media (max-width: 940px) {
+    .site-nav,
+    .site-head__cta {
+      display: none;
+    }
+    .site-menu {
+      display: block;
+    }
+    .site-head__mark img {
+      height: 28px;
+    }
+  }
+
+  .site-foot {
+    background: var(--hf-surface);
+    color: var(--hf-text);
+    padding-block: 64px 40px;
+  }
+  .site-foot__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px 64px;
+  }
+  .site-foot__about img {
+    width: auto;
+    height: 32px;
+    margin-bottom: 20px;
+  }
+  .site-foot__about p {
+    max-width: 30em;
+    color: var(--hf-text-muted);
+  }
+  .site-foot ul {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 4px 40px;
+  }
+  .site-foot a {
+    color: var(--hf-text);
+  }
+  .site-foot nav a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font: 600 16px/1 var(--font-brand);
+    text-decoration: none;
+  }
+  .site-foot nav a:hover {
+    text-decoration: underline;
+  }
+  .site-foot__small {
+    grid-column: 1 / -1;
+    padding-top: 24px;
+    border-top: 1px solid var(--hf-border);
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+  }
+  .site-foot__small a {
+    color: var(--hf-text-link);
+  }
+  @media (max-width: 720px) {
+    .site-foot__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

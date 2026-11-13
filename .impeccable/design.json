@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T13:30:29Z",
+  "title": "Design System: Human First AI",
+  "extensions": {
+    "colorMeta": {
+      "warm-cream": {
+        "role": "neutral",
+        "displayName": "Warm Cream",
+        "canonical": "oklch(97.7% 0.016 70.5)",
+        "tonalRamp": [
+          "#0C0B09",
+          "#272421",
+          "#46413C",
+          "#666059",
+          "#898178",
+          "#AAA49C",
+          "#CDC8C2",
+          "#F1EEEA"
+        ]
+      },
+      "deep-ink": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "oklch(28.8% 0.050 265.9)",
+        "tonalRamp": [
+          "#090B11",
+          "#202530",
+          "#3A4253",
+          "#566179",
+          "#7482A1",
+          "#99A5BF",
+          "#C0C9DE",
+          "#E8EFFD"
+        ]
+      },
+      "sunrise": {
+        "role": "primary",
+        "displayName": "Sunrise",
+        "canonical": "oklch(75.0% 0.167 50.5)",
+        "tonalRamp": [
+          "#180500",
+          "#401700",
+          "#6C2D00",
+          "#9B4400",
+          "#CC5D00",
+          "#E68A53",
+          "#FFB68D",
+          "#FFE2C5"
+        ]
+      },
+      "sunrise-deep": {
+        "role": "primary",
+        "displayName": "Sunrise Deep",
+        "canonical": "oklch(56.8% 0.165 44.0)",
+        "tonalRamp": [
+          "#190500",
+          "#411602",
+          "#6D2B07",
+          "#9D410E",
+          "#CF5A1C",
+          "#E9885D",
+          "#FFB493",
+          "#FFE1CA"
+        ]
+      },
+      "community-teal": {
+        "role": "secondary",
+        "displayName": "Community Teal",
+        "canonical": "oklch(53.8% 0.090 182.0)",
+        "tonalRamp": [
+          "#020E0C",
+          "#092B26",
+          "#164C44",
+          "#256F64",
+          "#379486",
+          "#70B4A8",
+          "#A2D5CC",
+          "#D4F7F0"
+        ]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Sky",
+        "canonical": "oklch(79.0% 0.098 237.8)",
+        "tonalRamp": [
+          "#030D14",
+          "#0E2837",
+          "#1E465F",
+          "#2F6789",
+          "#448AB5",
+          "#76ADD0",
+          "#A6D0EC",
+          "#D6F3FF"
+        ]
+      },
+      "sky-deep": {
+        "role": "secondary",
+        "displayName": "Sky Deep",
+        "canonical": "oklch(54.9% 0.130 244.3)",
+        "tonalRamp": [
+          "#010C18",
+          "#07273F",
+          "#11466A",
+          "#1E6699",
+          "#2F89C9",
+          "#6AACE2",
+          "#9DCFFA",
+          "#D1F3FF"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(55.3% 0.039 267.3)",
+        "tonalRamp": [
+          "#090B0F",
+          "#21252E",
+          "#3C4250",
+          "#596174",
+          "#78829A",
+          "#9CA5B9",
+          "#C2C9D9",
+          "#E9EEFA"
+        ]
+      },
+      "clay": {
+        "role": "tertiary",
+        "displayName": "Clay",
+        "canonical": "oklch(57.2% 0.185 33.0)",
+        "tonalRamp": [
+          "#1B0301",
+          "#451107",
+          "#732213",
+          "#A6351F",
+          "#DA4B30",
+          "#F37F67",
+          "#FFAE9A",
+          "#FFDCCE"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "ink-raised": {
+        "role": "neutral",
+        "displayName": "Ink Raised",
+        "canonical": "oklch(33.9% 0.054 265.2)",
+        "tonalRamp": [
+          "#080B11",
+          "#1F2531",
+          "#394255",
+          "#55617B",
+          "#7382A3",
+          "#98A5C1",
+          "#BFC9DF",
+          "#E7EFFE"
+        ]
+      },
+      "ink-muted-inverse": {
+        "role": "neutral",
+        "displayName": "Ink Muted Inverse",
+        "canonical": "oklch(76.5% 0.034 264.4)",
+        "tonalRamp": [
+          "#090B0F",
+          "#21252D",
+          "#3C424E",
+          "#596172",
+          "#788397",
+          "#9DA5B7",
+          "#C2C9D7",
+          "#EAEFF8"
+        ]
+      },
+      "ink-rule": {
+        "role": "neutral",
+        "displayName": "Ink Rule",
+        "canonical": "oklch(41.2% 0.058 266.3)",
+        "tonalRamp": [
+          "#080B11",
+          "#1F2532",
+          "#394256",
+          "#54617D",
+          "#7282A6",
+          "#97A5C3",
+          "#BEC9E1",
+          "#E7EFFF"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "poster": {
+        "displayName": "Poster",
+        "purpose": "Home statement and home closing line only."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page h1s and the home section title."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section h2s and blog index titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3s, way titles, team names, About sub-heads."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Sign-up labels and event months."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Standfirsts under page headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text; prose at a 66ch measure."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Form notes, meta lines, footer legal."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and team roles; nav runs the same face at 16px."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Button and arrow-link text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 18px 40px -12px rgb(31 42 68 / 0.35)",
+        "purpose": "Mobile menu panel only."
+      },
+      {
+        "name": "ring",
+        "value": "inset 0 0 0 2px currentColor",
+        "purpose": "Drawn 2px outline for the menu toggle and quiet button."
+      },
+      {
+        "name": "focus",
+        "value": "outline: 3px solid var(--hf-focus-ring); outline-offset: 3px; border-radius: 4px",
+        "purpose": "Focus is never removed, only restyled."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "House easing for every transition and the door leaf opening."
+      },
+      {
+        "name": "ease-fold",
+        "value": "cubic-bezier(0.55, 0, 0.8, 0.2)",
+        "purpose": "Accelerating fold of the shut door face toward its hinge."
+      },
+      {
+        "name": "door-word-fade",
+        "value": "120ms linear",
+        "purpose": "Painted word leaves the shut face before it folds."
+      },
+      {
+        "name": "door-fold",
+        "value": "380ms",
+        "purpose": "Shut face folds to its hinge."
+      },
+      {
+        "name": "door-leaf-open",
+        "value": "620ms, 300ms delay",
+        "purpose": "Leaf swings open toward the viewer after the fold."
+      },
+      {
+        "name": "hero-door-delay",
+        "value": "280ms after document.fonts.ready",
+        "purpose": "The one on-load swing, once the headline has set."
+      },
+      {
+        "name": "colonnade-scrub",
+        "value": "pinned, scrub 0.5, length 1.8 x viewport height, min viewport 900 x 760",
+        "purpose": "One scroll timeline drives all three ways-in doors via --p (0 shut, 1 open); text rises from opacity 0.7 / 14px at +0.35 per door."
+      },
+      {
+        "name": "door-reveal-small",
+        "value": "once at top 78%",
+        "purpose": "Below the colonnade size, each door opens once as it enters."
+      },
+      {
+        "name": "state-fast",
+        "value": "150-180ms",
+        "purpose": "Underline thickness, field borders, arrow nudge (3px)."
+      },
+      {
+        "name": "button",
+        "value": "160ms colours, 120ms press (translateY 1px)",
+        "purpose": "Button fill swap and press."
+      },
+      {
+        "name": "page-transition",
+        "value": "240ms root crossfade; site mark persists",
+        "purpose": "Cross-document view transition; off under reduced motion."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "no .motion class; transitions 0.01ms; view transitions off",
+        "purpose": "Every door drawn in its final state; nothing animates."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "signup-stack",
+        "value": "420px"
+      },
+      {
+        "name": "list-collapse",
+        "value": "720px"
+      },
+      {
+        "name": "grid-collapse",
+        "value": "820px"
+      },
+      {
+        "name": "colonnade",
+        "value": "900px x 760px (min width and height)"
+      },
+      {
+        "name": "nav-menu",
+        "value": "940px"
+      },
+      {
+        "name": "hero-wide",
+        "value": "1100px"
+      },
+      {
+        "name": "container",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled action: Sunrise with ink text, filling to ink on hover.",
+      "html": "<button class=\"ds-btn\" type=\"button\">Tell me when</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:0;border-radius:var(--hf-radius,12px);background:var(--hf-sunrise,#FF8A3D);color:var(--hf-ink,#1F2A44);font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;font-size:17px;line-height:1;letter-spacing:-0.005em;text-decoration:none;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),color 160ms cubic-bezier(0.16,1,0.3,1),transform 120ms cubic-bezier(0.16,1,0.3,1);}.ds-btn:hover{background:var(--hf-ink,#1F2A44);color:var(--hf-cream,#FFF6EC);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--hf-sunrise-deep,#C24D00);outline-offset:3px;}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Drawn 2px ring variant; defined in the build, currently unused.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\">Read more</button>",
+      "css": ".ds-btn-quiet{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:0;border-radius:12px;background:transparent;color:var(--hf-ink,#1F2A44);box-shadow:inset 0 0 0 2px currentColor;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;font-size:17px;line-height:1;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),color 160ms cubic-bezier(0.16,1,0.3,1);}.ds-btn-quiet:hover{background:var(--hf-ink,#1F2A44);color:var(--hf-cream,#FFF6EC);}.ds-btn-quiet:focus-visible{outline:3px solid var(--hf-sunrise-deep,#C24D00);outline-offset:3px;}"
+    },
+    {
+      "name": "Sign-up Form",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Subhead label, email field and primary button on one row, with a plain note underneath.",
+      "html": "<form class=\"ds-signup\" onsubmit=\"return false\"><label class=\"ds-signup-label\" for=\"ds-email\">Tell me when the first workshop is on</label><div class=\"ds-signup-row\"><input id=\"ds-email\" class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\"><button class=\"ds-btn\" type=\"submit\">Tell me</button></div><p class=\"ds-signup-note\">One email when there is a date. Nothing else, and you can say stop any time.</p></form>",
+      "css": ".ds-signup{display:grid;gap:10px;max-width:520px;color:#1F2A44;}.ds-signup-label{font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;font-size:20px;line-height:1.3;letter-spacing:-0.01em;}.ds-signup-row{display:flex;gap:10px;}.ds-input{flex:1;min-width:0;min-height:52px;padding:12px 16px;border:2px solid var(--hf-ink-muted,#68728A);border-radius:12px;background:#FFFFFF;color:#1F2A44;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;line-height:1.4;transition:border-color 150ms cubic-bezier(0.16,1,0.3,1);}.ds-input::placeholder{color:#68728A;opacity:1;}.ds-input:hover{border-color:#1F2A44;}.ds-input:focus-visible{outline:3px solid #C24D00;outline-offset:3px;}.ds-input:user-invalid{border-color:#CE3E22;}.ds-signup-note{margin:0;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:15px;color:#68728A;}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:0;border-radius:var(--hf-radius,12px);background:var(--hf-sunrise,#FF8A3D);color:var(--hf-ink,#1F2A44);font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;font-size:17px;line-height:1;letter-spacing:-0.005em;text-decoration:none;cursor:pointer;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),color 160ms cubic-bezier(0.16,1,0.3,1),transform 120ms cubic-bezier(0.16,1,0.3,1);}.ds-btn:hover{background:var(--hf-ink,#1F2A44);color:var(--hf-cream,#FFF6EC);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--hf-sunrise-deep,#C24D00);outline-offset:3px;}"
+    },
+    {
+      "name": "Choice Tile",
+      "kind": "chip",
+      "refersTo": "choice-tile",
+      "description": "Radio option as a white tile; the chosen one fills Sunrise.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-r\" checked><span>Come to a workshop</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-r\"><span>Offer a room</span></label></div>",
+      "css": ".ds-choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}.ds-choice{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid #68728A;border-radius:12px;background:#FFFFFF;color:#1F2A44;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:600;font-size:16px;line-height:1.3;cursor:pointer;transition:border-color 150ms cubic-bezier(0.16,1,0.3,1),background-color 150ms cubic-bezier(0.16,1,0.3,1);}.ds-choice:hover{border-color:#1F2A44;}.ds-choice:has(input:checked){border-color:#1F2A44;background:#FF8A3D;}.ds-choice input{width:20px;height:20px;margin:0;accent-color:#1F2A44;}.ds-choice:focus-within{outline:3px solid #C24D00;outline-offset:3px;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Plain ink links with a Sunrise Deep underline on the current page, plus the compact header button.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">About</a><a href=\"#\" aria-current=\"page\">Team</a><a href=\"#\">Events</a><a href=\"#\">Writing</a><a class=\"ds-nav-cta\" href=\"#\">Tell me when</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:4px;}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;color:#1F2A44;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:600;font-size:16px;line-height:1;text-decoration:none;text-underline-offset:0.22em;}.ds-nav a:hover{text-decoration:underline;text-decoration-thickness:2px;}.ds-nav a[aria-current=page]{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:#C24D00;}.ds-nav a:focus-visible{outline:3px solid #C24D00;outline-offset:3px;border-radius:4px;}.ds-nav .ds-nav-cta{margin-left:28px;min-height:46px;padding:0 18px;border-radius:12px;background:#FF8A3D;font-weight:700;transition:background-color 160ms cubic-bezier(0.16,1,0.3,1),color 160ms cubic-bezier(0.16,1,0.3,1);}.ds-nav .ds-nav-cta:hover{background:#1F2A44;color:#FFF6EC;text-decoration:none;}"
+    },
+    {
+      "name": "Arrow Link",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "Secondary action: Jakarta 700 with a Sunrise Deep underline and a drawn arrow that nudges forward.",
+      "html": "<a class=\"ds-arrow-link\" href=\"#\">Why we started <svg class=\"ds-arrow\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-arrow-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#1F2A44;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;font-size:17px;line-height:1.2;text-decoration:underline;text-decoration-color:#C24D00;text-decoration-thickness:1.5px;text-underline-offset:0.22em;transition:text-decoration-thickness 150ms cubic-bezier(0.16,1,0.3,1);}.ds-arrow-link:hover{text-decoration-thickness:3px;}.ds-arrow{flex:none;transition:transform 180ms cubic-bezier(0.16,1,0.3,1);}.ds-arrow-link:hover .ds-arrow{transform:translateX(3px);}.ds-arrow-link:focus-visible{outline:3px solid #C24D00;outline-offset:3px;border-radius:4px;}"
+    },
+    {
+      "name": "Door (open)",
+      "kind": "custom",
+      "refersTo": "portrait-arch",
+      "description": "The Open Threshold drawn at the mark geometry: ink jamb, Sunrise light, outward leaf, ground rule (floor: mark).",
+      "html": "<div class=\"ds-door-wrap\"><svg class=\"ds-door\" viewBox=\"2 6 60 50\" overflow=\"visible\" aria-hidden=\"true\"><path class=\"ds-door-light\" d=\"M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z\"/><path class=\"ds-door-frame\" d=\"M24.5,51.5 L24.5,30 A15,15 0 0 1 54.5,30 L54.5,51.5\"/><g class=\"ds-door-leaf\"><path d=\"M20,51.5 L20,16.5 L7,9 L7,51.5 Z\"/><circle class=\"ds-door-knob\" cx=\"10.5\" cy=\"34\" r=\"2.4\"/></g><rect class=\"ds-door-ground\" x=\"3\" y=\"51.2\" width=\"58\" height=\"3.8\"/></svg></div>",
+      "css": ".ds-door-wrap{width:200px;padding:16px;background:#FFF6EC;}.ds-door{display:block;width:100%;height:auto;}.ds-door-light{fill:#FF8A3D;}.ds-door-frame{fill:none;stroke:#1F2A44;stroke-width:5;}.ds-door-leaf path,.ds-door-ground{fill:#1F2A44;}.ds-door-knob{fill:#FF8A3D;}.ds-door-leaf{transform-box:fill-box;transform-origin:right center;transition:transform 620ms cubic-bezier(0.16,1,0.3,1);}.ds-door-wrap:hover .ds-door-leaf{transform:scaleX(0);transition-duration:200ms;}"
+    },
+    {
+      "name": "Door (shut)",
+      "kind": "custom",
+      "refersTo": "portrait-arch",
+      "description": "Shut state for empty and 404 pages and the trailing hero doors.",
+      "html": "<div class=\"ds-door-wrap\"><svg class=\"ds-door\" viewBox=\"2 6 60 50\" overflow=\"visible\" aria-hidden=\"true\"><path class=\"ds-door-shutface\" d=\"M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z\"/><circle class=\"ds-door-knob\" cx=\"47.6\" cy=\"36\" r=\"1.5\"/><path class=\"ds-door-frame\" d=\"M24.5,51.5 L24.5,30 A15,15 0 0 1 54.5,30 L54.5,51.5\"/><rect class=\"ds-door-ground\" x=\"3\" y=\"51.2\" width=\"58\" height=\"3.8\"/></svg></div>",
+      "css": ".ds-door-wrap{width:200px;padding:16px;background:#FFF6EC;}.ds-door{display:block;width:100%;height:auto;}.ds-door-shutface{fill:#1F2A44;stroke:#1F2A44;stroke-width:0.8;}.ds-door-frame{fill:none;stroke:#1F2A44;stroke-width:5;}.ds-door-ground{fill:#1F2A44;}.ds-door-knob{fill:#FF8A3D;}"
+    },
+    {
+      "name": "Portrait Arch",
+      "kind": "card",
+      "refersTo": "portrait-arch",
+      "description": "Team member standing in a Sky threshold with an ink ground bar; initial when there is no photograph.",
+      "html": "<div class=\"ds-person\"><div class=\"ds-arch\"><span>M</span></div><h3>Marie</h3><p class=\"ds-role\">Workshops</p></div>",
+      "css": ".ds-person{width:200px;color:#1F2A44;}.ds-arch{position:relative;aspect-ratio:30/36.5;border-radius:50% 50% 0 0/41.1% 41.1% 0 0;overflow:hidden;background:#7CC4F2;}.ds-arch::after{content:'';position:absolute;inset:auto 0 0;height:6px;background:#1F2A44;}.ds-arch span{display:grid;place-items:center;height:100%;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-0.04em;}.ds-person h3{margin:20px 0 0;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:650;font-size:25px;line-height:1.3;letter-spacing:-0.015em;}.ds-role{margin:4px 0 0;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:600;font-size:15px;color:#C24D00;}"
+    },
+    {
+      "name": "Ruled List",
+      "kind": "custom",
+      "refersTo": "ink-field",
+      "description": "Contents-page list between 2px ink rules; titles turn Sunrise Deep on hover.",
+      "html": "<ul class=\"ds-ruled\"><li><a href=\"#\"><h3>Give Yourself the Grace to Be Bad at It</h3></a><p class=\"ds-meta\">Andrés Sepulveda Morales</p></li><li><a href=\"#\"><h3>The Most Dangerous Person in the Room</h3></a><p class=\"ds-meta\">Helena Carre</p></li></ul>",
+      "css": ".ds-ruled{list-style:none;margin:0;padding:0;border-bottom:2px solid #1F2A44;background:#FFF6EC;color:#1F2A44;}.ds-ruled li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 32px;align-items:baseline;padding-block:28px;border-top:2px solid #1F2A44;}.ds-ruled a{color:inherit;text-decoration:none;}.ds-ruled h3{margin:0;font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;font-weight:650;font-size:25px;line-height:1.3;letter-spacing:-0.015em;transition:color 150ms cubic-bezier(0.16,1,0.3,1);}.ds-ruled a:hover h3{color:#C24D00;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:0.18em;}.ds-ruled a:focus-visible{outline:3px solid #C24D00;outline-offset:3px;}.ds-meta{margin:0;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:15px;color:#68728A;white-space:nowrap;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Open Threshold",
+    "overview": "The whole system is one picture repeated: a warm room seen from outside, with its door swinging open. Warm Cream is the daylight ground, Deep Ink is the masonry, and Sunrise is the light that spills out once a door opens. The arch from the logo is the only graphic device, drawn at the mark's own proportions (width 30 : springline 21.5 : radius 15) with a 5-unit ink jamb and a ground rule underfoot. It appears as the hero colonnade, as the three ways in, as the frame around every portrait, and as the closed door on empty and 404 states.\n\nThe palette, the two typefaces and the arch are binding brand commitments from the hkcarre/humanfirstai brand book. They are recorded here as fixed inputs, not as choices this site is free to revisit. What this file adds is how the build composes them.\n\nDensity is low and type is large. Headlines are heavy Jakarta set tight; anything read for more than a sentence is Atkinson Hyperlegible at 17px or larger. Surfaces are flat colour fields separated by 2px ink rules, never floated on shadows. Motion is rare and literal: a door opens, and that is the whole vocabulary. Every page renders complete, with every door drawn in its finished state, before any script runs.",
+    "keyCharacteristics": [
+      "Flat cream ground, ink structure, Sunrise as light and as the one action colour.",
+      "One graphic device: the Open Threshold arch, always at the mark's geometry.",
+      "Heavy, tight, sentence-case Jakarta headlines over a calm Atkinson reading face.",
+      "Ruled lists (2px ink) instead of cards; one full ink field per page at most, plus the ink footer.",
+      "Motion means a door opening. Nothing else animates beyond small hover feedback.",
+      "Static-first: no content or picture depends on JavaScript or on motion being allowed."
+    ],
+    "rules": [
+      {
+        "name": "The Light Rule",
+        "body": "Sunrise is light, not decoration. It fills an open doorway, a knob, the primary button or a chosen option, and nothing else. If an element is not an opening or an action, it is not Sunrise.",
+        "section": "colors"
+      },
+      {
+        "name": "The Swap Rule",
+        "body": "On ink, roles swap through `data-theme=\"ink\"`: surface becomes Deep Ink, text Warm Cream, accent text Sunrise, links Sky, focus ring Sunrise. Components read the role tokens (`--hf-surface`, `--hf-text`, `--hf-text-accent`) so the same markup works on both grounds.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Jakarta for anything you glance at (headings, labels, buttons, navigation); Atkinson for anything you read for more than a sentence. Bold inside prose switches to Jakarta 700.",
+        "section": "typography"
+      },
+      {
+        "name": "The Floor Rule",
+        "body": "Nothing below 14px; body 17px or larger; headings in sentence case, never all caps; text is never justified. Headings use `text-wrap: balance`, paragraphs `pretty`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight Punctuation Rule",
+        "body": "At poster and display sizes, trailing `, . ; : ?` are pulled 0.06em back toward the word so Jakarta's loose punctuation does not open a gap.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Ground Rule",
+        "body": "Content never floats. Separation is a 2px Deep Ink rule, a change to the ink field, or space. A shadow is permitted only on something that actually overlays the page.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Gesture Rule",
+        "body": "The only animation in the world is a door opening: once on load, and once per door in the colonnade as you scroll. Everything else is hover feedback under 200ms and a 240ms cross-page fade during which the logo stays put.",
+        "section": "components"
+      },
+      {
+        "name": "The Finished Picture Rule",
+        "body": "The HTML always holds the final picture. Motion may close a door first in order to open it; it may never be the reason something is visible.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** draw every arch from the Door component or the portrait clip, at the 30 : 21.5 : 15 geometry with an ink ground rule.",
+      "**Do** keep Sunrise for opened doorways, knobs, the primary button and a chosen option, with Deep Ink on top.",
+      "**Do** separate content with 2px Deep Ink rules and fluid section space (72 to 136px), not with boxes.",
+      "**Do** set headings in Jakarta 700 to 800 sentence case with tight negative tracking, and running text in Atkinson at 17px or more.",
+      "**Do** put `data-theme=\"ink\"` on any container that sits on Deep Ink and let the role tokens swap.",
+      "**Do** render every door in its finished state in HTML and gate motion behind the `motion` class, which is only set when reduced motion is not requested.",
+      "**Do** keep every target at least 44px and keep the 3px focus ring visible on every interactive element."
+    ],
+    "donts": [
+      "**Don't** introduce a second graphic device: no blobs, swooshes, mesh gradients, dot grids, robots, circuits, glowing brains, black glass, cyan or glow.",
+      "**Don't** set Sunrise or Sky as text on cream; they are fills.",
+      "**Don't** put shadows on content, or build card grids; a shadow belongs only to something that overlays the page.",
+      "**Don't** animate anything other than a door opening, or give each element its own independent reveal.",
+      "**Don't** set text below 14px, set headings in all caps, or justify text.",
+      "**Don't** place Ink Muted, Sunrise Deep or Sky Deep text on anything darker than Warm Cream; they sit at the 4.5:1 line there.",
+      "**Don't** use stock photographs; portraits are real team members or an initial in the arch."
+    ]
+  }
+}

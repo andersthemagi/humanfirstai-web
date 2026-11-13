@@ -1,0 +1,42 @@
+{
+  "headline": "The door is open.",
+  "headlineAccent": "Come in.",
+  "standfirst": "Most talk about AI happens over people's heads. We are starting free workshops where you try it on something from your own life, with someone patient beside you.",
+  "newsletterLabel": "Follow along while we plan the first one",
+  "newsletterButton": "Send me the letters",
+  "doorwaysTitle": "Pick a door",
+  "doorways": [
+    {
+      "word": "Come",
+      "title": "Come and try it",
+      "body": "Bring something you need to do this week: a letter to your landlord, a price list for your stall, a recipe for what is left in the fridge. We work through it together on tablets we bring. You also learn to check the answer, because these tools sometimes make things up and sound sure while they do it.",
+      "linkLabel": "Hear when the first one is on",
+      "linkHref": "#newsletter"
+    },
+    {
+      "word": "Help",
+      "title": "Help someone try it",
+      "body": "If you have used these tools for a while, you already know enough. What matters more is patience, and remembering what it was like not to know. We are writing a session plan you can teach from, and nobody runs their first one alone.",
+      "linkLabel": "Offer to help",
+      "linkHref": "/contact/?reason=help"
+    },
+    {
+      "word": "Host",
+      "title": "Lend us a room",
+      "body": "A library, a community hall, the back room of a café on a quiet morning. If it has chairs, a few plugs and wifi, it works. We set up, we clean up, and we leave it as we found it.",
+      "linkLabel": "Offer a room",
+      "linkHref": "/contact/?reason=host"
+    }
+  ],
+  "promisesTitle": "What you can count on",
+  "promises": [
+    { "title": "It is always free.", "body": "Nobody pays to come, and nothing is sold at the end." },
+    { "title": "We tell you what it gets wrong.", "body": "These tools make things up. We show you how to catch it before it matters." },
+    { "title": "Your story stays yours.", "body": "We never share your words, your work or your photo without asking first." },
+    { "title": "Every question is a good one.", "body": "Nobody here was born knowing this, and we still ask questions every week." }
+  ],
+  "whyQuote": "We count the people who leave able to do one new thing.",
+  "whyBody": "AI arrived wrapped in jargon, hype and dread, and most of what is said about it is aimed at people who already work in tech. If it only helps them, it will widen every gap it touches. We want people to feel unafraid and able, so the choice of whether to use it, and for what, is theirs.",
+  "closing": "The future belongs to all of us.",
+  "closingLabel": "Get the next letter"
+}

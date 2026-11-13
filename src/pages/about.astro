@@ -1,0 +1,50 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Door from '../components/Door.astro';
+
+const about = (await getEntry('prose', 'about'))!;
+const { Content } = await render(about);
+---
+
+<Base title="About" description={about.data.intro}>
+  <header class="wrap page-head about-head">
+    <div>
+      <h1>{about.data.title}</h1>
+      <p class="lead">{about.data.intro}</p>
+    </div>
+    <Door class="about-head__door" />
+  </header>
+  <div class="wrap about-body">
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</Base>
+
+<style>
+  .about-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(140px, 18vw, 240px);
+    gap: 40px;
+    align-items: end;
+  }
+  .about-body {
+    padding-bottom: var(--section);
+  }
+  .about-body .prose {
+    margin-left: clamp(0px, 12vw, 200px);
+  }
+  .about-body :global(h2) {
+    font-size: var(--size-title);
+  }
+  @media (max-width: 720px) {
+    .about-head {
+      grid-template-columns: 1fr;
+    }
+    :global(.about-head__door) {
+      width: 140px;
+      order: -1;
+    }
+  }
+</style>

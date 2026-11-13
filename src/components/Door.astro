@@ -1,0 +1,119 @@
+---
+// The Open Door, drawn from the mark's own geometry (brand/logo, 30 : 21.5 : 15).
+// Default state is open, so the finished picture is in the HTML. Scripts may shut a
+// door first and then open it (data-animate + data-opened); without them nothing is hidden.
+interface Props {
+  word?: string;
+  shut?: boolean;
+  /** Starts shut when motion is allowed and a script will open it. */
+  animate?: boolean;
+  /**
+   * How far the floor runs. 'mark' is the logo's own ground; 'long' runs past both edges for a
+   * row of doors on one floor ('none' on the others in that row, so no seams show).
+   */
+  floor?: 'mark' | 'long' | 'none';
+  class?: string;
+}
+const { word, shut = false, animate = false, floor = 'mark', class: className } = Astro.props;
+const ground = floor === 'long' ? { x: -600, width: 1264 } : { x: 3, width: 58 };
+const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
+---
+
+<svg
+  class:list={['door', className]}
+  viewBox="2 6 60 50"
+  overflow="visible"
+  aria-hidden="true"
+  focusable="false"
+  data-door
+  data-shut={shut ? '' : undefined}
+  data-animate={animate ? '' : undefined}
+>
+  <path class="door__light" d={OPENING}></path>
+  {word && <text class="door__word" x="39.5" y="43">{word}</text>}
+  <g class="door__shut">
+    <path d={OPENING}></path>
+    {word && <text class="door__word door__word--shut" x="39.5" y="43">{word}</text>}
+    <circle class="door__knob" cx="47.6" cy="36" r="1.5"></circle>
+  </g>
+  <path class="door__frame" d="M24.5,51.5 L24.5,30 A15,15 0 0 1 54.5,30 L54.5,51.5"></path>
+  <g class="door__leaf">
+    <path d="M20,51.5 L20,16.5 L7,9 L7,51.5 Z"></path>
+    <circle class="door__knob" cx="10.5" cy="34" r="2.4"></circle>
+  </g>
+  {floor !== 'none' && <rect class="door__ground" x={ground.x} y="51.2" width={ground.width} height="3.8"></rect>}
+</svg>
+
+<style is:global>
+  .door {
+    width: 100%;
+    height: auto;
+  }
+  .door__light {
+    fill: var(--hf-sunrise);
+  }
+  .door__shut path {
+    /* Covers the antialiased edge of the light beneath, so no hairline shows. */
+    stroke: var(--hf-text);
+    stroke-width: 0.8;
+  }
+  /* Doors draw in the text colour of whatever they stand on: ink on cream, cream on ink. */
+  .door__shut path,
+  .door__leaf path,
+  .door__ground {
+    fill: var(--hf-text);
+  }
+  .door__frame {
+    fill: none;
+    stroke: var(--hf-text);
+    stroke-width: 5;
+  }
+  .door__knob {
+    fill: var(--hf-sunrise);
+  }
+  .door__word {
+    font-family: var(--font-brand);
+    font-weight: 800;
+    font-size: 6.4px;
+    letter-spacing: -0.02em;
+    text-anchor: middle;
+    fill: var(--hf-ink);
+  }
+  .door__word--shut {
+    fill: var(--hf-surface);
+    opacity: 0;
+    transition: opacity 120ms linear;
+  }
+  /* The painted word on the shut face leaves before the door folds, so it never squashes. */
+  .door[data-shut] .door__word--shut,
+  .motion .door[data-animate]:not([data-opened]) .door__word--shut {
+    opacity: 1;
+  }
+
+  /* The swing: the shut door folds to its hinge, then the leaf opens toward you. */
+  .door__shut,
+  .door__leaf {
+    transform-box: fill-box;
+  }
+  .door__shut {
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 380ms cubic-bezier(0.55, 0, 0.8, 0.2);
+  }
+  .door__leaf {
+    transform-origin: right center;
+    transform: scaleX(1);
+    transition: transform 620ms var(--ease-out) 300ms;
+  }
+  .door[data-shut] .door__shut,
+  .motion .door[data-animate]:not([data-opened]) .door__shut {
+    transform: scaleX(1);
+    transition-delay: 0ms;
+  }
+  .door[data-shut] .door__leaf,
+  .motion .door[data-animate]:not([data-opened]) .door__leaf {
+    transform: scaleX(0);
+    transition-duration: 200ms;
+    transition-delay: 0ms;
+  }
+</style>

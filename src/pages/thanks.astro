@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Door from '../components/Door.astro';
+---
+
+<Base title="Thank you">
+  <section class="wrap page-head thanks">
+    <Door class="thanks__door" />
+    <div>
+      <h1>Got it. Thank you.</h1>
+      <p class="lead">We will be in touch. In the meantime, you could read <a href="/blog/">something we wrote</a>, or <a href="/">head back home</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks {
+    display: grid;
+    grid-template-columns: clamp(140px, 20vw, 260px) 1fr;
+    gap: 40px 64px;
+    align-items: end;
+    padding-bottom: var(--section);
+  }
+  @media (max-width: 640px) {
+    .thanks {
+      grid-template-columns: 1fr;
+    }
+    :global(.thanks__door) {
+      width: 150px;
+    }
+  }
+</style>

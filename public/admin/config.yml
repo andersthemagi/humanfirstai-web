@@ -1,0 +1,123 @@
+# Sveltia CMS: the editing screen at /admin. Every change is a commit to GitHub, and Netlify
+# rebuilds the site in about a minute. Field names must match src/content.config.ts.
+
+backend:
+  name: github
+  repo: OWNER/humanfirstai-web # TODO: set once the GitHub repo exists
+  branch: main
+  base_url: https://api.netlify.com # Netlify signs editors in with GitHub (Site settings > Access & security > OAuth)
+
+site_url: https://humanfirstai.netlify.app
+logo_url: /favicon.svg
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: events
+    label: Events
+    label_singular: Event
+    description: Workshops and get-togethers. They move to "Already happened" on their own once the date passes.
+    folder: src/content/events
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    summary: '{{title}} · {{city}} · {{start}}'
+    sortable_fields: [start, title]
+    fields:
+      - { name: title, label: Title, widget: string, hint: 'Say what people will do, e.g. "Write a letter with AI, step by step"' }
+      - { name: type, label: Type, widget: select, options: [Workshop, Talk, Social], default: Workshop }
+      - { name: start, label: Starts, widget: datetime }
+      - { name: end, label: Ends, widget: datetime, required: false }
+      - { name: place, label: Place, widget: string, hint: 'Name of the building, e.g. "Biblioteca Sant Antoni"' }
+      - { name: city, label: City, widget: string }
+      - { name: language, label: Language, widget: string, default: English }
+      - { name: signupUrl, label: Sign-up link, widget: string, required: false, hint: 'Optional. A form or ticket link. Leave empty if people can just turn up.' }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+      - { name: body, label: What happens, widget: markdown, hint: 'Two or three short sentences. What to bring, who it is for, how to get there.' }
+
+  - name: posts
+    label: Writing
+    label_singular: Post
+    folder: src/content/posts
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}} · {{author}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle, widget: string, required: false }
+      - { name: author, label: Author, widget: string }
+      - { name: date, label: Date, widget: datetime, time_format: false }
+      - { name: externalUrl, label: Published elsewhere?, widget: string, required: false, hint: 'Paste a link only if the piece lives on another site. Leave empty to publish the text below here.' }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+      - { name: body, label: Text, widget: markdown, required: false }
+
+  - name: team
+    label: Team
+    label_singular: Person
+    folder: src/content/team
+    create: true
+    slug: '{{slug}}'
+    summary: '{{name}}'
+    sortable_fields: [order, name]
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: role, label: What they do here, widget: string, required: false }
+      - { name: location, label: Where they are, widget: string, required: false }
+      - { name: photo, label: Photo, widget: image, required: false, hint: 'Square, at least 400px. Only use a photo the person has agreed to.' }
+      - { name: photoAlt, label: Photo description, widget: string, required: false, hint: 'One sentence describing the photo, for people using screen readers.' }
+      - { name: link, label: Link, widget: string, required: false, hint: 'LinkedIn or a personal site.' }
+      - { name: order, label: Position on the page, widget: number, value_type: int, default: 99 }
+      - { name: body, label: Short bio, widget: markdown, required: false, hint: 'One or two sentences, in your own words.' }
+
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: Newsletter
+        file: src/content/settings/site.json
+        fields:
+          - { name: newsletterUrl, label: Substack address, widget: string, required: false, hint: 'e.g. https://humanfirstai.substack.com. While empty, sign-ups are kept in Netlify under Forms > newsletter, ready to import into Substack.' }
+          - { name: newsletterName, label: Newsletter name, widget: string }
+
+  - name: pages
+    label: Pages
+    files:
+      - name: home
+        label: Home page
+        file: src/content/pages/home.json
+        fields:
+          - { name: headline, label: Headline, widget: string }
+          - { name: headlineAccent, label: Headline second line (in orange), widget: string, required: false }
+          - { name: standfirst, label: Text under the headline, widget: text }
+          - { name: newsletterLabel, label: Newsletter sign-up line, widget: string }
+          - { name: newsletterButton, label: Newsletter button, widget: string }
+          - { name: doorwaysTitle, label: Doorways heading, widget: string }
+          - name: doorways
+            label: The three doorways
+            widget: list
+            min: 3
+            max: 3
+            fields:
+              - { name: word, label: Word on the door, widget: string, hint: 'One short word. It is drawn inside the arch.' }
+              - { name: title, label: Heading, widget: string }
+              - { name: body, label: Text, widget: text }
+              - { name: linkLabel, label: Link text, widget: string }
+              - { name: linkHref, label: Link goes to, widget: string }
+          - { name: promisesTitle, label: Promises heading, widget: string }
+          - name: promises
+            label: Promises
+            widget: list
+            fields:
+              - { name: title, label: Promise, widget: string }
+              - { name: body, label: One line on what it means, widget: string }
+          - { name: whyQuote, label: Big statement (dark band), widget: text }
+          - { name: whyBody, label: Text beside it, widget: text }
+          - { name: closing, label: Closing line, widget: string }
+          - { name: closingLabel, label: Sign-up line at the bottom, widget: string }
+      - name: about
+        label: About page
+        file: src/content/prose/about.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - { name: body, label: Text, widget: markdown }

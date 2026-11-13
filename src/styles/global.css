@@ -1,0 +1,309 @@
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import '@fontsource/atkinson-hyperlegible/400.css';
+@import '@fontsource/atkinson-hyperlegible/700.css';
+@import '@fontsource/atkinson-hyperlegible/400-italic.css';
+@import './tokens.css';
+
+:root {
+  --font-brand: 'Plus Jakarta Sans Variable', var(--hf-font-brand);
+  --font-read: 'Atkinson Hyperlegible', var(--hf-font-readable);
+
+  /* Brand scale (docs/05-typography.md), plus one poster step for the home statement. */
+  --size-poster: clamp(44px, 1.6rem + 4.6vw, 92px);
+  --size-display: clamp(36px, 2.25rem + 2.344vw, 54px);
+  --size-headline: clamp(27px, 1.688rem + 0.911vw, 34px);
+  --size-title: clamp(23px, 1.438rem + 0.521vw, 27px);
+  --size-subhead: clamp(19px, 1.188rem + 0.26vw, 21px);
+  --size-body: 17px;
+  --size-lead: clamp(18px, 1rem + 0.35vw, 20px);
+  --size-small: 15px;
+  --size-caption: 14px;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --section: clamp(72px, 9vw, 136px);
+  --measure: 66ch;
+  --radius: var(--hf-radius);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
+  accent-color: var(--hf-teal);
+  scrollbar-color: var(--hf-ink-muted) var(--hf-cream);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 96px;
+}
+
+body {
+  margin: 0;
+  background: var(--hf-surface);
+  color: var(--hf-text);
+  font-family: var(--font-read);
+  font-size: var(--size-body);
+  line-height: 1.65;
+  caret-color: var(--hf-sunrise-deep);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--hf-sunrise);
+  color: var(--hf-ink);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-brand);
+  color: var(--hf-text);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--size-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: var(--size-headline);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--size-title);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--hf-text-link);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-thickness 150ms var(--ease-out);
+}
+
+a:hover {
+  text-decoration-thickness: 3px;
+}
+
+/* Focus is never removed, only restyled (tokens.css sets the ring). */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--hf-focus-width) solid var(--hf-focus-ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.lead {
+  font-size: var(--size-lead);
+  line-height: 1.6;
+  max-width: 34em;
+}
+
+.muted {
+  color: var(--hf-text-muted);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Buttons and fields */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--hf-action-accent-bg);
+  color: var(--hf-action-accent-fg);
+  font: 700 17px/1 var(--font-brand);
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out),
+    transform 120ms var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--hf-ink);
+  color: var(--hf-cream);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+[data-theme='ink'] .btn:hover {
+  background: var(--hf-cream);
+  color: var(--hf-ink);
+}
+
+.btn--quiet {
+  background: transparent;
+  color: var(--hf-text);
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.btn--quiet:hover {
+  background: var(--hf-text);
+  color: var(--hf-surface);
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field > label,
+.field > legend {
+  font: 600 var(--size-small) / 1.3 var(--font-brand);
+  padding: 0;
+}
+
+input[type='text'],
+input[type='email'],
+select,
+textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 2px solid var(--hf-border);
+  border-radius: var(--radius);
+  background: var(--hf-white);
+  color: var(--hf-ink);
+  font: 400 var(--size-body) / 1.4 var(--font-read);
+  transition: border-color 150ms var(--ease-out);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--hf-ink-muted);
+  opacity: 1;
+}
+
+input:hover,
+textarea:hover {
+  border-color: var(--hf-ink);
+}
+
+input:user-invalid,
+textarea:user-invalid {
+  border-color: var(--hf-clay);
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+/* Long-form text */
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-top: 1.1em;
+}
+
+.prose h2 {
+  margin-top: 2.2em;
+}
+
+.prose ul {
+  padding-left: 1.2em;
+}
+
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose li::marker {
+  color: var(--hf-sunrise-deep);
+}
+
+.prose strong {
+  font-family: var(--font-brand);
+  font-weight: 700;
+}
+
+/* Page heads on inner pages */
+
+.page-head {
+  padding-block: clamp(48px, 7vw, 104px) clamp(32px, 5vw, 64px);
+}
+
+.page-head h1 {
+  max-width: 14em;
+}
+
+.page-head .lead {
+  margin-top: 20px;
+}
+
+/* Cross-page continuity. The mark stays put while the page changes under it. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 240ms;
+  animation-timing-function: var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

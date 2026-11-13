@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Door from '../components/Door.astro';
+---
+
+<Base title="Page not found">
+  <section class="wrap page-head lost">
+    <Door class="lost__door" shut />
+    <div>
+      <h1>This door does not go anywhere</h1>
+      <p class="lead">The page may have moved. Try the <a href="/">home page</a> or the <a href="/events/">events</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    grid-template-columns: clamp(140px, 20vw, 260px) 1fr;
+    gap: 40px 64px;
+    align-items: end;
+    padding-bottom: var(--section);
+  }
+  @media (max-width: 640px) {
+    .lost {
+      grid-template-columns: 1fr;
+    }
+    :global(.lost__door) {
+      width: 150px;
+    }
+  }
+</style>

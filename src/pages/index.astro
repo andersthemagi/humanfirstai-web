@@ -1,0 +1,547 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Door from '../components/Door.astro';
+import Arrow from '../components/Arrow.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+
+const home = (await getEntry('pages', 'home'))!.data;
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+// Jakarta's punctuation sits loose at display sizes; pull trailing , . back toward the word.
+const escape = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct">$1</span>');
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base inkHead>
+  <section class="hero" data-theme="ink" aria-labelledby="hero-title" data-hero>
+    <div class="wrap hero__copy" data-hero-copy>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__line" set:html={tight(home.headline)} />
+        {home.headlineAccent && <span class="hero__line hero__accent" set:html={tight(home.headlineAccent)} />}
+      </h1>
+      <p class="lead hero__lead">{home.standfirst}</p>
+      <NewsletterForm id="newsletter" label={home.newsletterLabel} button={home.newsletterButton} />
+    </div>
+    <div class="hero__scene" data-hero-scene>
+      <Door class="hero__door" animate floor="long" />
+      <Door class="hero__door" shut floor="none" />
+      <Door class="hero__door" shut floor="none" />
+    </div>
+    <div class="hero__flood" aria-hidden="true" data-hero-flood></div>
+  </section>
+
+  <section class="ways" aria-labelledby="ways-title" data-ways>
+    <div class="wrap">
+      <h2 id="ways-title" class="ways__title">{home.doorwaysTitle}</h2>
+      <ul class="ways__row">
+        {
+          home.doorways.map((way) => (
+            <li class="way">
+              <Door word={way.word} animate floor="long" />
+              <div class="way__text">
+                <h3>{way.title}</h3>
+                <p>{way.body}</p>
+                <a class="way__link" href={way.linkHref}>
+                  {way.linkLabel} <Arrow />
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="promises" aria-labelledby="promises-title">
+    <div class="wrap promises__grid">
+      <h2 id="promises-title" class="promises__title">{home.promisesTitle}</h2>
+      <ul class="promises__list">
+        {
+          home.promises.map((promise) => (
+            <li>
+              <h3>{promise.title}</h3>
+              <p>{promise.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="why" data-theme="ink" aria-labelledby="why-title">
+    <div class="wrap why__grid">
+      <h2 id="why-title" class="why__statement" set:html={tight(home.whyQuote)} />
+      <div class="why__body">
+        <p>{home.whyBody}</p>
+        <a class="way__link" href="/about/">Why we started <Arrow /></a>
+      </div>
+    </div>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="writing" aria-labelledby="writing-title">
+        <div class="wrap">
+          <div class="writing__head">
+            <h2 id="writing-title">Recent writing</h2>
+            <a class="way__link" href="/blog/">
+              All writing <Arrow />
+            </a>
+          </div>
+          <ul class="writing__list">
+            {posts.map((post) => (
+              <li>
+                <a href={post.data.externalUrl ?? `/blog/${post.id}/`} class="writing__link">
+                  <h3>{post.data.title}</h3>
+                  {post.data.subtitle && <p class="writing__sub">{post.data.subtitle}</p>}
+                </a>
+                <p class="writing__meta">
+                  {post.data.author} · <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap close__grid">
+      <h2 id="close-title" class="close__line" set:html={tight(home.closing)} />
+      <div>
+        <NewsletterForm id="newsletter-end" label={home.closingLabel} button={home.newsletterButton} />
+        <p class="close__other">
+          Want to help, lend a room, or write with us? <a href="/contact/">Tell us what you have in mind</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero: night outside, light in the doorway. The statement up top, one big open door on the
+     floor below it, more doors running off the right edge. */
+  .hero {
+    position: relative;
+    overflow: clip;
+    min-height: calc(100svh - 88px);
+    background: var(--hf-surface);
+    color: var(--hf-text);
+    padding-bottom: calc(var(--door) * 0.86 + 32px);
+    --door: clamp(220px, 58vw, 380px);
+  }
+  .hero__copy {
+    position: relative;
+    z-index: 2;
+    padding-top: clamp(24px, 5vh, 64px);
+  }
+  .hero__title {
+    font-size: clamp(48px, 1.4rem + 5.2vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--hf-text);
+  }
+  .hero__line {
+    display: block;
+  }
+  .hero__accent {
+    color: var(--hf-sunrise);
+  }
+  .hero__lead {
+    margin-top: clamp(20px, 3.5vh, 36px);
+    margin-bottom: clamp(24px, 4vh, 40px);
+    max-width: 30em;
+  }
+  .hero__scene {
+    position: absolute;
+    z-index: 1;
+    left: var(--gutter);
+    /* The door's viewBox ends one unit below its floor; sit the floor exactly on the edge. */
+    bottom: calc(var(--door) / -60);
+    display: flex;
+    align-items: flex-end;
+    width: max-content;
+    will-change: transform;
+  }
+  :global(.hero__door) {
+    width: var(--door);
+    flex: none;
+  }
+  /* Shut doors have no leaf showing, so close up the space it would take: a tighter colonnade. */
+  .hero__scene > :global(.hero__door + .hero__door) {
+    margin-left: calc(var(--door) * -0.3);
+  }
+  .hero__flood {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: var(--hf-cream);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1100px) {
+    .hero {
+      --door: clamp(300px, min(38vw, 74vh), 600px);
+      padding-bottom: 48px;
+      display: grid;
+      align-content: center;
+    }
+    .hero__copy {
+      padding-top: 0;
+      padding-bottom: 6vh;
+    }
+    .hero__lead,
+    .hero__copy :global(.news) {
+      max-width: min(520px, 40vw);
+    }
+    .hero__scene {
+      left: 50%;
+    }
+  }
+
+  /* Three ways in: a colonnade. Each arch heads its own column; one floor runs under all three. */
+  .ways {
+    padding-block: var(--section);
+    overflow: clip;
+  }
+  .ways__title {
+    font-size: var(--size-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: clamp(32px, 5vh, 64px);
+  }
+  .ways__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(24px, 4vw, 64px);
+  }
+  .way :global(.door) {
+    width: min(100%, 300px);
+    margin-bottom: 32px;
+  }
+  /* One floor under the whole row: only the first door draws it while they stand side by side. */
+  @media (min-width: 821px) {
+    .way:not(:first-child) :global(.door__ground) {
+      display: none;
+    }
+  }
+  .way__text {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .way__text p {
+    max-width: 34ch;
+  }
+  .way__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    justify-self: start;
+    font: 700 17px/1.2 var(--font-brand);
+    color: var(--hf-text);
+    text-decoration-color: var(--hf-sunrise-deep);
+  }
+  [data-theme='ink'] .way__link {
+    text-decoration-color: var(--hf-sunrise);
+  }
+
+  @media (max-width: 820px) {
+    .ways__row {
+      grid-template-columns: 1fr;
+      gap: 72px;
+    }
+    .way :global(.door) {
+      width: min(62vw, 260px);
+    }
+  }
+
+  /* Promises: four plain commitments, ruled like a contents page. */
+  .promises {
+    padding-block: 0 var(--section);
+  }
+  .promises__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 32px clamp(40px, 6vw, 96px);
+  }
+  .promises__title {
+    font-size: var(--size-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    max-width: 7em;
+  }
+  .promises__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px clamp(24px, 4vw, 56px);
+  }
+  .promises__list li {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding-top: 20px;
+    border-top: 2px solid var(--hf-ink);
+  }
+  .promises__list p {
+    max-width: 32ch;
+  }
+  @media (max-width: 820px) {
+    .promises__grid,
+    .promises__list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Why: an ink field, answering the ink of the hero. */
+  .why {
+    background: var(--hf-surface);
+    color: var(--hf-text);
+    padding-block: var(--section);
+  }
+  .why__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px clamp(40px, 6vw, 96px);
+    align-items: end;
+  }
+  .why__statement {
+    font-size: clamp(30px, 1.2rem + 2.6vw, 58px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--hf-text);
+  }
+  .why__body {
+    display: grid;
+    gap: 20px;
+    color: var(--hf-text);
+  }
+  @media (max-width: 820px) {
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Recent writing: a plain list, ruled like a contents page. */
+  .writing {
+    padding-block: var(--section) 0;
+  }
+  .writing__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-bottom: 28px;
+  }
+  .writing__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid var(--hf-ink);
+  }
+  .writing__list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 32px;
+    align-items: baseline;
+    padding-block: 28px;
+    border-top: 2px solid var(--hf-ink);
+  }
+  .writing__link {
+    color: var(--hf-text);
+    text-decoration: none;
+  }
+  .writing__link h3 {
+    transition: color 150ms var(--ease-out);
+  }
+  .writing__link:hover h3 {
+    color: var(--hf-sunrise-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+  .writing__sub {
+    margin-top: 6px;
+    color: var(--hf-text-muted);
+  }
+  .writing__meta {
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .writing__list li {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .close {
+    padding-block: var(--section);
+  }
+  .close__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px clamp(40px, 6vw, 96px);
+    align-items: end;
+  }
+  .close__line {
+    font-size: var(--size-poster);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    max-width: 8em;
+  }
+  .close__other {
+    margin-top: 28px;
+  }
+  @media (max-width: 820px) {
+    .close__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  const root = document.documentElement;
+
+  if (root.classList.contains('motion')) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // The hero door opens once the type has landed. CSS carries the swing.
+    const heroDoor = document.querySelector<SVGElement>('.hero__door[data-animate]');
+    if (heroDoor) {
+      document.fonts.ready.then(() => {
+        setTimeout(() => heroDoor.setAttribute('data-opened', ''), 280);
+      });
+    }
+
+    const mm = gsap.matchMedia();
+
+    // Walk through the door. On large screens the hero holds still while scrolling carries you
+    // into the lit doorway until its light fills the screen, then the page beyond comes up.
+    const hero = document.querySelector<HTMLElement>('[data-hero]');
+    const scene = document.querySelector<HTMLElement>('[data-hero-scene]');
+    const copy = document.querySelector<HTMLElement>('[data-hero-copy]');
+    const flood = document.querySelector<HTMLElement>('[data-hero-flood]');
+    mm.add('(min-width: 1100px) and (min-height: 700px)', () => {
+      if (!hero || !scene || !copy || !flood || !heroDoor) return;
+      // The doorway's centre, in the scene's own pixels, and how far to scale it to fill the screen.
+      const target = () => {
+        const d = heroDoor.getBoundingClientRect();
+        const sc = scene.getBoundingClientRect();
+        const x = d.left - sc.left + ((39.5 - 2) / 60) * d.width;
+        const y = d.top - sc.top + ((41 - 6) / 50) * d.height;
+        const fill = Math.max(window.innerWidth / ((25 / 60) * d.width), window.innerHeight / ((21 / 50) * d.height));
+        return { origin: `${x}px ${y}px`, scale: fill * 2.6 };
+      };
+      let t = target();
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: () => `+=${Math.round(window.innerHeight * 1.1)}`,
+          pin: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          onRefreshInit: () => {
+            gsap.set(scene, { clearProps: 'transform' });
+            t = target();
+          },
+        },
+      });
+      tl.to(copy, { opacity: 0, y: -64, duration: 0.45, ease: 'power1.in' }, 0)
+        .to(scene, { scale: () => t.scale, transformOrigin: () => t.origin, duration: 1, ease: 'power3.in' }, 0)
+        .to(flood, { opacity: 1, duration: 0.18, ease: 'none' }, 0.88);
+      return () => gsap.set([scene, copy, flood], { clearProps: 'all' });
+    });
+
+    const ways = document.querySelector<HTMLElement>('[data-ways]');
+    const doors = ways ? Array.from(ways.querySelectorAll<SVGElement>('.door')) : [];
+    const texts = ways ? Array.from(ways.querySelectorAll<HTMLElement>('.way__text')) : [];
+    const open = (door: SVGElement) => door.setAttribute('data-opened', '');
+
+    // Wide and tall enough to hold the whole colonnade: one crank, one timeline.
+    // Scrolling opens the three doors in turn, and each column comes up as its door opens.
+    mm.add('(min-width: 900px) and (min-height: 760px)', () => {
+      if (!ways) return;
+      doors.forEach((door) => {
+        door.classList.add('is-scrubbed');
+        door.style.setProperty('--p', '0');
+        open(door);
+      });
+      // Dimmed, never faint: 0.7 keeps ink on cream above 4.5:1 while a door is still shut.
+      gsap.set(texts, { opacity: 0.7, y: 14 });
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: ways,
+          start: 'top top',
+          end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
+          pin: true,
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+        },
+      });
+      doors.forEach((door, i) => {
+        tl.to(door, { '--p': 1, duration: 1 }, i);
+        tl.to(texts[i], { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, i + 0.35);
+      });
+      tl.to({}, { duration: 0.4 });
+
+      return () => {
+        doors.forEach((door) => {
+          door.classList.remove('is-scrubbed');
+          door.style.removeProperty('--p');
+        });
+        gsap.set(texts, { clearProps: 'opacity,transform' });
+      };
+    });
+
+    // Smaller screens: no pinning. Each door opens as it comes into view.
+    mm.add('not ((min-width: 900px) and (min-height: 760px))', () => {
+      const triggers = doors.map((door) =>
+        ScrollTrigger.create({ trigger: door, start: 'top 78%', once: true, onEnter: () => open(door) }),
+      );
+      return () => triggers.forEach((t) => t.kill());
+    });
+  }
+</script>
+
+<style is:global>
+  /* Scroll-scrubbed doors take their state from --p (0 shut, 1 open) instead of CSS transitions. */
+  .punct {
+    margin-left: -0.06em;
+  }
+  .door.is-scrubbed .door__shut,
+  .door.is-scrubbed .door__leaf {
+    transition: none;
+  }
+  .door.is-scrubbed .door__shut {
+    transform: scaleX(clamp(0, 1 - var(--p) * 2, 1));
+  }
+  .door.is-scrubbed .door__leaf {
+    transform: scaleX(clamp(0, var(--p) * 2 - 1, 1));
+  }
+  .door.is-scrubbed .door__word--shut {
+    transition: none;
+    opacity: clamp(0, 1 - var(--p) * 6, 1);
+  }
+</style>

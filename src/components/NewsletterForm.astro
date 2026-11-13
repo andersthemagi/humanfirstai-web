@@ -1,0 +1,72 @@
+---
+// The newsletter sign-up. With a Substack address set in the CMS (Settings), it posts straight
+// to Substack's own sign-up endpoint, so there is no embed and no third-party script. Without
+// one, Netlify Forms keeps the addresses until the newsletter exists.
+import { getEntry } from 'astro:content';
+
+interface Props {
+  id: string;
+  label: string;
+  button?: string;
+  note?: string;
+}
+const { id, label, button = 'Subscribe', note } = Astro.props;
+const settings = (await getEntry('settings', 'site'))!.data;
+const substack = settings.newsletterUrl.replace(/\/+$/, '');
+const noteText = note ?? (substack ? 'Free, on Substack. Unsubscribe in one click.' : 'Free. Unsubscribe any time.');
+---
+
+{
+  substack ? (
+    <form class="news" id={id} action={`${substack}/api/v1/free?nojs=true`} method="post">
+      <label class="news__label" for={`${id}-email`}>{label}</label>
+      <div class="news__row">
+        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder="you@example.com" aria-describedby={`${id}-note`} />
+        <button class="btn" type="submit">{button}</button>
+      </div>
+      <p class="news__note" id={`${id}-note`}>{noteText}</p>
+    </form>
+  ) : (
+    <form class="news" id={id} name="newsletter" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="newsletter" />
+      <p class="visually-hidden">
+        <label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label>
+      </p>
+      <label class="news__label" for={`${id}-email`}>{label}</label>
+      <div class="news__row">
+        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder="you@example.com" aria-describedby={`${id}-note`} />
+        <button class="btn" type="submit">{button}</button>
+      </div>
+      <p class="news__note" id={`${id}-note`}>{noteText}</p>
+    </form>
+  )
+}
+
+<style>
+  .news {
+    display: grid;
+    gap: 10px;
+    max-width: 520px;
+  }
+  .news__label {
+    font: 700 var(--size-subhead) / 1.3 var(--font-brand);
+    letter-spacing: -0.01em;
+  }
+  .news__row {
+    display: flex;
+    gap: 10px;
+  }
+  .news__row input {
+    flex: 1;
+    min-width: 0;
+  }
+  .news__note {
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+  }
+  @media (max-width: 420px) {
+    .news__row {
+      flex-direction: column;
+    }
+  }
+</style>
