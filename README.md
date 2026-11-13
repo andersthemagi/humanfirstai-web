@@ -53,6 +53,31 @@ so they reach a person.
 The picture shown when a link to the site is shared is `public/og.png` (1200 × 630). It repeats the
 home page headline, so redraw it if the headline changes.
 
+## Deploying by hand
+
+Until the repo is linked (step 2), nothing deploys itself. The Netlify project is `human-first-ai`.
+Run `npx netlify-cli login` once, then `npx netlify-cli link` in this folder and pick that project.
+
+A draft for people to click through, at `https://draft--human-first-ai.netlify.app`:
+
+```bash
+SITE_DRAFT=1 SITE_URL=https://draft--human-first-ai.netlify.app npm run build
+npx netlify-cli deploy --dir dist --alias draft --no-build
+```
+
+The real site, at `https://human-first-ai.netlify.app`:
+
+```bash
+npm run build
+npx netlify-cli deploy --dir dist --prod --no-build
+```
+
+`SITE_DRAFT=1` adds `noindex` to every page, so a draft stays out of search results. `SITE_URL` is
+the address used in share cards, canonical links and the sitemap; it defaults to the Netlify
+address in `astro.config.mjs`.
+
+Netlify's spam filter can catch real messages. Look in **Forms → (form) → Spam** now and then.
+
 ## What goes on the site
 
 It is a public site for three kinds of visitor: someone who might come along, someone who might
