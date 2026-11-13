@@ -3,6 +3,7 @@
 // to Substack's own sign-up endpoint, so there is no embed and no third-party script. Without
 // one, Netlify Forms keeps the addresses until the newsletter exists.
 import { getEntry } from 'astro:content';
+import { langOf, localPath, useT } from '../i18n/ui';
 
 interface Props {
   id: string;
@@ -10,15 +11,14 @@ interface Props {
   button?: string;
   note?: string;
 }
-const { id, label, button = 'Tell me when', note } = Astro.props;
+const lang = langOf(Astro.url);
+const t = useT(lang);
+const { id, label, button = t.news.button, note } = Astro.props;
 const settings = (await getEntry('settings', 'site'))!.data;
 const substack = settings.newsletterUrl.replace(/\/+$/, '');
 // The note says what will arrive, so nobody signs up for something they did not expect.
-const noteText =
-  note ??
-  (substack
-    ? 'We will email you when something has a date and a place. Sent through Substack. You can stop any time.'
-    : 'We will email you when something has a date and a place. You can stop any time.');
+const noteText = note ?? (substack ? t.news.noteSubstack : t.news.note);
+const privacy = localPath(lang, '/privacy/');
 ---
 
 {
@@ -26,23 +26,25 @@ const noteText =
     <form class="news" id={id} action={`${substack}/api/v1/free?nojs=true`} method="post">
       <label class="news__label" for={`${id}-email`}>{label}</label>
       <div class="news__row">
-        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder="you@example.com" aria-describedby={`${id}-note`} />
+        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder={t.news.placeholder} aria-describedby={`${id}-note`} />
         <button class="btn" type="submit">{button}</button>
       </div>
-      <p class="news__note" id={`${id}-note`}>{noteText}</p>
+      <p class="news__note" id={`${id}-note`}>{noteText} <a href={privacy}>{t.news.privacy}</a></p>
     </form>
   ) : (
-    <form class="news" id={id} name="newsletter" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+    <form class="news" id={id} name="newsletter" method="POST" action={localPath(lang, '/thanks/')} data-netlify="true" netlify-honeypot="company">
       <input type="hidden" name="form-name" value="newsletter" />
+      {/* So we can write back in the language the person was reading. */}
+      <input type="hidden" name="language" value={lang} />
       <p class="visually-hidden">
-        <label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label>
+        <label>{t.news.honeypot} <input name="company" tabindex="-1" autocomplete="off" /></label>
       </p>
       <label class="news__label" for={`${id}-email`}>{label}</label>
       <div class="news__row">
-        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder="you@example.com" aria-describedby={`${id}-note`} />
+        <input id={`${id}-email`} type="email" name="email" required autocomplete="email" placeholder={t.news.placeholder} aria-describedby={`${id}-note`} />
         <button class="btn" type="submit">{button}</button>
       </div>
-      <p class="news__note" id={`${id}-note`}>{noteText}</p>
+      <p class="news__note" id={`${id}-note`}>{noteText} <a href={privacy}>{t.news.privacy}</a></p>
     </form>
   )
 }
@@ -68,6 +70,10 @@ const noteText =
   .news__note {
     font-size: var(--size-small);
     color: var(--hf-text-muted);
+  }
+  .news__note a {
+    color: inherit;
+    white-space: nowrap;
   }
   @media (max-width: 420px) {
     .news__row {

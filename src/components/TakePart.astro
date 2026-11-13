@@ -2,32 +2,18 @@
 // The three next steps, one per kind of visitor. Base puts this above the footer on every page
 // that does not already end on its own ask, so no page is a dead end.
 import Arrow from './Arrow.astro';
+import { langOf, localPath, useT } from '../i18n/ui';
 
-const steps = [
-  {
-    title: 'Come along',
-    body: 'Nothing has a date yet. Leave your email and you will be the first to know when something does.',
-    link: 'Tell me when',
-    href: '/#newsletter',
-  },
-  {
-    title: 'Help make it happen',
-    body: 'Teach, organise, translate, design or write. We are volunteers, and there is plenty to do.',
-    link: 'Offer to help',
-    href: '/contact/?reason=help',
-  },
-  {
-    title: 'Lend us a space',
-    body: 'A library, a hall, an office after hours. If it is in or near Barcelona, tell us about it.',
-    link: 'Offer a space',
-    href: '/contact/?reason=host',
-  },
-];
+const lang = langOf(Astro.url);
+const t = useT(lang);
+// The words are in src/i18n/ui.ts; where each step leads is fixed here.
+const hrefs = ['/#newsletter', '/contact/?reason=help', '/contact/?reason=host'];
+const steps = t.take.steps.map((step, i) => ({ ...step, href: localPath(lang, hrefs[i]) }));
 ---
 
 <section class="take" aria-labelledby="take-title">
   <div class="wrap">
-    <h2 id="take-title" class="take__title">Take part</h2>
+    <h2 id="take-title" class="take__title">{t.take.title}</h2>
     <ul class="take__list">
       {
         steps.map((step) => (

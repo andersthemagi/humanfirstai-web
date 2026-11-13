@@ -16,7 +16,7 @@ collections:
   - name: events
     label: Events
     label_singular: Event
-    description: Shown on the Events page. They move to "Already happened" on their own once the date passes.
+    description: Shown on the Events page. They move to "Already happened" on their own once the date passes. An event with no start date is shown as "to be announced".
     folder: src/content/events
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
@@ -24,15 +24,19 @@ collections:
     sortable_fields: [start, title]
     fields:
       - { name: title, label: Title, widget: string, hint: 'Say plainly what it is, so someone who has never heard of us knows whether to come.' }
+      - { name: titleEs, label: Title in Spanish, widget: string, required: false, hint: 'Leave empty and the Spanish page shows the English title.' }
+      - { name: titleCa, label: Title in Catalan, widget: string, required: false, hint: 'Leave empty and the Catalan page shows the English title.' }
       - { name: type, label: Type, widget: select, options: [Panel, Workshop, Talk, Social], default: Workshop }
-      - { name: start, label: Starts, widget: datetime }
+      - { name: start, label: Starts, widget: datetime, required: false, hint: 'Leave empty until the date is fixed. The event is then shown as "to be announced".' }
       - { name: end, label: Ends, widget: datetime, required: false }
-      - { name: place, label: Place, widget: string, hint: 'Name of the building, e.g. "Biblioteca Sant Antoni"' }
+      - { name: place, label: Place, widget: string, required: false, hint: 'Name of the building, e.g. "Biblioteca Sant Antoni". Leave empty until it is fixed.' }
       - { name: city, label: City, widget: string }
       - { name: language, label: Language, widget: string, default: English }
       - { name: signupUrl, label: Sign-up link, widget: string, required: false, hint: 'Optional. A form or ticket link.' }
       - { name: draft, label: Hide from the site, widget: boolean, default: false }
       - { name: body, label: What happens, widget: markdown, hint: 'Two or three short sentences. What to bring, who it is for, how to get there.' }
+      - { name: summaryEs, label: 'What happens, in Spanish', widget: text, required: false, hint: 'Plain text. Leave empty and the Spanish page shows the English text.' }
+      - { name: summaryCa, label: 'What happens, in Catalan', widget: text, required: false, hint: 'Plain text. Leave empty and the Catalan page shows the English text.' }
 
   - name: posts
     label: Writing
@@ -47,14 +51,20 @@ collections:
       - { name: subtitle, label: Subtitle, widget: string, required: false }
       - { name: author, label: Author, widget: string }
       - { name: date, label: Date, widget: datetime, time_format: false }
-      - { name: externalUrl, label: Published elsewhere?, widget: string, required: false, hint: 'Paste a link only if the piece lives on another site. Leave empty to publish the text below here.' }
+      - { name: externalUrl, label: 'Published elsewhere?', widget: string, required: false, hint: 'Paste a link only if the piece lives on another site. Leave empty to publish the text below here.' }
+      - { name: titleEs, label: Title in Spanish, widget: string, required: false, hint: 'Only if a Spanish version of the piece exists. Needs the link below too. Otherwise the Spanish page lists the piece as "In English".' }
+      - { name: subtitleEs, label: Subtitle in Spanish, widget: string, required: false }
+      - { name: urlEs, label: Link to the Spanish version, widget: string, required: false }
+      - { name: titleCa, label: Title in Catalan, widget: string, required: false, hint: 'Only if a Catalan version of the piece exists. Needs the link below too.' }
+      - { name: subtitleCa, label: Subtitle in Catalan, widget: string, required: false }
+      - { name: urlCa, label: Link to the Catalan version, widget: string, required: false }
       - { name: draft, label: Hide from the site, widget: boolean, default: false }
       - { name: body, label: Text, widget: markdown, required: false }
 
   - name: team
     label: Team
     label_singular: Person
-    description: Our team, on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles.
+    description: 'Our team, on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles.'
     folder: src/content/team
     create: true
     slug: '{{slug}}'
@@ -75,16 +85,17 @@ collections:
         label: Newsletter
         file: src/content/settings/site.json
         fields:
-          - { name: newsletterUrl, label: Substack address, widget: string, required: false, hint: 'e.g. https://humanfirstai.substack.com. While empty, sign-ups are kept in Netlify under Forms > newsletter, ready to import into Substack.' }
+          - { name: newsletterUrl, label: Substack address, widget: string, required: false, hint: 'e.g. https://humanfirstai.substack.com. While empty, sign-ups are kept in Netlify under Forms > newsletter, ready to import into Substack. When you set this, update the Privacy pages too: they say no newsletter service is used yet.' }
           - { name: newsletterName, label: Newsletter name, widget: string }
 
+  # Each page exists once per language. The Spanish and Catalan files reuse the English fields.
   - name: pages
     label: Pages
     files:
       - name: home
-        label: Home page
+        label: Home page · English
         file: src/content/pages/home.json
-        fields:
+        fields: &home_fields
           - { name: headline, label: Headline, widget: string }
           - { name: headlineAccent, label: Headline second line (in orange), widget: string, required: false }
           - { name: standfirst, label: Text under the headline, widget: text }
@@ -113,10 +124,43 @@ collections:
           - { name: whyBody, label: Text beside it, widget: text }
           - { name: closing, label: Closing line, widget: string }
           - { name: closingLabel, label: Sign-up line at the bottom, widget: string }
+      - name: home-es
+        label: Home page · Español
+        file: src/content/pages/home-es.json
+        fields: *home_fields
+      - name: home-ca
+        label: Home page · Català
+        file: src/content/pages/home-ca.json
+        fields: *home_fields
       - name: about
-        label: About page
+        label: About page · English
         file: src/content/prose/about.md
-        fields:
+        fields: &prose_fields
           - { name: title, label: Title, widget: string }
           - { name: intro, label: Intro, widget: text }
           - { name: body, label: Text, widget: markdown }
+      - name: about-es
+        label: About page · Español
+        file: src/content/prose/about-es.md
+        fields: *prose_fields
+      - name: about-ca
+        label: About page · Català
+        file: src/content/prose/about-ca.md
+        fields: *prose_fields
+      - name: privacy
+        label: Privacy page · English
+        file: src/content/prose/privacy.md
+        fields: &privacy_fields
+          - { name: title, label: Title, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - { name: updated, label: Last updated, widget: datetime, time_format: false, hint: 'Change this whenever the text changes.' }
+          - { name: unreviewed, label: 'Show the "draft, not yet checked" note', widget: boolean, default: true, hint: 'Switch off once the team has checked the text and filled in who is responsible.' }
+          - { name: body, label: Text, widget: markdown }
+      - name: privacy-es
+        label: Privacy page · Español
+        file: src/content/prose/privacy-es.md
+        fields: *privacy_fields
+      - name: privacy-ca
+        label: Privacy page · Català
+        file: src/content/prose/privacy-ca.md
+        fields: *privacy_fields

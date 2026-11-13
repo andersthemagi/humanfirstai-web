@@ -1,0 +1,259 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Door from '../../components/Door.astro';
+import Arrow from '../../components/Arrow.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { capital, fill, langOf, langPaths, languages, localPath, useT } from '../../i18n/ui';
+
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).events;
+const to = (href: string) => localPath(lang, href);
+
+const now = new Date();
+const all = await Promise.all(
+  (await getCollection('events', ({ data }) => !data.draft)).map(async (e) => ({ ...e, Content: (await render(e)).Content })),
+);
+type Event = (typeof all)[number];
+const ends = (e: Event) => e.data.end ?? e.data.start;
+// An event with no date yet is still to come: it is listed after the ones that have one.
+const dated = all.filter((e) => e.data.start && ends(e)! >= now).sort((a, b) => +a.data.start! - +b.data.start!);
+const undated = all.filter((e) => !e.data.start);
+const upcoming = [...dated, ...undated];
+const past = all.filter((e) => e.data.start && ends(e)! < now).sort((a, b) => +b.data.start! - +a.data.start!);
+
+const locale = languages[lang].intl;
+const day = new Intl.DateTimeFormat(locale, { day: 'numeric' });
+const month = new Intl.DateTimeFormat(locale, { month: 'short' });
+const full = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const time = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' });
+
+// Title and summary in the language being read, when the event has them; English otherwise.
+const suffix = lang === 'es' ? 'Es' : lang === 'ca' ? 'Ca' : '';
+const titleOf = (e: Event) => (suffix && e.data[`title${suffix}` as 'titleEs']) || e.data.title;
+const summaryOf = (e: Event) => (suffix ? e.data[`summary${suffix}` as 'summaryEs'] : undefined);
+const kind = (e: Event) =>
+  fill(t.typeIn, {
+    type: t.types[e.data.type],
+    language: t.languages[e.data.language.toLowerCase() as keyof typeof t.languages] ?? e.data.language,
+  });
+const where = (e: Event) => {
+  if (!e.data.start) return e.data.place ? `${e.data.place}, ${e.data.city} · ${t.dateTba}` : `${e.data.city} · ${t.tba}`;
+  return `${e.data.place ? `${e.data.place}, ${e.data.city}` : `${e.data.city} · ${t.placeTba}`} · ${kind(e)}`;
+};
+const host = fill(t.host, { host: to('/contact/?reason=host'), help: to('/contact/?reason=help') });
+---
+
+<Base title={t.title} description={t.description} takePart={false}>
+  <header class="wrap page-head">
+    <h1>{t.title}</h1>
+    <p class="lead">{t.lead}</p>
+  </header>
+
+  <div class="wrap events">
+    {
+      upcoming.length === 0 ? (
+        <section class="empty" aria-labelledby="empty-title">
+          <Door class="empty__door" shut />
+          <div class="empty__text">
+            <h2 id="empty-title">{t.emptyTitle}</h2>
+            <p class="lead">{t.emptyLead}</p>
+            <NewsletterForm id="newsletter-events" label={t.emailLabel} />
+            <p class="empty__host" set:html={host} />
+          </div>
+        </section>
+      ) : (
+        <>
+          <section aria-labelledby="upcoming-title">
+            <h2 id="upcoming-title" class="visually-hidden">
+              {t.comingUp}
+            </h2>
+            <ul class="agenda">
+              {upcoming.map((e) => (
+                <li class="agenda__item">
+                  {e.data.start ? (
+                    <p class="agenda__date" aria-hidden="true">
+                      <span class="agenda__day">{day.format(e.data.start)}</span>
+                      <span class="agenda__month">{month.format(e.data.start)}</span>
+                    </p>
+                  ) : (
+                    <Door class="agenda__door" shut />
+                  )}
+                  <div class="agenda__body">
+                    <h3>{titleOf(e)}</h3>
+                    {e.data.start && (
+                      <p class="agenda__when">
+                        <time datetime={e.data.start.toISOString()}>
+                          {capital(full.format(e.data.start))},{' '}
+                          {e.data.end
+                            ? fill(t.timeRange, { from: time.format(e.data.start), to: time.format(e.data.end) })
+                            : time.format(e.data.start)}
+                        </time>
+                      </p>
+                    )}
+                    <p class="agenda__where">{where(e)}</p>
+                    <div class="agenda__desc">{summaryOf(e) ? <p>{summaryOf(e)}</p> : <e.Content />}</div>
+                    {e.data.signupUrl && (
+                      <a class="btn agenda__cta" href={e.data.signupUrl}>
+                        {t.seat} <Arrow external />
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="hear" aria-labelledby="hear-title">
+            <h2 id="hear-title">{dated.length > 0 ? t.hearNext : t.hearFirst}</h2>
+            <NewsletterForm id="newsletter-events" label={t.emailLabel} />
+            <p class="hear__host" set:html={host} />
+          </section>
+        </>
+      )
+    }
+
+    {
+      past.length > 0 && (
+        <section class="past" aria-labelledby="past-title">
+          <h2 id="past-title">{t.past}</h2>
+          <ul>
+            {past.map((e) => (
+              <li>
+                <time datetime={e.data.start!.toISOString()}>{capital(full.format(e.data.start!))}</time>
+                <span>
+                  {titleOf(e)}, {e.data.city}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .events {
+    padding-bottom: var(--section);
+  }
+  .empty {
+    display: grid;
+    grid-template-columns: clamp(180px, 26vw, 340px) minmax(0, 1fr);
+    gap: 40px clamp(40px, 7vw, 112px);
+    align-items: end;
+    padding-top: 24px;
+  }
+  .empty__text {
+    display: grid;
+    gap: 24px;
+    padding-bottom: 8px;
+  }
+  .empty__host,
+  .hear__host {
+    font-size: var(--size-small);
+  }
+  @media (max-width: 760px) {
+    .empty {
+      grid-template-columns: 1fr;
+    }
+    :global(.empty__door) {
+      width: 180px;
+    }
+  }
+
+  .agenda {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid var(--hf-ink);
+  }
+  .agenda__item {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 24px 40px;
+    padding-block: 36px;
+    border-top: 2px solid var(--hf-ink);
+  }
+  .agenda__date {
+    display: grid;
+    font-family: var(--font-brand);
+    line-height: 1;
+  }
+  .agenda__day {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .agenda__month {
+    margin-top: 6px;
+    font-size: var(--size-subhead);
+    font-weight: 700;
+    color: var(--hf-sunrise-deep);
+  }
+  /* An event with no date yet: a shut door stands where the date will go. */
+  .agenda :global(.agenda__door) {
+    width: 76px;
+  }
+  .agenda__body {
+    display: grid;
+    gap: 8px;
+    max-width: var(--measure);
+  }
+  .agenda__when {
+    font-weight: 700;
+  }
+  .agenda__where {
+    color: var(--hf-text-muted);
+  }
+  .agenda__desc {
+    margin-top: 8px;
+  }
+  .agenda__cta {
+    justify-self: start;
+    margin-top: 12px;
+  }
+  @media (max-width: 560px) {
+    .agenda__item {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hear {
+    display: grid;
+    gap: 20px;
+    max-width: var(--measure);
+    margin-top: 56px;
+    margin-left: 152px;
+  }
+  .hear h2 {
+    font-size: var(--size-title);
+  }
+  @media (max-width: 560px) {
+    .hear {
+      margin-left: 0;
+    }
+  }
+
+  .past {
+    margin-top: var(--section);
+  }
+  .past ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+  }
+  .past li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding-block: 12px;
+    border-top: 1px solid var(--hf-border);
+  }
+  .past time {
+    min-width: 16em;
+    color: var(--hf-text-muted);
+  }
+</style>

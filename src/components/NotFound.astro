@@ -1,0 +1,38 @@
+---
+// The page for an address that does not exist, in the language of the part of the site it was asked for.
+// src/pages/404.astro serves it in English, src/pages/[lang]/404.astro in Spanish and Catalan.
+import Base from '../layouts/Base.astro';
+import Door from './Door.astro';
+import { fill, langOf, localPath, useT } from '../i18n/ui';
+
+const lang = langOf(Astro.url);
+const t = useT(lang).lost;
+---
+
+<Base title={t.title} switchPath="/" translated={false} noindex>
+  <section class="wrap page-head lost">
+    <Door class="lost__door" shut />
+    <div>
+      <h1>{t.heading}</h1>
+      <p class="lead" set:html={fill(t.lead, { home: localPath(lang, '/'), contact: localPath(lang, '/contact/') })} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    grid-template-columns: clamp(140px, 20vw, 260px) 1fr;
+    gap: 40px 64px;
+    align-items: end;
+    padding-bottom: var(--section);
+  }
+  @media (max-width: 640px) {
+    .lost {
+      grid-template-columns: 1fr;
+    }
+    :global(.lost__door) {
+      width: 150px;
+    }
+  }
+</style>

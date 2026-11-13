@@ -5,6 +5,18 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# A wrong address under /es/ or /ca/ gets the "not found" page in that language.
+# Anything else falls through to /404.html, in English.
+[[redirects]]
+  from = "/es/*"
+  to = "/es/404/index.html"
+  status = 404
+
+[[redirects]]
+  from = "/ca/*"
+  to = "/ca/404/index.html"
+  status = 404
+
 [[headers]]
   for = "/_astro/*"
   [headers.values]

@@ -1,22 +1,19 @@
 ---
-import Base from '../layouts/Base.astro';
+import Base from '../../layouts/Base.astro';
+import { fill, langOf, langPaths, localPath, useT } from '../../i18n/ui';
 
-const reasons = [
-  { value: 'help', label: 'Offer to help' },
-  { value: 'host', label: 'Offer a space' },
-  { value: 'press', label: 'Press or partnership' },
-  { value: 'other', label: 'Something else' },
-];
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).contact;
+// The values are what arrives with the message; only the labels change with the language.
+const reasons = (['help', 'host', 'press', 'other'] as const).map((value) => ({ value, label: t.reasons[value] }));
 ---
 
-<Base
-  title="Contact"
-  description="Offer to help, offer a space, or ask a question. A real person reads every message."
-  takePart={false}
->
+<Base title={t.title} description={t.description} takePart={false}>
   <header class="wrap page-head">
-    <h1>Say hello</h1>
-    <p class="lead">A real person reads every message. We are volunteers, so it may take a few days to reply.</p>
+    <h1>{t.heading}</h1>
+    <p class="lead">{t.lead}</p>
   </header>
 
   <div class="wrap contact">
@@ -24,17 +21,19 @@ const reasons = [
       class="contact__form"
       name="contact"
       method="POST"
-      action="/thanks/"
+      action={localPath(lang, '/thanks/')}
       data-netlify="true"
       netlify-honeypot="company"
     >
       <input type="hidden" name="form-name" value="contact" />
+      {/* So we can write back in the language the person was reading. */}
+      <input type="hidden" name="language" value={lang} />
       <p class="visually-hidden">
-        <label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label>
+        <label>{useT(lang).news.honeypot} <input name="company" tabindex="-1" autocomplete="off" /></label>
       </p>
 
       <fieldset class="field reasons">
-        <legend>What would you like to do?</legend>
+        <legend>{t.legend}</legend>
         <div class="reasons__grid">
           {
             reasons.map((r) => (
@@ -49,24 +48,24 @@ const reasons = [
 
       <div class="contact__pair">
         <div class="field">
-          <label for="c-name">Your name</label>
+          <label for="c-name">{t.name}</label>
           <input id="c-name" type="text" name="name" autocomplete="name" required />
         </div>
         <div class="field">
-          <label for="c-email">Email</label>
+          <label for="c-email">{t.email}</label>
           <input id="c-email" type="email" name="email" autocomplete="email" required />
         </div>
       </div>
 
       <div class="field">
-        <label for="c-message">Your message</label>
-        <p class="contact__hint" id="c-message-hint">Tell us where you are and what you have in mind.</p>
+        <label for="c-message">{t.message}</label>
+        <p class="contact__hint" id="c-message-hint">{t.hint}</p>
         <textarea id="c-message" name="message" required aria-describedby="c-message-hint"></textarea>
       </div>
 
       <div class="contact__send">
-        <button class="btn" type="submit">Send message</button>
-        <p class="contact__hint">We use your name and email only to reply to you.</p>
+        <button class="btn" type="submit">{t.send}</button>
+        <p class="contact__hint" set:html={fill(t.use, { privacy: localPath(lang, '/privacy/') })} />
       </div>
     </form>
   </div>
@@ -90,6 +89,9 @@ const reasons = [
   .contact__hint {
     font-size: var(--size-small);
     color: var(--hf-text-muted);
+  }
+  .contact__hint :global(a) {
+    color: inherit;
   }
   .reasons {
     border: 0;

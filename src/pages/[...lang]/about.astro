@@ -1,14 +1,19 @@
 ---
 import { getEntry, render } from 'astro:content';
-import Base from '../layouts/Base.astro';
-import Door from '../components/Door.astro';
-import Team from '../components/Team.astro';
+import Base from '../../layouts/Base.astro';
+import Door from '../../components/Door.astro';
+import Team from '../../components/Team.astro';
+import { entryId, langOf, langPaths, useT } from '../../i18n/ui';
 
-const about = (await getEntry('prose', 'about'))!;
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang);
+const about = (await getEntry('prose', entryId('about', lang)))!;
 const { Content } = await render(about);
 ---
 
-<Base title="About" description={about.data.intro}>
+<Base title={t.about.title} description={about.data.intro}>
   <header class="wrap page-head about-head">
     <div>
       <h1>{about.data.title}</h1>

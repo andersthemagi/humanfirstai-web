@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import TakePart from '../components/TakePart.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { languages, langs, defaultLang, langOf, localPath, pathWithoutLang, useT } from '../i18n/ui';
 
 interface Props {
   title?: string;
@@ -11,37 +13,50 @@ interface Props {
   takePart?: boolean;
   /** Keep the page out of search results (the thank-you page). */
   noindex?: boolean;
+  /** Where the language links go, without a language on the front. Defaults to this page. */
+  switchPath?: string;
+  /** Off for a page that exists in one language only, so search engines are not sent to pages that are not there. */
+  translated?: boolean;
 }
+
+const lang = langOf(Astro.url);
+const t = useT(lang);
 
 const {
   inkHead = false,
   takePart = true,
   noindex = false,
+  translated = true,
   title,
-  description = 'Human First AI is a volunteer group, starting in Barcelona, that wants AI to be an open door, not a locked lab. Panels, workshops, events and more are in the works. Leave your email to hear first.',
+  description = t.description,
+  switchPath = translated ? pathWithoutLang(Astro.url) : '/',
 } = Astro.props;
 
-const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Make AI an open door, not a locked lab';
+const pageTitle = title ? `${title} · Human First AI` : t.titleDefault;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const to = (href: string) => localPath(lang, href);
 
 const nav = [
-  { href: '/about/', label: 'About' },
-  { href: '/events/', label: 'Events' },
-  { href: '/blog/', label: 'Writing' },
-  { href: '/contact/', label: 'Contact' },
+  { href: to('/about/'), label: t.nav.about },
+  { href: to('/events/'), label: t.nav.events },
+  { href: to('/blog/'), label: t.nav.blog },
+  { href: to('/contact/'), label: t.nav.contact },
 ];
 // The one step we most want people to take, named the same way everywhere.
-const cta = { href: '/#newsletter', label: 'Get updates' };
+const cta = { href: to('/#newsletter'), label: t.cta };
 const isCurrent = (href: string) => path === href.replace(/\/$/, '') || path.startsWith(href);
 // A draft put up for people to click through (SITE_DRAFT=1 at build) stays out of search results.
 const draft = process.env.SITE_DRAFT === '1';
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// The same page in each language, for search engines. English is the one to fall back on.
+const alternates =
+  translated && !noindex ? langs.map((code) => ({ code, href: new URL(localPath(code, switchPath), Astro.site) })) : [];
 // The card shown when a link to the site is shared. public/og.png, 1200 × 630.
 const shareImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,15 +64,18 @@ const shareImage = new URL('/og.png', Astro.site);
     <meta name="description" content={description} />
     {(noindex || draft) && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.code} href={alt.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={new URL(localPath(defaultLang, switchPath), Astro.site)} />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Human First AI" />
+    <meta property="og:locale" content={languages[lang].og} />
     <meta property="og:image" content={shareImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Human First AI. We open doors to AI for all. An open orange doorway on a dark blue wall." />
+    <meta property="og:image:alt" content={useT(defaultLang).shareAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#FFF6EC" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -73,15 +91,15 @@ const shareImage = new URL('/og.png', Astro.site);
     </script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#main">{t.skip}</a>
 
     <header class="site-head" data-theme={inkHead ? 'ink' : undefined}>
       <div class="wrap site-head__inner">
-        <a class="site-head__mark" href="/" aria-label="Human First AI, home">
+        <a class="site-head__mark" href={to('/')} aria-label={t.homeLabel}>
           <img src={inkHead ? '/brand/hfai-horizontal-reversed.svg' : '/brand/hfai-horizontal-full.svg'} alt="" width="1154" height="159" />
         </a>
 
-        <nav class="site-nav" aria-label="Main">
+        <nav class="site-nav" aria-label={t.aria.main}>
           <ul>
             {
               nav.map((item) => (
@@ -95,22 +113,27 @@ const shareImage = new URL('/og.png', Astro.site);
           </ul>
         </nav>
 
+        <LangSwitch class="site-head__lang" path={switchPath} />
+
         <a class="btn site-head__cta" href={cta.href}>{cta.label}</a>
 
         <details class="site-menu">
-          <summary>Menu</summary>
-          <ul>
-            {
-              nav.map((item) => (
-                <li>
-                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-                    {item.label}
-                  </a>
-                </li>
-              ))
-            }
-            <li><a class="btn" href={cta.href}>{cta.label}</a></li>
-          </ul>
+          <summary>{t.menu}</summary>
+          <div class="site-menu__panel">
+            <ul>
+              {
+                nav.map((item) => (
+                  <li>
+                    <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+              <li><a class="btn" href={cta.href}>{cta.label}</a></li>
+            </ul>
+            <LangSwitch class="site-menu__lang" path={switchPath} />
+          </div>
         </details>
       </div>
     </header>
@@ -124,12 +147,14 @@ const shareImage = new URL('/og.png', Astro.site);
       <div class="wrap site-foot__inner">
         <div class="site-foot__about">
           <img src="/brand/hfai-horizontal-reversed.svg" alt="Human First AI" width="1154" height="159" />
-          <p>Volunteers opening doors to AI for all. Based in Barcelona.</p>
+          <p>{t.footLine}</p>
+          <LangSwitch class="site-foot__lang" path={switchPath} />
         </div>
-        <nav aria-label="Footer">
+        <nav aria-label={t.aria.footer}>
           <ul>
             {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
             <li><a href={cta.href}>{cta.label}</a></li>
+            <li><a href={to('/privacy/')}>{t.privacy}</a></li>
           </ul>
         </nav>
       </div>
@@ -240,12 +265,10 @@ const shareImage = new URL('/og.png', Astro.site);
     background: var(--hf-text);
     color: var(--hf-surface);
   }
-  .site-menu ul {
+  .site-menu__panel {
     position: absolute;
     right: 0;
     top: calc(100% + 8px);
-    display: grid;
-    gap: 2px;
     min-width: 220px;
     padding: 10px;
     background: var(--hf-white);
@@ -254,13 +277,25 @@ const shareImage = new URL('/og.png', Astro.site);
     border-radius: 14px;
     box-shadow: 0 18px 40px -12px rgb(31 42 68 / 0.35);
   }
+  .site-menu ul {
+    display: grid;
+    gap: 2px;
+  }
+  .site-menu :global(.site-menu__lang) {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--hf-border);
+  }
   .site-menu .btn {
     margin-top: 8px;
     width: 100%;
   }
 
-  @media (max-width: 940px) {
-    .site-nav {
+  /* Four links, three languages and the button need this much room in Spanish and Catalan.
+     Below it they fold into the menu. */
+  @media (max-width: 1160px) {
+    .site-nav,
+    .site-head :global(.site-head__lang) {
       display: none;
     }
     .site-menu {
@@ -303,6 +338,10 @@ const shareImage = new URL('/og.png', Astro.site);
   .site-foot__about p {
     max-width: 30em;
     color: var(--hf-text-muted);
+  }
+  .site-foot :global(.site-foot__lang) {
+    margin-top: 16px;
+    margin-left: -6px;
   }
   .site-foot ul {
     display: grid;

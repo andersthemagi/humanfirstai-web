@@ -5,6 +5,9 @@ import { z } from 'astro/zod';
 // Every collection here is edited through /admin (Sveltia CMS).
 // Field names must match public/admin/config.yml.
 
+// A field left empty in the CMS counts as not filled in.
+const blank = (value: unknown) => (value === '' || value === null ? undefined : value);
+
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
@@ -14,6 +17,14 @@ const posts = defineCollection({
     date: z.coerce.date(),
     // Pieces published elsewhere (e.g. the illustrated article site) link out instead.
     externalUrl: z.string().url().optional(),
+    // Articles are written in English. One that also exists in Spanish or Catalan is listed on
+    // /es/blog/ or /ca/blog/ under its own title and links to that version.
+    titleEs: z.string().optional(),
+    subtitleEs: z.string().optional(),
+    urlEs: z.string().url().optional(),
+    titleCa: z.string().optional(),
+    subtitleCa: z.string().optional(),
+    urlCa: z.string().url().optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -23,12 +34,18 @@ const events = defineCollection({
   schema: z.object({
     title: z.string(),
     type: z.enum(['Panel', 'Workshop', 'Talk', 'Social']).default('Workshop'),
-    start: z.coerce.date(),
-    end: z.coerce.date().optional(),
-    place: z.string(),
+    // An event with no start is shown as "to be announced". The CMS saves an empty field as "".
+    start: z.preprocess(blank, z.coerce.date().optional()),
+    end: z.preprocess(blank, z.coerce.date().optional()),
+    place: z.preprocess(blank, z.string().optional()),
     city: z.string(),
     language: z.string().default('English'),
-    signupUrl: z.string().url().optional(),
+    signupUrl: z.preprocess(blank, z.string().url().optional()),
+    // The title and a short description for /es/events/ and /ca/events/. Without them the English is shown.
+    titleEs: z.string().optional(),
+    summaryEs: z.string().optional(),
+    titleCa: z.string().optional(),
+    summaryCa: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -67,7 +84,13 @@ const pages = defineCollection({
 
 const prose = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/prose' }),
-  schema: z.object({ title: z.string(), intro: z.string() }),
+  schema: z.object({
+    title: z.string(),
+    intro: z.string(),
+    // The privacy page shows when it last changed, and says so while it is still a draft.
+    updated: z.coerce.date().optional(),
+    unreviewed: z.boolean().default(false),
+  }),
 });
 
 // Site-wide settings. newsletterUrl is the Substack address (https://name.substack.com).

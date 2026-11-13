@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Arrow from '../../../components/Arrow.astro';
+import { defaultLang, langOf, langPaths, languages, useT } from '../../../i18n/ui';
+
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).blog;
+const fmt = new Intl.DateTimeFormat(languages[lang].intl, { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Articles are written in English. One that also exists in the language being read is listed under
+// that title and links to that version; the rest keep their English title and say so.
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => {
+    const d = post.data;
+    const own = lang === 'es' ? { title: d.titleEs, subtitle: d.subtitleEs, url: d.urlEs } : lang === 'ca' ? { title: d.titleCa, subtitle: d.subtitleCa, url: d.urlCa } : {};
+    const translated = Boolean(own.title && own.url);
+    return {
+      date: d.date,
+      author: d.author,
+      title: translated ? own.title : d.title,
+      subtitle: translated ? own.subtitle : d.subtitle,
+      href: translated ? own.url : (d.externalUrl ?? `/blog/${post.id}/`),
+      external: translated || Boolean(d.externalUrl),
+      // Marked so a screen reader reads an English title in English.
+      foreign: !translated && lang !== defaultLang,
+    };
+  });
+---
+
+<Base title={t.title} description={t.lead}>
+  <header class="wrap page-head">
+    <h1>{t.title}</h1>
+    <p class="lead">{t.lead}</p>
+  </header>
+
+  <div class="wrap posts">
+    <ul class="posts__list">
+      {
+        posts.map((post) => (
+          <li>
+            <p class="posts__meta">
+              <time datetime={post.date.toISOString()}>{fmt.format(post.date)}</time>
+              {post.foreign && <span class="posts__lang">{t.inEnglish}</span>}
+            </p>
+            <div lang={post.foreign ? defaultLang : undefined}>
+              <h2>
+                <a href={post.href}>
+                  {post.title}
+                  {post.external && (
+                    <>
+                      <Arrow external />
+                      <span class="visually-hidden" lang={lang}> {t.external}</span>
+                    </>
+                  )}
+                </a>
+              </h2>
+              {post.subtitle && <p class="posts__sub">{post.subtitle}</p>}
+              <p class="posts__by">{post.author}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .posts {
+    padding-bottom: var(--section);
+  }
+  .posts__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid var(--hf-ink);
+  }
+  .posts__list li {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 8px 40px;
+    padding-block: 36px;
+    border-top: 2px solid var(--hf-ink);
+  }
+  .posts__meta {
+    padding-top: 0.5em;
+    font: 600 var(--size-small) / 1.4 var(--font-brand);
+    color: var(--hf-text-muted);
+  }
+  .posts__lang {
+    display: block;
+  }
+  .posts__list h2 {
+    font-size: var(--size-headline);
+    max-width: 22em;
+  }
+  .posts__list h2 a {
+    color: var(--hf-text);
+    text-decoration: none;
+  }
+  .posts__list h2 a:hover {
+    color: var(--hf-sunrise-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  .posts__list h2 :global(.arrow) {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.6em;
+    margin-left: 0.15em;
+    vertical-align: 0.05em;
+  }
+  .posts__sub {
+    margin-top: 8px;
+    font-size: var(--size-lead);
+  }
+  .posts__by {
+    margin-top: 12px;
+    font-size: var(--size-small);
+  }
+  @media (max-width: 720px) {
+    .posts__list li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

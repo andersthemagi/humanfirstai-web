@@ -1,0 +1,9 @@
+---
+// /es/404/ and /ca/404/. netlify.toml sends unknown addresses under /es/ and /ca/ here.
+import NotFound from '../../components/NotFound.astro';
+import { defaultLang, langs } from '../../i18n/ui';
+
+export const getStaticPaths = () => langs.filter((lang) => lang !== defaultLang).map((lang) => ({ params: { lang } }));
+---
+
+<NotFound />

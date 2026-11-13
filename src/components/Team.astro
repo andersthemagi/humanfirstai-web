@@ -2,6 +2,10 @@
 // Our team, on the About page. Everyone gets the same card and nobody gets a title: an arch with
 // their photo, or their initial until there is a photo they have agreed to, their name and a link.
 import { getCollection, render } from 'astro:content';
+import { defaultLang, fill, langOf, useT } from '../i18n/ui';
+
+const lang = langOf(Astro.url);
+const t = useT(lang);
 
 const people = await Promise.all(
   (await getCollection('team'))
@@ -9,13 +13,15 @@ const people = await Promise.all(
     .map(async (person) => ({ ...person, Content: (await render(person)).Content, hasBio: Boolean(person.body?.trim()) })),
 );
 const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.com');
+const first = (name: string) => name.split(' ')[0];
+// Photo descriptions are written in English in the CMS. The other languages get a plain one.
+const altFor = (p: (typeof people)[number]) =>
+  lang === defaultLang ? (p.data.photoAlt ?? '') : fill(t.team.portrait, { name: first(p.data.name) });
 ---
 
 <section class="team" id="team" aria-labelledby="team-title">
-  <h2 id="team-title">Our team</h2>
-  <p class="lead team__lead">
-    {people.length} people so far, and there is room for more.
-  </p>
+  <h2 id="team-title">{t.team.title}</h2>
+  <p class="lead team__lead">{fill(t.team.lead, { n: people.length })}</p>
 
   <ul class="team__row">
     {
@@ -23,7 +29,7 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
         <li class="person">
           <div class="person__arch">
             {p.data.photo ? (
-              <img src={p.data.photo} alt={p.data.photoAlt ?? ''} width="400" height="400" loading="lazy" />
+              <img src={p.data.photo} alt={altFor(p)} width="400" height="400" loading="lazy" />
             ) : (
               <span class="person__initial" aria-hidden="true">
                 {p.data.name.charAt(0)}
@@ -38,7 +44,7 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
           )}
           {p.data.link && (
             <a class="person__link" href={p.data.link}>
-              {onLinkedIn(p.data.link) ? `${p.data.name.split(' ')[0]} on LinkedIn` : `More about ${p.data.name.split(' ')[0]}`}
+              {fill(onLinkedIn(p.data.link) ? t.team.onLinkedIn : t.team.more, { name: first(p.data.name) })}
             </a>
           )}
         </li>

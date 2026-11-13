@@ -89,7 +89,8 @@ Binding, from the brand repository (hkcarre/humanfirstai, `docs/`):
   (Helena Carre). Published at hkcarre.github.io/humanfirstai.
 - Team: Andrés Sepulveda Morales, Barbara Cador, Giovanni Juliao, Helena Carre, Marie
   Girschewski. Everyone is presented the same way, as "our team": no titles, no founders, no
-  featured people. Headshots exist for Andrés and Helena only.
+  featured people. Headshots exist for Andrés, Barbara and Helena; Giovanni and Marie show their
+  initial until they send one.
 - **Do not use** the brand repo's stock photographs (farmer, library, community hall, artisan):
   origin and consent are unverified and they are marked not cleared for publication.
 - No events, chapters, partners, testimonials or numbers exist yet. Never fabricate them.

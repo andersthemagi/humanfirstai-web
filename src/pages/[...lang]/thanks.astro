@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import Door from '../../components/Door.astro';
+import { fill, langOf, langPaths, localPath, useT } from '../../i18n/ui';
+
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).thanks;
+const to = (path: string) => localPath(lang, path);
+---
+
+<Base title={t.title} takePart={false} noindex>
+  <section class="wrap page-head thanks">
+    <Door class="thanks__door" />
+    <div>
+      <h1>{t.heading}</h1>
+      <p class="lead">{t.lead}</p>
+      <p
+        class="thanks__more"
+        set:html={fill(t.more, { blog: to('/blog/'), host: to('/contact/?reason=host'), help: to('/contact/?reason=help') })}
+      />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks {
+    display: grid;
+    grid-template-columns: clamp(140px, 20vw, 260px) 1fr;
+    gap: 40px 64px;
+    align-items: end;
+    padding-bottom: var(--section);
+  }
+  .thanks__more {
+    margin-top: 20px;
+    max-width: 38em;
+  }
+  @media (max-width: 640px) {
+    .thanks {
+      grid-template-columns: 1fr;
+    }
+    :global(.thanks__door) {
+      width: 150px;
+    }
+  }
+</style>

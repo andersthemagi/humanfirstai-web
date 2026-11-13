@@ -1,11 +1,18 @@
 ---
 import { getEntry } from 'astro:content';
-import Base from '../layouts/Base.astro';
-import Door from '../components/Door.astro';
-import Arrow from '../components/Arrow.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
+import Base from '../../layouts/Base.astro';
+import Door from '../../components/Door.astro';
+import Arrow from '../../components/Arrow.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { entryId, fill, langOf, langPaths, localPath, useT } from '../../i18n/ui';
 
-const home = (await getEntry('pages', 'home'))!.data;
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).home;
+// Links written in the content ("/contact/?reason=help", "#newsletter") stay in the language being read.
+const to = (href: string) => (href.startsWith('/') ? localPath(lang, href) : href);
+const home = (await getEntry('pages', entryId('home', lang)))!.data;
 // Jakarta's punctuation sits loose at display sizes; pull trailing , . back toward the word.
 const escape = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct">$1</span>');
@@ -43,7 +50,7 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
               <div class="way__text">
                 <h3>{way.title}</h3>
                 <p>{way.body}</p>
-                <a class="way__link" href={way.linkHref}>
+                <a class="way__link" href={to(way.linkHref)}>
                   {way.linkLabel} <Arrow />
                 </a>
               </div>
@@ -77,7 +84,7 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
       <div class="why__body">
         <p>{home.whyBody}</p>
         <div class="why__links">
-          <a class="way__link" href="/about/">Why we started <Arrow /></a>
+          <a class="way__link" href={to('/about/')}>{t.why} <Arrow /></a>
         </div>
       </div>
     </div>
@@ -88,10 +95,7 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
       <h2 id="close-title" class="close__line" set:html={tight(home.closing)} />
       <div>
         <NewsletterForm id="newsletter-end" label={home.closingLabel} button={home.newsletterButton} />
-        <p class="close__other">
-          You can also <a href="/contact/?reason=help">offer to help</a> or{' '}
-          <a href="/contact/?reason=host">lend us a space</a>.
-        </p>
+        <p class="close__other" set:html={fill(t.also, { help: to('/contact/?reason=help'), host: to('/contact/?reason=host') })} />
       </div>
     </div>
   </section>

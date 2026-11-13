@@ -1,0 +1,54 @@
+{
+  "headline": "Obrim portes",
+  "headlineAccent": "a la IA per a tothom.",
+  "standfirst": "Som un grup de persones voluntàries que comença a Barcelona, i creiem que la IA ha de ser per a tothom. Estem preparant taules rodones, tallers, esdeveniments i més.",
+  "newsletterLabel": "Assabenta't quan hi hagi alguna cosa",
+  "newsletterButton": "Avisa'm",
+  "doorwaysTitle": "Tria una porta",
+  "doorways": [
+    {
+      "word": "Vine",
+      "title": "Acosta't",
+      "body": "Encara no hi ha res amb data. Deixa el teu correu i ho sabràs abans que ningú quan n'hi hagi.",
+      "linkLabel": "Avisa'm",
+      "linkHref": "#newsletter"
+    },
+    {
+      "word": "Ajuda",
+      "title": "Ajuda a fer-ho possible",
+      "body": "Ho fem de manera voluntària i hi ha molta feina per fer. Si saps ensenyar, organitzar, traduir, dissenyar o escriure, ens agradaria saber de tu.",
+      "linkLabel": "Vull ajudar",
+      "linkHref": "/contact/?reason=help"
+    },
+    {
+      "word": "Acull",
+      "title": "Deixa'ns un espai",
+      "body": "Una biblioteca, un centre cívic, una oficina fora d'horari, la sala del fons d'un bar. Si tens un espai a Barcelona o a prop, explica'ns-ho.",
+      "linkLabel": "Oferir un espai",
+      "linkHref": "/contact/?reason=host"
+    }
+  ],
+  "promisesTitle": "El que no som",
+  "promises": [
+    {
+      "title": "No som una empresa.",
+      "body": "Ho fem de manera voluntària i no tenim res per vendre't."
+    },
+    {
+      "title": "No som un laboratori d'IA.",
+      "body": "No construïm IA ni entrenem models."
+    },
+    {
+      "title": "No som neutrals davant del dany.",
+      "body": "Quan una eina s'equivoca, té biaixos o no és segura, ho diem clar."
+    },
+    {
+      "title": "No som fans de la IA.",
+      "body": "No som aquí perquè t'agradi la IA. Preferim ser útils."
+    }
+  ],
+  "whyQuote": "Que la IA sigui una porta oberta, no un laboratori tancat.",
+  "whyBody": "Gairebé tot el que es diu sobre la IA està escrit per a qui ja treballa en tecnologia. Si les eines només ajuden aquestes persones, qui ja s'havia quedat fora encara queda més enrere. Volem que tothom se senti capaç de provar-la, perquè la decisió de fer-la servir o no, i per a què, sigui seva.",
+  "closing": "El futur és de tothom.",
+  "closingLabel": "Assabenta't quan hi hagi alguna cosa"
+}

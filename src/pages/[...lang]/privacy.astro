@@ -1,0 +1,60 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { entryId, fill, langOf, langPaths, languages, useT } from '../../i18n/ui';
+
+export const getStaticPaths = langPaths;
+
+const lang = langOf(Astro.url);
+const t = useT(lang).privacyPage;
+const page = (await getEntry('prose', entryId('privacy', lang)))!;
+const { Content } = await render(page);
+const fmt = new Intl.DateTimeFormat(languages[lang].intl, { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base title={page.data.title} description={page.data.intro}>
+  <header class="wrap page-head">
+    <h1>{page.data.title}</h1>
+    <p class="lead">{page.data.intro}</p>
+  </header>
+  <div class="wrap privacy">
+    {page.data.unreviewed && <p class="privacy__draft">{t.draft}</p>}
+    <article class="prose">
+      <Content />
+    </article>
+    {
+      page.data.updated && (
+        <p class="privacy__updated">
+          <time datetime={page.data.updated.toISOString().slice(0, 10)}>{fill(t.updated, { date: fmt.format(page.data.updated) })}</time>
+        </p>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .privacy {
+    padding-bottom: var(--section);
+  }
+  .privacy .prose,
+  .privacy__draft,
+  .privacy__updated {
+    margin-left: clamp(0px, 12vw, 200px);
+    max-width: var(--measure);
+  }
+  .privacy :global(h2) {
+    font-size: var(--size-title);
+  }
+  .privacy__draft {
+    margin-bottom: 32px;
+    padding: 14px 18px;
+    border-left: 6px solid var(--hf-sunrise);
+    background: var(--hf-white);
+    font-weight: 600;
+  }
+  .privacy__updated {
+    margin-top: 40px;
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+  }
+</style>

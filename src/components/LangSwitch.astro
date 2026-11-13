@@ -1,0 +1,61 @@
+---
+// The same page in the other languages. Short codes to save room, full names for screen readers,
+// each link marked with the language it leads to.
+import { languages, langs, langOf, localPath, pathWithoutLang, useT } from '../i18n/ui';
+
+interface Props {
+  /** Where the links go, without a language on the front. Defaults to the page being read. */
+  path?: string;
+  class?: string;
+}
+const lang = langOf(Astro.url);
+const t = useT(lang);
+const { path = pathWithoutLang(Astro.url), class: className } = Astro.props;
+---
+
+<nav class:list={['lang', className]} aria-label={t.aria.language}>
+  <ul>
+    {
+      langs.map((code) => (
+        <li>
+          <a href={localPath(code, path)} lang={code} hreflang={code} aria-current={code === lang ? 'true' : undefined}>
+            <span aria-hidden="true">{languages[code].short}</span>
+            <span class="visually-hidden">{languages[code].name}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .lang ul {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .lang a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 44px;
+    padding: 0 6px;
+    color: var(--hf-text);
+    font: 600 14px/1 var(--font-brand);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .lang a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  .lang a[aria-current] {
+    font-weight: 800;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--hf-text-accent);
+  }
+</style>

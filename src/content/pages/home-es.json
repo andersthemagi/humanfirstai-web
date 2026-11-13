@@ -1,0 +1,54 @@
+{
+  "headline": "Abrimos puertas",
+  "headlineAccent": "a la IA para todo el mundo.",
+  "standfirst": "Somos un grupo de personas voluntarias que empieza en Barcelona, y creemos que la IA tiene que ser para todo el mundo. Estamos preparando mesas redondas, talleres, eventos y más.",
+  "newsletterLabel": "Entérate cuando haya algo",
+  "newsletterButton": "Avísame",
+  "doorwaysTitle": "Elige una puerta",
+  "doorways": [
+    {
+      "word": "Ven",
+      "title": "Acércate",
+      "body": "Todavía no hay nada con fecha. Deja tu correo y te enterarás antes que nadie cuando la haya.",
+      "linkLabel": "Avísame",
+      "linkHref": "#newsletter"
+    },
+    {
+      "word": "Ayuda",
+      "title": "Ayuda a hacerlo posible",
+      "body": "Lo hacemos de forma voluntaria y hay mucho por hacer. Si sabes enseñar, organizar, traducir, diseñar o escribir, nos gustaría saber de ti.",
+      "linkLabel": "Quiero ayudar",
+      "linkHref": "/contact/?reason=help"
+    },
+    {
+      "word": "Acoge",
+      "title": "Préstanos un espacio",
+      "body": "Una biblioteca, un centro cívico, una oficina fuera de horario, la sala del fondo de un bar. Si tienes un espacio en Barcelona o cerca, cuéntanoslo.",
+      "linkLabel": "Ofrecer un espacio",
+      "linkHref": "/contact/?reason=host"
+    }
+  ],
+  "promisesTitle": "Lo que no somos",
+  "promises": [
+    {
+      "title": "No somos una empresa.",
+      "body": "Lo hacemos de forma voluntaria y no tenemos nada que venderte."
+    },
+    {
+      "title": "No somos un laboratorio de IA.",
+      "body": "No construimos IA ni entrenamos modelos."
+    },
+    {
+      "title": "No somos neutrales ante el daño.",
+      "body": "Cuando una herramienta se equivoca, tiene sesgos o no es segura, lo decimos claro."
+    },
+    {
+      "title": "No somos fans de la IA.",
+      "body": "No estamos aquí para que te guste la IA. Preferimos ser útiles."
+    }
+  ],
+  "whyQuote": "Que la IA sea una puerta abierta, no un laboratorio cerrado.",
+  "whyBody": "Casi todo lo que se dice sobre la IA está escrito para quien ya trabaja en tecnología. Si las herramientas solo ayudan a esas personas, quienes ya se habían quedado fuera se quedan todavía más atrás. Queremos que cualquiera se sienta capaz de probarla, para que la decisión de usarla o no, y para qué, sea suya.",
+  "closing": "El futuro es de todo el mundo.",
+  "closingLabel": "Entérate cuando haya algo"
+}
