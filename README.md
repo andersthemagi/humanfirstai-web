@@ -53,6 +53,11 @@ so they reach a person.
 The picture shown when a link to the site is shared is `public/og.png` (1200 × 630). It repeats the
 home page headline, so redraw it if the headline changes.
 
+The logo in the header and footer, the favicon and the home-screen icons are drawn from the same door
+as the pages (`src/lib/door.mjs`). After changing that drawing, run `npm run logo` to redraw them. The
+leaf is where they differ from the brand repo's mark: ours is the arched door standing open, not a
+flat-topped panel.
+
 ## Deploying by hand
 
 Until the repo is linked (step 2), nothing deploys itself. The Netlify project is `human-first-ai`.
