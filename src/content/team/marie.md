@@ -1,4 +1,5 @@
 ---
-name: Marie
+name: Marie Girschewski
+link: https://www.linkedin.com/in/mariegirschewski/
 order: 3
 ---

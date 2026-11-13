@@ -10,8 +10,13 @@ const people = await Promise.all(
     .map(async (person) => ({ ...person, Content: (await render(person)).Content, hasBio: Boolean(person.body?.trim()) })),
 );
 const shown = people.filter((p) => p.data.role || p.data.photo || p.hasBio);
-const rest = people.filter((p) => !shown.includes(p)).map((p) => p.data.name);
-const names = new Intl.ListFormat('en-GB', { type: 'conjunction' }).format(rest);
+const rest = people.filter((p) => !shown.includes(p));
+// "A, B and C", with each name still tied to its person so it can carry their link.
+let next = 0;
+const names = new Intl.ListFormat('en-GB', { type: 'conjunction' })
+  .formatToParts(rest.map((p) => p.data.name))
+  .map((part) => (part.type === 'element' ? { text: part.value, link: rest[next++].data.link } : { text: part.value }));
+const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.com');
 ---
 
 <section class="team" id="team" aria-labelledby="team-title">
@@ -43,14 +48,20 @@ const names = new Intl.ListFormat('en-GB', { type: 'conjunction' }).format(rest)
           )}
           {p.data.link && (
             <a class="person__link" href={p.data.link}>
-              More about {p.data.name.split(' ')[0]}
+              {onLinkedIn(p.data.link) ? `${p.data.name.split(' ')[0]} on LinkedIn` : `More about ${p.data.name.split(' ')[0]}`}
             </a>
           )}
         </li>
       ))
     }
   </ul>
-  {rest.length > 0 && <p class="team__rest">Also in the team: {names}.</p>}
+  {
+    rest.length > 0 && (
+      <p class="team__rest">
+        Also in the team: {names.map((n) => (n.link ? <a href={n.link}>{n.text}</a> : n.text))}.
+      </p>
+    )
+  }
 </section>
 
 <style>
