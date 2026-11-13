@@ -22,7 +22,7 @@ Netlify rebuilds the site in about a minute.
 |---|---|
 | **Events** | The Events page. Tick "Hide from the site" to keep a draft. Past events move to "Already happened" the next time the site rebuilds. There is a hidden example to copy. |
 | **Writing** | The Writing page. Paste a link in "Published elsewhere?" to point at a piece on another site, or write the text here. |
-| **Team** | "Who is behind this" on the About page. Someone gets a portrait once they have a role, a photo or a bio; until then they are listed by name. Only upload a photo the person has agreed to. |
+| **Team** | "Our team" on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles. Only upload a photo the person has agreed to. |
 | **Pages** | Home page wording (headline, the three doors, the four "what we are not" statements, the closing line) and the About page. |
 | **Settings** | The Substack address the newsletter forms use. |
 

@@ -87,8 +87,9 @@ Binding, from the brand repository (hkcarre/humanfirstai, `docs/`):
 - Articles: *Give Yourself the Grace to Be Bad at It* (Andrés Sepulveda Morales), *The Great
   Corporate Unmasking* (Helena Carre, EN + ES), *The Most Dangerous Person in the Room*
   (Helena Carre). Published at hkcarre.github.io/humanfirstai.
-- Team: Andrés Sepulveda Morales, Helena Carre, Marie, Barbara, Giovanni. Headshots exist for
-  Andrés and Helena only. Roles and bios are empty and must be filled by the team.
+- Team: Andrés Sepulveda Morales, Barbara Cador, Giovanni Juliao, Helena Carre, Marie
+  Girschewski. Everyone is presented the same way, as "our team": no titles, no founders, no
+  featured people. Headshots exist for Andrés and Helena only.
 - **Do not use** the brand repo's stock photographs (farmer, library, community hall, artisan):
   origin and consent are unverified and they are marked not cleared for publication.
 - No events, chapters, partners, testimonials or numbers exist yet. Never fabricate them.

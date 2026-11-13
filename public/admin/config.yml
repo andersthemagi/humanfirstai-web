@@ -54,7 +54,7 @@ collections:
   - name: team
     label: Team
     label_singular: Person
-    description: Shown on the About page. Someone gets a portrait once they have a role, a photo or a bio. Until then they are listed by name underneath.
+    description: Our team, on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles.
     folder: src/content/team
     create: true
     slug: '{{slug}}'
@@ -62,8 +62,6 @@ collections:
     sortable_fields: [order, name]
     fields:
       - { name: name, label: Name, widget: string }
-      - { name: role, label: What they do here, widget: string, required: false }
-      - { name: location, label: Where they are, widget: string, required: false }
       - { name: photo, label: Photo, widget: image, required: false, hint: 'Square, at least 400px. Only use a photo the person has agreed to.' }
       - { name: photoAlt, label: Photo description, widget: string, required: false, hint: 'One sentence describing the photo, for people using screen readers.' }
       - { name: link, label: Link, widget: string, required: false, hint: 'LinkedIn or a personal site.' }

@@ -1,7 +1,6 @@
 ---
-// The people behind this, shown on the About page. Someone gets a portrait once they have a
-// role, a bio or a photo in the CMS; until then they are named in the line underneath, so
-// nobody stands on the page as an empty placeholder.
+// Our team, on the About page. Everyone gets the same card and nobody gets a title: an arch with
+// their photo, or their initial until there is a photo they have agreed to, their name and a link.
 import { getCollection, render } from 'astro:content';
 
 const people = await Promise.all(
@@ -9,25 +8,18 @@ const people = await Promise.all(
     .sort((a, b) => a.data.order - b.data.order)
     .map(async (person) => ({ ...person, Content: (await render(person)).Content, hasBio: Boolean(person.body?.trim()) })),
 );
-const shown = people.filter((p) => p.data.role || p.data.photo || p.hasBio);
-const rest = people.filter((p) => !shown.includes(p));
-// "A, B and C", with each name still tied to its person so it can carry their link.
-let next = 0;
-const names = new Intl.ListFormat('en-GB', { type: 'conjunction' })
-  .formatToParts(rest.map((p) => p.data.name))
-  .map((part) => (part.type === 'element' ? { text: part.value, link: rest[next++].data.link } : { text: part.value }));
 const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.com');
 ---
 
 <section class="team" id="team" aria-labelledby="team-title">
-  <h2 id="team-title">Who is behind this</h2>
+  <h2 id="team-title">Our team</h2>
   <p class="lead team__lead">
     {people.length} people so far, and there is room for more.
   </p>
 
   <ul class="team__row">
     {
-      shown.map((p) => (
+      people.map((p) => (
         <li class="person">
           <div class="person__arch">
             {p.data.photo ? (
@@ -39,8 +31,6 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
             )}
           </div>
           <h3 class="person__name">{p.data.name}</h3>
-          {p.data.role && <p class="person__role">{p.data.role}</p>}
-          {p.data.location && <p class="person__place">{p.data.location}</p>}
           {p.hasBio && (
             <div class="person__bio">
               <p.Content />
@@ -55,13 +45,6 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
       ))
     }
   </ul>
-  {
-    rest.length > 0 && (
-      <p class="team__rest">
-        Also in the team: {names.map((n) => (n.link ? <a href={n.link}>{n.text}</a> : n.text))}.
-      </p>
-    )
-  }
 </section>
 
 <style>
@@ -82,8 +65,19 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 240px));
-    gap: 56px clamp(24px, 4vw, 56px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px clamp(20px, 3vw, 40px);
+  }
+  @media (min-width: 640px) {
+    .team__row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  /* The whole team in one row, nobody left over on a line of their own. */
+  @media (min-width: 1000px) {
+    .team__row {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
   }
   /* Portraits sit in the threshold arch: width : springline : radius = 30 : 21.5 : 15. */
   .person__arch {
@@ -117,15 +111,6 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
     margin-top: 20px;
     font-size: var(--size-title);
   }
-  .person__role {
-    margin-top: 4px;
-    font: 600 var(--size-small) / 1.4 var(--font-brand);
-    color: var(--hf-sunrise-deep);
-  }
-  .person__place {
-    font-size: var(--size-small);
-    color: var(--hf-text-muted);
-  }
   .person__bio {
     margin-top: 12px;
   }
@@ -133,9 +118,5 @@ const onLinkedIn = (link: string) => new URL(link).hostname.endsWith('linkedin.c
     display: inline-flex;
     min-height: 44px;
     align-items: center;
-  }
-  .team__rest {
-    margin-top: 40px;
-    color: var(--hf-text-muted);
   }
 </style>

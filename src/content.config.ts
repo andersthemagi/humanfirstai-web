@@ -37,8 +37,6 @@ const team = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/team' }),
   schema: z.object({
     name: z.string(),
-    role: z.string().optional(),
-    location: z.string().optional(),
     photo: z.string().optional(),
     photoAlt: z.string().optional(),
     link: z.string().url().optional(),
