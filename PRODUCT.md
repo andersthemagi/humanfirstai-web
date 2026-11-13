@@ -15,21 +15,20 @@ Netlify Forms. Chosen by Andrés: bootstrapped, $0/month is the target.
 
 ## Users
 
-- **First-time and anxious learners**: older adults, informal workers, migrants, people with
-  little formal schooling. They arrive unsure whether AI is "for them". Job: find out, without
-  being made to feel small, whether there is a free session they can come to.
-- **Volunteers**: people who know some AI and want to give time. Job: understand what they
-  would actually do, and say yes.
-- **Partners and funders**: libraries, councils, foundations. Job: judge whether this is a
-  credible, accountable group worth hosting or backing.
+- **People who might come**: curious or anxious about AI, often unsure whether it is "for
+  them". Job: find out, without being made to feel small, what this is and how to hear when
+  something is on.
+- **Volunteers**: people who want to give time. Job: see that there is room for them, and say so.
+- **Hosts and partners**: libraries, community spaces, organisations in and around Barcelona.
+  Job: judge whether this is a credible group worth opening a space to.
 - **Press and policy**: need a clear position and honest limits.
 
 ## Product Purpose
 
-Human First AI is a new movement making AI usable by ordinary people: free, hands-on,
-plain-language workshops. The site's job is to say plainly what the movement believes, show
-who is behind it, and turn interest into a first workshop: people who want to come, people
-who want to help run one, and places that want to host one.
+Human First AI is a new volunteer group, starting in Barcelona, that wants AI to be for
+everyone. The site's job is to say plainly what the group believes, show who is behind it, and
+turn interest into a next step: people who want to hear when something is on, people who want
+to help, and places that could host.
 
 Vision: a world where AI creates opportunities for everyone, not just the privileged few.
 Mission: make AI accessible, understandable and useful to everyone, especially those who need
@@ -43,15 +42,23 @@ improved, not in how many people use AI.
 
 ## Operating Context
 
-The movement is **just starting** (Nov 2026). There is a core team of five, articles are
-being written and published, and the first event is still being decided. Workshops are
-planned for libraries, community centres and similar spaces, run by volunteers in local
-languages.
+The group is **just starting** (Nov 2026), in Barcelona for now. There is a core team of
+five and three published essays. Panels, workshops, events and more are in the works, and
+nothing has a date.
+
+Decided by Andrés (13 Nov 2026), and binding on every page:
+
+- **Say only what has happened.** Nothing on the site describes an event, a format or a habit
+  that does not exist yet. What is coming is named once, in general: "panels, workshops, events
+  and more are in the works".
+- **No workshop specifics** (who brings what, how long, where, what it costs) until one is
+  announced.
+- **No mention of donations, funding or backing.**
 
 ## Capabilities and Constraints
 
-- Pages: Home, About/why (with the team), Workshops, Writing, Contact.
-- Every page must earn its place: would this make a learner, volunteer, host or backer want to
+- Pages: Home, About/why (with the team), Events, Writing, Contact.
+- Every page must earn its place: would this make a visitor, volunteer or host want to
   take their next step? Every page ends on one.
 - Events and team bios are edited by non-developers in the CMS.
 - Must load well on slow mobile connections (the brand names rural 3G).
@@ -90,7 +97,7 @@ Binding, from the brand repository (hkcarre/humanfirstai, `docs/`):
 
 1. Human leads: in the name, the layout and the sentence.
 2. Honest about being early. An invitation, not a boast.
-3. Free means free. No "free tier", no upsell, no sign-up wall to read anything.
+3. Nothing to sell. No upsell, no sign-up wall to read anything.
 4. Readable by everyone before beautiful to anyone.
 
 ## Accessibility & Inclusion

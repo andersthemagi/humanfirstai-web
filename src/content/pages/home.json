@@ -1,54 +1,54 @@
 {
   "headline": "We open doors",
   "headlineAccent": "to AI for all.",
-  "standfirst": "Free workshops where you try AI on something from your own life, with someone patient beside you. We are planning the first one now.",
-  "newsletterLabel": "Hear when the first workshop is on",
+  "standfirst": "We are a volunteer group, starting in Barcelona, and we think AI should be for everyone. Panels, workshops, events and more are in the works.",
+  "newsletterLabel": "Hear when something is on",
   "newsletterButton": "Tell me when",
   "doorwaysTitle": "Pick a door",
   "doorways": [
     {
       "word": "Come",
-      "title": "Come and try it",
-      "body": "Bring something you need to do this week: a letter to your landlord, a price list for your stall, a recipe for what is left in the fridge. We work through it together on tablets we bring, and we show you how to check the answer.",
-      "linkLabel": "Hear when the first one is on",
+      "title": "Come along",
+      "body": "Nothing has a date yet. Leave your email and you will be the first to know when something does.",
+      "linkLabel": "Tell me when",
       "linkHref": "#newsletter"
     },
     {
       "word": "Help",
-      "title": "Help someone try it",
-      "body": "If you have used these tools for a while, you already know enough. What matters more is patience, and remembering what it was like not to know. We are writing a session plan you can teach from, and nobody runs their first one alone.",
+      "title": "Help make it happen",
+      "body": "We are volunteers, and there is plenty to do. If you can teach, organise, translate, design or write, we would like to hear from you.",
       "linkLabel": "Offer to help",
       "linkHref": "/contact/?reason=help"
     },
     {
       "word": "Host",
-      "title": "Lend us a room",
-      "body": "A library, a community hall, the back room of a café on a quiet morning. If it has chairs, a few plugs and wifi, it works. We set up, we clean up, and we leave it as we found it.",
-      "linkLabel": "Offer a room",
+      "title": "Lend us a space",
+      "body": "A library, a community hall, an office after hours, the back room of a café. If you have a space in or near Barcelona, tell us about it.",
+      "linkLabel": "Offer a space",
       "linkHref": "/contact/?reason=host"
     }
   ],
-  "promisesTitle": "What you can count on",
+  "promisesTitle": "What we are not",
   "promises": [
     {
-      "title": "It is always free.",
-      "body": "Nobody pays to come, and nothing is sold at the end."
+      "title": "Not a company.",
+      "body": "We are volunteers, and we have nothing to sell you."
     },
     {
-      "title": "We tell you what it gets wrong.",
-      "body": "These tools make things up. We show you how to catch it before it matters."
+      "title": "Not an AI lab.",
+      "body": "We do not build AI and we do not train models."
     },
     {
-      "title": "Your story stays yours.",
-      "body": "We never share your words, your work or your photo without asking first."
+      "title": "Not neutral about harm.",
+      "body": "When a tool is wrong, biased or unsafe, we say so plainly."
     },
     {
-      "title": "Every question is a good one.",
-      "body": "Nobody here was born knowing this, and we still ask questions every week."
+      "title": "Not cheerleaders.",
+      "body": "We are not here to make you like AI. We would rather be useful."
     }
   ],
-  "whyQuote": "We will count the people who leave able to do one new thing.",
+  "whyQuote": "Make AI an open door, not a locked lab.",
   "whyBody": "Most of what is said about AI is written for people who already work in tech. If the tools only help them, the people already left out fall further behind. We want everyone to feel able to try it, so the choice of whether to use it, and what for, is theirs.",
   "closing": "The future belongs to all of us.",
-  "closingLabel": "Hear when the first workshop is on"
+  "closingLabel": "Hear when something is on"
 }

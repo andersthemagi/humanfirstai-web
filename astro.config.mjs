@@ -5,9 +5,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: process.env.SITE_URL ?? 'https://humanfirstai.netlify.app',
   integrations: [sitemap({ filter: (page) => !page.includes('/thanks/') })],
-  // The team now lives on the About page, and Events became Workshops.
+  // The team lives on the About page.
   redirects: {
     '/team': '/about/#team',
-    '/events': '/workshops/',
   },
 });

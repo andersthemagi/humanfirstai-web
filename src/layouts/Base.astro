@@ -18,22 +18,24 @@ const {
   takePart = true,
   noindex = false,
   title,
-  description = 'Free workshops where you try AI on something from your own life, with someone patient beside you. The first one is being planned. Leave your email to hear when.',
+  description = 'Human First AI is a volunteer group, starting in Barcelona, that wants AI to be an open door, not a locked lab. Panels, workshops, events and more are in the works. Leave your email to hear first.',
 } = Astro.props;
 
-const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Free AI workshops in plain words';
+const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Make AI an open door, not a locked lab';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const nav = [
   { href: '/about/', label: 'About' },
-  { href: '/workshops/', label: 'Workshops' },
+  { href: '/events/', label: 'Events' },
   { href: '/blog/', label: 'Writing' },
   { href: '/contact/', label: 'Contact' },
 ];
 // The one step we most want people to take, named the same way everywhere.
-const cta = { href: '/#newsletter', label: 'Come to a workshop' };
+const cta = { href: '/#newsletter', label: 'Get updates' };
 const isCurrent = (href: string) => path === href.replace(/\/$/, '') || path.startsWith(href);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// The card shown when a link to the site is shared. public/og.png, 1200 × 630.
+const shareImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
@@ -49,6 +51,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Human First AI" />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Human First AI. We open doors to AI for all. An open orange doorway on a dark blue wall." />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#FFF6EC" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -114,13 +122,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <div class="wrap site-foot__inner">
         <div class="site-foot__about">
           <img src="/brand/hfai-horizontal-reversed.svg" alt="Human First AI" width="1154" height="172" />
-          <p>Free AI workshops in plain words, run by volunteers. We are planning the first one.</p>
+          <p>Volunteers opening doors to AI for all. Based in Barcelona.</p>
         </div>
         <nav aria-label="Footer">
           <ul>
             {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
             <li><a href={cta.href}>{cta.label}</a></li>
-            <li><a href="/contact/?reason=fund">Back this work</a></li>
           </ul>
         </nav>
       </div>

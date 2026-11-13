@@ -1,32 +1,26 @@
 ---
-// The four next steps, one per kind of visitor. Base puts this above the footer on every page
+// The three next steps, one per kind of visitor. Base puts this above the footer on every page
 // that does not already end on its own ask, so no page is a dead end.
 import Arrow from './Arrow.astro';
 
 const steps = [
   {
-    title: 'Come to a workshop',
-    body: 'Leave your email and we will tell you when and where the first one is.',
+    title: 'Come along',
+    body: 'Nothing has a date yet. Leave your email and you will be the first to know when something does.',
     link: 'Tell me when',
     href: '/#newsletter',
   },
   {
-    title: 'Help run one',
-    body: 'Teach, translate or set up the room. Nobody runs their first one alone.',
+    title: 'Help make it happen',
+    body: 'Teach, organise, translate, design or write. We are volunteers, and there is plenty to do.',
     link: 'Offer to help',
     href: '/contact/?reason=help',
   },
   {
-    title: 'Lend a room',
-    body: 'A library, a hall, a quiet café. Chairs, a few plugs and wifi are enough.',
-    link: 'Offer a room',
+    title: 'Lend us a space',
+    body: 'A library, a hall, an office after hours. If it is in or near Barcelona, tell us about it.',
+    link: 'Offer a space',
     href: '/contact/?reason=host',
-  },
-  {
-    title: 'Back this work',
-    body: 'If you or your organisation could help cover what the workshops cost, talk to us.',
-    link: 'Talk to us',
-    href: '/contact/?reason=fund',
   },
 ];
 ---
@@ -65,7 +59,7 @@ const steps = [
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 40px clamp(24px, 3vw, 48px);
   }
   .take__list li {
@@ -88,12 +82,7 @@ const steps = [
     color: var(--hf-text);
     text-decoration-color: var(--hf-sunrise-deep);
   }
-  @media (max-width: 1000px) {
-    .take__list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (max-width: 560px) {
+  @media (max-width: 760px) {
     .take__list {
       grid-template-columns: 1fr;
     }

@@ -1,6 +1,6 @@
 ---
 name: Human First AI
-description: Free, plain-language AI workshops. An open door, not a locked lab.
+description: Make AI an open door, not a locked lab.
 colors:
   warm-cream: "#FFF6EC"
   deep-ink: "#1F2A44"
@@ -257,7 +257,7 @@ The secondary action. Jakarta 700 at 17px in the text colour, underlined in Sunr
 - **Style:** white field, 2px Ink Muted border, 12px corners, 52px tall, Atkinson at body size. Textareas start at 160px.
 - **Hover / Focus:** border darkens to Deep Ink; focus adds the 3px Sunrise Deep ring.
 - **Error:** border turns Clay, only after the user has interacted (`:user-invalid`).
-- **Sign-up form:** a Subhead label, the email field and a "Tell me when" button on one row (stacking under 420px), and a Small Ink Muted note underneath saying exactly what will be sent. The step has one name everywhere: "Come to a workshop" where it is a link, "Hear when the first workshop is on" above the field, "Tell me when" on the button.
+- **Sign-up form:** a Subhead label, the email field and a "Tell me when" button on one row (stacking under 420px), and a Small Ink Muted note underneath saying exactly what will be sent. The step has one name everywhere: "Get updates" in the header and footer, "Hear when something is on" above the field, "Tell me when" on the button and on links to the form.
 
 ### Choice tiles
 Radio options on Contact laid out as a grid of 56px white tiles with 2px Ink Muted borders. Hover darkens the border to ink; the checked tile fills Sunrise with an ink border, so the choice reads without relying on the radio dot.
@@ -266,7 +266,7 @@ Radio options on Contact laid out as a grid of 56px white tiles with 2px Ink Mut
 Jakarta 600 at 16px in Deep Ink, 44px targets, no background. Hover underlines at 2px; the current page carries a 3px Sunrise Deep underline. The header CTA is a compact primary button; it stays beside the "Menu" toggle down to 620px and moves into the menu below that. Below 940px the links fold into a "Menu" disclosure: a ring-outlined toggle that fills ink when open, revealing a white panel with the overlay shadow. On the home page the header lies over the ink hero rather than above it. The footer is an ink field with the reversed logo, one line saying what we do, and a two-column link list.
 
 ### Take part
-Every page that does not end on its own ask ends on the same band above the footer: a Display heading and four ruled columns (come, help, host, back), each a Title, one sentence and a link with an arrow. Four columns fold to two at 1000px and one at 560px. No page is a dead end.
+Every page that does not end on its own ask ends on the same band above the footer: a Display heading and three ruled columns (come, help, host), each a Title, one sentence and a link with an arrow. Three columns fold to one at 760px. No page is a dead end.
 
 ### Ruled lists
 Writing, blog and events are contents pages, not card grids: each entry is a row between 2px Deep Ink rules, title in Jakarta, meta in Small Ink Muted. Hovering a title turns it Sunrise Deep and underlines it. Event dates are set as a big Jakarta 800 day over a Sunrise Deep month.

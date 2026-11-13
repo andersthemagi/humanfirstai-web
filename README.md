@@ -1,6 +1,6 @@
 # humanfirstai-web
 
-The public site for Human First AI: home, about (with the team), workshops, writing, contact.
+The public site for Human First AI: home, about (with the team), events, writing, contact.
 
 Astro (static) · GSAP for motion · Sveltia CMS at `/admin` · Netlify for hosting and forms.
 Running cost: $0.
@@ -20,14 +20,14 @@ Netlify rebuilds the site in about a minute.
 
 | In the editor | What it changes |
 |---|---|
-| **Events** | The Workshops page. Tick "Hide from the site" to keep a draft. Past events move to "Already happened" the next time the site rebuilds. There is a hidden example to copy. |
+| **Events** | The Events page. Tick "Hide from the site" to keep a draft. Past events move to "Already happened" the next time the site rebuilds. There is a hidden example to copy. |
 | **Writing** | The Writing page. Paste a link in "Published elsewhere?" to point at a piece on another site, or write the text here. |
 | **Team** | "Who is behind this" on the About page. Someone gets a portrait once they have a role, a photo or a bio; until then they are listed by name. Only upload a photo the person has agreed to. |
-| **Pages** | Home page wording (headline, the three doors, the promises, the closing line) and the About page. |
+| **Pages** | Home page wording (headline, the three doors, the four "what we are not" statements, the closing line) and the About page. |
 | **Settings** | The Substack address the newsletter forms use. |
 
-**The sign-up.** Every "Tell me when" form promises one thing: an email when the first workshop
-has a date and a place. If it becomes a regular newsletter, change the note in
+**The sign-up.** Every "Tell me when" form promises one thing: an email when something has a
+date and a place. If it becomes a regular newsletter, change the note in
 `src/components/NewsletterForm.astro` so it says so. The forms subscribe people to Substack once the
 address is set in the editor under **Settings → Newsletter**. They post straight to Substack's
 sign-up endpoint, styled as our own form, with no embed. Until that address is set, sign-ups are
@@ -39,8 +39,10 @@ so they reach a person.
 
 ## One-time setup
 
-1. Create the GitHub repo and push. Then set `repo:` in `public/admin/config.yml` to `owner/name`.
-2. In Netlify, import the repo. The build settings come from `netlify.toml`.
+1. The repo is `andersthemagi/humanfirstai-web`, and `repo:` in `public/admin/config.yml` says so.
+   Change both together if it moves.
+2. In Netlify, link the repo to the site (Site configuration → Build & deploy → Link repository).
+   The build settings come from `netlify.toml`. Until then, deploys are made by hand (see below).
 3. Netlify → Site configuration → **Forms**: enable form detection, then add an email notification for each form.
 4. GitHub → Settings → Developer settings → **OAuth Apps** → New. Homepage: the site URL. Callback:
    `https://api.netlify.com/auth/done`. Then in Netlify → Site configuration → Access & security →
@@ -48,12 +50,22 @@ so they reach a person.
 5. Add each editor as a collaborator on the GitHub repo (they need a free GitHub account).
 6. When there is a domain, set `SITE_URL` in Netlify's environment variables, and `site_url` in the CMS config.
 
+The picture shown when a link to the site is shared is `public/og.png` (1200 × 630). It repeats the
+home page headline, so redraw it if the headline changes.
+
 ## What goes on the site
 
-It is a public site for four kinds of visitor: someone who might come to a workshop, someone who
-might help run one, someone with a room, and someone who might back the work. Before adding
-anything, ask: would this make one of them want to take their next step? If not, it does not go
-on. Every page ends on a step (the "Take part" band, or its own form).
+It is a public site for three kinds of visitor: someone who might come along, someone who might
+help, and someone with a space. Before adding anything, ask: would this make one of them want to
+take their next step? If not, it does not go on. Every page ends on a step (the "Take part" band,
+or its own form).
+
+Three rules for the wording, until there is something to announce:
+
+- **Say only what has happened.** What is coming is named once, in general: "panels, workshops,
+  events and more are in the works". No formats, no promises about how an event will run.
+- **No mention of donations, funding or backing.**
+- **Barcelona, for now.** Say "starting in Barcelona", not a list of cities.
 
 ## Brand rules this site follows
 

@@ -78,7 +78,6 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
         <p>{home.whyBody}</p>
         <div class="why__links">
           <a class="way__link" href="/about/">Why we started <Arrow /></a>
-          <a class="way__link" href="/contact/?reason=fund">Talk to us about backing this <Arrow /></a>
         </div>
       </div>
     </div>
@@ -90,9 +89,8 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
       <div>
         <NewsletterForm id="newsletter-end" label={home.closingLabel} button={home.newsletterButton} />
         <p class="close__other">
-          You can also <a href="/contact/?reason=help">help run a workshop</a>,{' '}
-          <a href="/contact/?reason=host">lend a room</a>, or{' '}
-          <a href="/contact/?reason=fund">talk to us about backing this</a>.
+          You can also <a href="/contact/?reason=help">offer to help</a> or{' '}
+          <a href="/contact/?reason=host">lend us a space</a>.
         </p>
       </div>
     </div>
@@ -275,7 +273,7 @@ const tight = (t: string) => escape(t).replace(/([,.;:?])/g, '<span class="punct
     }
   }
 
-  /* Promises: four plain commitments, ruled like a contents page. */
+  /* Four plain statements about what we are not, ruled like a contents page. */
   .promises {
     padding-block: 0 var(--section);
   }

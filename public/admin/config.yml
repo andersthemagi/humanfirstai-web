@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo: OWNER/humanfirstai-web # TODO: set once the GitHub repo exists
+  repo: andersthemagi/humanfirstai-web
   branch: main
   base_url: https://api.netlify.com # Netlify signs editors in with GitHub (Site settings > Access & security > OAuth)
 
@@ -16,21 +16,21 @@ collections:
   - name: events
     label: Events
     label_singular: Event
-    description: Shown on the Workshops page. They move to "Already happened" on their own once the date passes.
+    description: Shown on the Events page. They move to "Already happened" on their own once the date passes.
     folder: src/content/events
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     summary: '{{title}} · {{city}} · {{start}}'
     sortable_fields: [start, title]
     fields:
-      - { name: title, label: Title, widget: string, hint: 'Say what people will do, e.g. "Write a letter with AI, step by step"' }
-      - { name: type, label: Type, widget: select, options: [Workshop, Talk, Social], default: Workshop }
+      - { name: title, label: Title, widget: string, hint: 'Say plainly what it is, so someone who has never heard of us knows whether to come.' }
+      - { name: type, label: Type, widget: select, options: [Panel, Workshop, Talk, Social], default: Workshop }
       - { name: start, label: Starts, widget: datetime }
       - { name: end, label: Ends, widget: datetime, required: false }
       - { name: place, label: Place, widget: string, hint: 'Name of the building, e.g. "Biblioteca Sant Antoni"' }
       - { name: city, label: City, widget: string }
       - { name: language, label: Language, widget: string, default: English }
-      - { name: signupUrl, label: Sign-up link, widget: string, required: false, hint: 'Optional. A form or ticket link. Leave empty if people can just turn up.' }
+      - { name: signupUrl, label: Sign-up link, widget: string, required: false, hint: 'Optional. A form or ticket link.' }
       - { name: draft, label: Hide from the site, widget: boolean, default: false }
       - { name: body, label: What happens, widget: markdown, hint: 'Two or three short sentences. What to bring, who it is for, how to get there.' }
 
@@ -104,12 +104,12 @@ collections:
               - { name: body, label: Text, widget: text }
               - { name: linkLabel, label: Link text, widget: string }
               - { name: linkHref, label: Link goes to, widget: string }
-          - { name: promisesTitle, label: Promises heading, widget: string }
+          - { name: promisesTitle, label: Four statements heading, widget: string }
           - name: promises
-            label: Promises
+            label: Four statements
             widget: list
             fields:
-              - { name: title, label: Promise, widget: string }
+              - { name: title, label: Statement, widget: string }
               - { name: body, label: One line on what it means, widget: string }
           - { name: whyQuote, label: Big statement (dark band), widget: text }
           - { name: whyBody, label: Text beside it, widget: text }

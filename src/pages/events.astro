@@ -19,13 +19,13 @@ const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digi
 ---
 
 <Base
-  title="Workshops"
-  description="Free AI workshops in plain words. The first one is being planned. Leave your email and we will tell you the date and the place."
+  title="Events"
+  description="Panels, workshops, events and more are in the works, starting in Barcelona. Leave your email and we will tell you when something has a date."
   takePart={false}
 >
   <header class="wrap page-head">
-    <h1>Workshops</h1>
-    <p class="lead">Workshops are free. We bring the tablets, and no question is too basic.</p>
+    <h1>Events</h1>
+    <p class="lead">Panels, workshops, events and more are in the works, starting in Barcelona.</p>
   </header>
 
   <div class="wrap events">
@@ -34,13 +34,13 @@ const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digi
         <section class="empty" aria-labelledby="empty-title">
           <Door class="empty__door" shut />
           <div class="empty__text">
-            <h2 id="empty-title">The first workshop is being planned</h2>
+            <h2 id="empty-title">Nothing has a date yet</h2>
             <p class="lead">
-              Leave your email and we will tell you the date and the place as soon as we know them.
+              Leave your email and we will tell you as soon as something does.
             </p>
             <NewsletterForm id="newsletter-events" label="Your email" />
             <p class="empty__host">
-              Have a room we could use, or want to help run it? <a href="/contact/?reason=host">Offer a room</a> or{' '}
+              Have a space we could use, or want to help? <a href="/contact/?reason=host">Offer a space</a> or{' '}
               <a href="/contact/?reason=help">offer to help</a>.
             </p>
           </div>
@@ -64,17 +64,15 @@ const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digi
                     </time>
                   </p>
                   <p class="agenda__where">
-                    {e.data.place}, {e.data.city} · {e.data.type} in {e.data.language} · Free
+                    {e.data.place}, {e.data.city} · {e.data.type} in {e.data.language}
                   </p>
                   <div class="agenda__desc">
                     <e.Content />
                   </div>
-                  {e.data.signupUrl ? (
+                  {e.data.signupUrl && (
                     <a class="btn agenda__cta" href={e.data.signupUrl}>
                       Save me a seat <Arrow external />
                     </a>
-                  ) : (
-                    <p class="agenda__when">No booking needed. Just come.</p>
                   )}
                 </div>
               </li>

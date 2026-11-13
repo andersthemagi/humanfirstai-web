@@ -22,7 +22,7 @@ const events = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
   schema: z.object({
     title: z.string(),
-    type: z.enum(['Workshop', 'Talk', 'Social']).default('Workshop'),
+    type: z.enum(['Panel', 'Workshop', 'Talk', 'Social']).default('Workshop'),
     start: z.coerce.date(),
     end: z.coerce.date().optional(),
     place: z.string(),

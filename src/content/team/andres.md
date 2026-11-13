@@ -1,6 +1,7 @@
 ---
 name: Andrés Sepulveda Morales
 role: Writing and workshops
+location: Barcelona
 photo: /team/andres.jpg
 photoAlt: Andrés, smiling, in a portrait photo.
 order: 1
