@@ -142,11 +142,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     background: var(--hf-surface);
     color: var(--hf-text);
   }
+  /* On a page that opens on ink, the header lies over the top of that field. */
+  .site-head[data-theme='ink'] {
+    position: absolute;
+    inset: 0 0 auto;
+    background: none;
+  }
   .site-head__inner {
     display: flex;
     align-items: center;
     gap: 32px;
-    min-height: 88px;
+    min-height: var(--head-h);
   }
   .site-head__mark {
     display: block;

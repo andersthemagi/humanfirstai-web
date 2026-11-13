@@ -21,6 +21,7 @@
 
   --gutter: clamp(16px, 4vw, 56px);
   --section: clamp(72px, 9vw, 136px);
+  --head-h: 88px;
   --measure: 66ch;
   --radius: var(--hf-radius);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

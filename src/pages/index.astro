@@ -16,6 +16,7 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
 ---
 
 <Base inkHead>
+  <div class="hero-stage" data-hero-stage>
   <section class="hero" data-theme="ink" aria-labelledby="hero-title" data-hero>
     <div class="wrap hero__copy" data-hero-copy>
       <h1 id="hero-title" class="hero__title">
@@ -31,9 +32,10 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
       <Door class="hero__door" shut floor="none" />
       <Door class="hero__door" shut floor="none" />
     </div>
-    <div class="hero__flood" aria-hidden="true" data-hero-flood></div>
   </section>
+  </div>
 
+  <div class="ways-stage" data-ways-stage>
   <section class="ways" aria-labelledby="ways-title" data-ways>
     <div class="wrap">
       <h2 id="ways-title" class="ways__title">{home.doorwaysTitle}</h2>
@@ -55,6 +57,7 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
       </ul>
     </div>
   </section>
+  </div>
 
   <section class="promises" aria-labelledby="promises-title">
     <div class="wrap promises__grid">
@@ -129,9 +132,11 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
   .hero {
     position: relative;
     overflow: clip;
-    min-height: calc(100svh - 88px);
+    /* The header lies over the top of this field (Base, inkHead), so the hero is the whole screen. */
+    min-height: 100svh;
     background: var(--hf-surface);
     color: var(--hf-text);
+    padding-top: var(--head-h);
     padding-bottom: calc(var(--door) * 0.86 + 32px);
     --door: clamp(220px, 58vw, 380px);
   }
@@ -172,7 +177,6 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
     display: flex;
     align-items: flex-end;
     width: max-content;
-    will-change: transform;
   }
   :global(.hero__door) {
     width: var(--door);
@@ -182,15 +186,6 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
   .hero__scene > :global(.hero__door + .hero__door) {
     margin-left: calc(var(--door) * -0.3);
   }
-  .hero__flood {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    background: var(--hf-cream);
-    opacity: 0;
-    pointer-events: none;
-  }
-
   @media (min-width: 1100px) {
     .hero {
       --door: clamp(300px, min(38vw, 74vh), 600px);
@@ -211,10 +206,45 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
     }
   }
 
+  /* Walk through the door. The hero holds still (sticky, so the browser does the holding) for
+     1.2 screens of scrolling while a script walks into the doorway. The next section waits
+     underneath, so when the light fades it is already there. */
+  @media (min-width: 1100px) and (min-height: 700px) {
+    :global(.motion) .hero-stage {
+      position: relative;
+      z-index: 2;
+      height: 220svh;
+      pointer-events: none;
+    }
+    :global(.motion) .hero {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      pointer-events: auto;
+    }
+    :global(.motion) .ways-stage {
+      margin-top: -100svh;
+    }
+  }
+
   /* Three ways in: a colonnade. Each arch heads its own column; one floor runs under all three. */
   .ways {
     padding-block: var(--section);
     overflow: clip;
+    background: var(--hf-cream);
+  }
+  /* The colonnade holds still while scrolling opens its doors. Only set by the script, and only
+     when the whole section fits on screen. */
+  :global(.crank) .ways-stage {
+    height: 280svh;
+  }
+  :global(.crank) .ways {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: grid;
+    align-content: center;
+    padding-block: 32px;
   }
   .ways__title {
     font-size: var(--size-display);
@@ -439,55 +469,97 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
       });
     }
 
-    const mm = gsap.matchMedia();
-
-    // Walk through the door. On large screens the hero holds still while scrolling carries you
-    // into the lit doorway until its light fills the screen, then the page beyond comes up.
+    // Walk through the door. CSS holds the hero still (sticky inside a tall stage); this only
+    // maps how far you have scrolled through that stage onto the walk. Nothing is pinned by
+    // script, so scrolling up and down can never leave the page in a half-moved state.
+    const stage = document.querySelector<HTMLElement>('[data-hero-stage]');
     const hero = document.querySelector<HTMLElement>('[data-hero]');
     const scene = document.querySelector<HTMLElement>('[data-hero-scene]');
     const copy = document.querySelector<HTMLElement>('[data-hero-copy]');
-    const flood = document.querySelector<HTMLElement>('[data-hero-flood]');
+    const mm = gsap.matchMedia();
     mm.add('(min-width: 1100px) and (min-height: 700px)', () => {
-      if (!hero || !scene || !copy || !flood || !heroDoor) return;
-      // The doorway's centre, in the scene's own pixels, and how far to scale it to fill the screen.
-      const target = () => {
+      if (!stage || !hero || !scene || !copy || !heroDoor) return;
+      // The lit part of the doorway in the door's own units (viewBox 2 6 60 50): a point to walk
+      // toward, and the edges the screen has to fit inside before the light counts as filling it.
+      const LIGHT = { x: 40.75, y: 42, left: 30, right: 51.5, top: 32 };
+      const measure = () => {
+        gsap.set(scene, { clearProps: 'transform,transformOrigin' });
         const d = heroDoor.getBoundingClientRect();
+        const h = hero.getBoundingClientRect();
         const sc = scene.getBoundingClientRect();
-        const x = d.left - sc.left + ((39.5 - 2) / 60) * d.width;
-        const y = d.top - sc.top + ((41 - 6) / 50) * d.height;
-        const fill = Math.max(window.innerWidth / ((25 / 60) * d.width), window.innerHeight / ((21 / 50) * d.height));
-        return { origin: `${x}px ${y}px`, scale: fill * 2.6 };
+        const u = d.width / 60;
+        const x = d.left + (LIGHT.x - 2) * u;
+        const y = d.top + (LIGHT.y - 6) * u;
+        const cover = Math.max(
+          (x - h.left) / ((LIGHT.x - LIGHT.left) * u),
+          (h.right - x) / ((LIGHT.right - LIGHT.x) * u),
+          (y - h.top) / ((LIGHT.y - LIGHT.top) * u),
+        );
+        gsap.set(scene, { transformOrigin: `${x - sc.left}px ${y - sc.top}px` });
+        return cover * 1.12;
       };
-      let t = target();
+      let scale = measure();
       const tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        // Out of sight means out of reach: the form cannot take focus once it has faded.
+        onUpdate: () => (copy.inert = tl.progress() > 0.25),
         scrollTrigger: {
-          trigger: hero,
+          trigger: stage,
           start: 'top top',
-          end: () => `+=${Math.round(window.innerHeight * 1.1)}`,
-          pin: true,
-          scrub: 0.6,
+          end: 'bottom bottom',
+          scrub: 0.3,
           invalidateOnRefresh: true,
-          onRefreshInit: () => {
-            gsap.set(scene, { clearProps: 'transform' });
-            t = target();
-          },
+          onRefreshInit: () => (scale = measure()),
         },
       });
-      tl.to(copy, { opacity: 0, y: -64, duration: 0.45, ease: 'power1.in' }, 0)
-        .to(scene, { scale: () => t.scale, transformOrigin: () => t.origin, duration: 1, ease: 'power3.in' }, 0)
-        .to(flood, { opacity: 1, duration: 0.18, ease: 'none' }, 0.88);
-      return () => gsap.set([scene, copy, flood], { clearProps: 'all' });
+      tl.to(copy, { opacity: 0, y: -48, duration: 0.32, ease: 'power1.in' }, 0.05)
+        .to(scene, { scale: () => scale, duration: 0.8, ease: 'power3.in', force3D: false }, 0)
+        // The light fills the screen, then gives way to the room: the next section is already
+        // in place underneath.
+        .to(hero, { autoAlpha: 0, duration: 0.18 }, 0.8)
+        .to({}, { duration: 0.02 });
+
+      // Links to the sign-up form. The form lives in the held hero, so its place in the page
+      // moves as you scroll; go to the top, where it is always in view, and put the cursor in it.
+      const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href$="#newsletter"]'));
+      const toForm = (event?: Event) => {
+        event?.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        ScrollTrigger.update();
+        tl.scrollTrigger?.getTween()?.progress(1);
+        tl.progress(0);
+        copy.inert = false;
+        copy.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
+      };
+      links.forEach((link) => link.addEventListener('click', toForm));
+      if (location.hash === '#newsletter') requestAnimationFrame(() => toForm());
+
+      return () => {
+        links.forEach((link) => link.removeEventListener('click', toForm));
+        copy.inert = false;
+        gsap.set([scene, copy, hero], { clearProps: 'all' });
+      };
     });
 
+    // The colonnade. If the whole section fits on a large screen it holds still (sticky, in
+    // CSS under .crank) and scrolling opens the three doors in turn. Otherwise each door simply
+    // opens as it comes into view.
     const ways = document.querySelector<HTMLElement>('[data-ways]');
+    const waysStage = document.querySelector<HTMLElement>('[data-ways-stage]');
     const doors = ways ? Array.from(ways.querySelectorAll<SVGElement>('.door')) : [];
     const texts = ways ? Array.from(ways.querySelectorAll<HTMLElement>('.way__text')) : [];
     const open = (door: SVGElement) => door.setAttribute('data-opened', '');
+    const large = window.matchMedia('(min-width: 900px) and (min-height: 760px)');
 
-    // Wide and tall enough to hold the whole colonnade: one crank, one timeline.
-    // Scrolling opens the three doors in turn, and each column comes up as its door opens.
-    mm.add('(min-width: 900px) and (min-height: 760px)', () => {
-      if (!ways) return;
+    const fits = () => {
+      const inner = ways?.firstElementChild as HTMLElement | null;
+      if (!ways || !inner) return false;
+      // 64: the section's own padding while it is held (see .crank .ways).
+      return inner.offsetHeight + 64 <= window.innerHeight;
+    };
+
+    const crank = () => {
+      root.classList.add('crank');
       doors.forEach((door) => {
         door.classList.add('is-scrubbed');
         door.style.setProperty('--p', '0');
@@ -495,39 +567,52 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
       });
       // Dimmed, never faint: 0.7 keeps ink on cream above 4.5:1 while a door is still shut.
       gsap.set(texts, { opacity: 0.7, y: 14 });
-
       const tl = gsap.timeline({
         defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: ways,
-          start: 'top top',
-          end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
-          pin: true,
-          scrub: 0.5,
-          invalidateOnRefresh: true,
-        },
+        scrollTrigger: { trigger: waysStage, start: 'top top', end: 'bottom bottom', scrub: 0.3 },
       });
+      // A beat with all three shut, then one after another.
       doors.forEach((door, i) => {
-        tl.to(door, { '--p': 1, duration: 1 }, i);
-        tl.to(texts[i], { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, i + 0.35);
+        tl.to(door, { '--p': 1, duration: 1 }, i + 0.2);
+        tl.to(texts[i], { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, i + 0.55);
       });
       tl.to({}, { duration: 0.4 });
-
       return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+        root.classList.remove('crank');
         doors.forEach((door) => {
           door.classList.remove('is-scrubbed');
           door.style.removeProperty('--p');
         });
         gsap.set(texts, { clearProps: 'opacity,transform' });
       };
-    });
+    };
 
-    // Smaller screens: no pinning. Each door opens as it comes into view.
-    mm.add('not ((min-width: 900px) and (min-height: 760px))', () => {
+    const step = () => {
       const triggers = doors.map((door) =>
         ScrollTrigger.create({ trigger: door, start: 'top 78%', once: true, onEnter: () => open(door) }),
       );
       return () => triggers.forEach((t) => t.kill());
+    };
+
+    let mode = '';
+    let undo = () => {};
+    const choose = () => {
+      if (!ways || !waysStage) return;
+      const next = large.matches && fits() ? 'crank' : 'step';
+      if (next === mode) return;
+      undo();
+      mode = next;
+      undo = next === 'crank' ? crank() : step();
+      ScrollTrigger.refresh();
+    };
+    choose();
+    document.fonts.ready.then(choose);
+    let resized = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(resized);
+      resized = window.setTimeout(choose, 200);
     });
   }
 </script>
