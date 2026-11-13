@@ -20,6 +20,7 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
     <div class="wrap hero__copy" data-hero-copy>
       <h1 id="hero-title" class="hero__title">
         <span class="hero__line" set:html={tight(home.headline)} />
+        {home.headlineAccent && ' '}
         {home.headlineAccent && <span class="hero__line hero__accent" set:html={tight(home.headlineAccent)} />}
       </h1>
       <p class="lead hero__lead">{home.standfirst}</p>
@@ -150,6 +151,12 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
   }
   .hero__accent {
     color: var(--hf-sunrise);
+    transition: color 620ms var(--ease-out) 300ms;
+  }
+  /* The second line catches the light as the door opens, in step with the leaf's swing. */
+  :global(.motion) .hero:has(:global(.hero__door[data-animate]:not([data-opened]))) .hero__accent {
+    color: var(--hf-text);
+    transition-duration: 0ms;
   }
   .hero__lead {
     margin-top: clamp(20px, 3.5vh, 36px);
@@ -531,7 +538,8 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
     margin-left: -0.06em;
   }
   .door.is-scrubbed .door__shut,
-  .door.is-scrubbed .door__leaf {
+  .door.is-scrubbed .door__leaf,
+  .door.is-scrubbed .door__spill {
     transition: none;
   }
   .door.is-scrubbed .door__shut {
@@ -539,6 +547,10 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
   }
   .door.is-scrubbed .door__leaf {
     transform: scaleX(clamp(0, var(--p) * 2 - 1, 1));
+  }
+  .door.is-scrubbed .door__spill {
+    transition: none;
+    transform: scaleY(clamp(0, var(--p) * 2, 1));
   }
   .door.is-scrubbed .door__word--shut {
     transition: none;

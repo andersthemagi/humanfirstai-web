@@ -17,6 +17,9 @@ interface Props {
 const { word, shut = false, animate = false, floor = 'mark', class: className } = Astro.props;
 const ground = floor === 'long' ? { x: -600, width: 1264 } : { x: 3, width: 58 };
 const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
+// The same opening seen at the back of a thick wall, offset so the inner jamb and the underside
+// of the arch show as a darker crescent. The frame stroke hides its overhang on the right.
+const FAR = 'M29.4,51.5 L29.4,31.2 A12.5,12.5 0 0 1 54.4,31.2 L54.4,51.5 Z';
 ---
 
 <svg
@@ -29,7 +32,8 @@ const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
   data-shut={shut ? '' : undefined}
   data-animate={animate ? '' : undefined}
 >
-  <path class="door__light" d={OPENING}></path>
+  <path class="door__reveal" d={OPENING}></path>
+  <path class="door__light" d={FAR}></path>
   {word && <text class="door__word" x="39.5" y="43">{word}</text>}
   <g class="door__shut">
     <path d={OPENING}></path>
@@ -38,10 +42,13 @@ const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
   </g>
   <path class="door__frame" d="M24.5,51.5 L24.5,30 A15,15 0 0 1 54.5,30 L54.5,51.5"></path>
   <g class="door__leaf">
-    <path d="M20,51.5 L20,16.5 L7,9 L7,51.5 Z"></path>
-    <circle class="door__knob" cx="10.5" cy="34" r="2.4"></circle>
+    <path d="M21.4,51.5 L21.4,17.5 L9,9.4 L9,51.5 Z"></path>
+    <path class="door__edge" d="M6.6,51.5 L6.6,9.7 L9,9.4 L9,51.5 Z"></path>
+    <circle class="door__knob" cx="12" cy="34.5" r="1.8"></circle>
   </g>
   {floor !== 'none' && <rect class="door__ground" x={ground.x} y="51.2" width={ground.width} height="3.8"></rect>}
+  <!-- Light poured out over the threshold. After the ground, or the floor would cover it. -->
+  <path class="door__spill" d="M27,51.2 L52,51.2 L56.6,55 L24.2,55 Z"></path>
 </svg>
 
 <style is:global>
@@ -49,8 +56,16 @@ const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
     width: 100%;
     height: auto;
   }
-  .door__light {
+  .door__light,
+  .door__spill {
     fill: var(--hf-sunrise);
+  }
+  .door__reveal {
+    fill: var(--hf-sunrise-deep);
+  }
+  /* The leaf's thickness, in shade. The same tone on both grounds: on cream it is a quiet strip. */
+  .door__edge {
+    fill: #3c4a6b;
   }
   .door__shut path {
     /* Covers the antialiased edge of the light beneath, so no hairline shows. */
@@ -92,8 +107,20 @@ const OPENING = 'M27,51.5 L27,30 A12.5,12.5 0 0 1 52,30 L52,51.5 Z';
 
   /* The swing: the shut door folds to its hinge, then the leaf opens toward you. */
   .door__shut,
-  .door__leaf {
+  .door__leaf,
+  .door__spill {
     transform-box: fill-box;
+  }
+  /* Light pours over the threshold as the door unlatches, before the leaf swings. */
+  .door__spill {
+    transform-origin: center top;
+    transform: scaleY(1);
+    transition: transform 380ms cubic-bezier(0.55, 0, 0.8, 0.2);
+  }
+  .door[data-shut] .door__spill,
+  .motion .door[data-animate]:not([data-opened]) .door__spill {
+    transform: scaleY(0);
+    transition-duration: 0ms;
   }
   .door__shut {
     transform-origin: left center;
