@@ -257,19 +257,22 @@ The secondary action. Jakarta 700 at 17px in the text colour, underlined in Sunr
 - **Style:** white field, 2px Ink Muted border, 12px corners, 52px tall, Atkinson at body size. Textareas start at 160px.
 - **Hover / Focus:** border darkens to Deep Ink; focus adds the 3px Sunrise Deep ring.
 - **Error:** border turns Clay, only after the user has interacted (`:user-invalid`).
-- **Sign-up form:** a Subhead label, the email field and a "Tell me" button on one row (stacking under 420px), and a Small Ink Muted note underneath saying exactly what will be sent.
+- **Sign-up form:** a Subhead label, the email field and a "Tell me when" button on one row (stacking under 420px), and a Small Ink Muted note underneath saying exactly what will be sent. The step has one name everywhere: "Come to a workshop" where it is a link, "Hear when the first workshop is on" above the field, "Tell me when" on the button.
 
 ### Choice tiles
 Radio options on Contact laid out as a grid of 56px white tiles with 2px Ink Muted borders. Hover darkens the border to ink; the checked tile fills Sunrise with an ink border, so the choice reads without relying on the radio dot.
 
 ### Navigation
-Jakarta 600 at 16px in Deep Ink, 44px targets, no background. Hover underlines at 2px; the current page carries a 3px Sunrise Deep underline. The header CTA is a compact primary button. Below 940px the links fold into a "Menu" disclosure: a ring-outlined toggle that fills ink when open, revealing a white panel with the overlay shadow. The footer is an ink field with the reversed logo, a two-column link list and a legal line above a 1px Ink Rule.
+Jakarta 600 at 16px in Deep Ink, 44px targets, no background. Hover underlines at 2px; the current page carries a 3px Sunrise Deep underline. The header CTA is a compact primary button; it stays beside the "Menu" toggle down to 620px and moves into the menu below that. Below 940px the links fold into a "Menu" disclosure: a ring-outlined toggle that fills ink when open, revealing a white panel with the overlay shadow. On the home page the header lies over the ink hero rather than above it. The footer is an ink field with the reversed logo, one line saying what we do, and a two-column link list.
+
+### Take part
+Every page that does not end on its own ask ends on the same band above the footer: a Display heading and four ruled columns (come, help, host, back), each a Title, one sentence and a link with an arrow. Four columns fold to two at 1000px and one at 560px. No page is a dead end.
 
 ### Ruled lists
 Writing, blog and events are contents pages, not card grids: each entry is a row between 2px Deep Ink rules, title in Jakarta, meta in Small Ink Muted. Hovering a title turns it Sunrise Deep and underlines it. Event dates are set as a big Jakarta 800 day over a Sunrise Deep month.
 
 ### Portrait arch
-Team members stand in thresholds: a Sky arch clipping a photograph, or a Deep Ink initial in Jakarta 800 when no photograph exists, with a 6px ink ground bar. Name in Title, role in Label Sunrise Deep, place in Small Ink Muted.
+On the About page, team members stand in thresholds: a Sky arch clipping a photograph, or a Deep Ink initial in Jakarta 800 when no photograph exists, with a 6px ink ground bar. Name in Title, role in Label Sunrise Deep, place in Small Ink Muted. Someone with no role, bio or photo yet is named in a line under the row instead of standing as an empty arch.
 
 ### The Door (signature component)
 An inline SVG drawn from the mark's geometry: a 5-unit Deep Ink jamb around a Sunrise opening, a Deep Ink leaf hinged flush to the jamb on the left with a Sunrise knob and a narrow #3C4A6B edge for its thickness, and a ground rule. The opening shows the depth of the wall: a Sunrise Deep crescent (the inner jamb and the underside of the arch) behind a Sunrise far opening. When open, a flat Sunrise spill lies on the floor in front of the threshold. It is decorative (`aria-hidden`) and may carry a painted word in Jakarta 800.
@@ -278,11 +281,12 @@ An inline SVG drawn from the mark's geometry: a 5-unit Deep Ink jamb around a Su
 - **Floor modes:** `mark` draws the logo's own short ground under one door. `long` runs the ground far past both edges so a row of doors shares one floor. `none` omits it, for the other doors in that row, so no seams show.
 - **The swing:** the painted word fades out (120ms linear) before anything moves; the shut face folds to its hinge while the spill pours out over the threshold (380ms, an accelerating ease); then the leaf opens toward you (620ms, `cubic-bezier(0.16, 1, 0.3, 1)`, 300ms after the fold begins).
 - **On load:** the first hero door swings once, 280ms after fonts are ready, and the headline's second line turns from cream to Sunrise in step with the leaf, catching the light. Without motion it is simply Sunrise. The other hero doors stay shut.
-- **The colonnade:** on viewports at least 900 by 760px, the three ways-in doors are driven by one pinned, scroll-scrubbed timeline 1.8 viewport-heights long. Each door's state is a single value from 0 (shut) to 1 (open): the shut face folds over the first half, the leaf opens over the second, the doors follow one another in turn, and each column of text rises from 70% opacity and 14px down as its door opens. Below that size there is no pinning; each door simply opens once as it reaches 78% of the viewport.
+- **Walking through:** on viewports at least 1100 by 700px the hero is the whole screen and holds still for 1.2 screens of scrolling (`position: sticky` inside a 220svh stage; nothing is pinned by script). Scroll progress drives one timeline: the copy fades and lifts away, the scene scales up around the lit doorway until its light covers the screen, then the hero fades to nothing. The colonnade is already in place underneath, so the light gives way straight to "Pick a door", in both directions. The doorway is redrawn at every size, never a scaled raster. Links to the sign-up form return to the top and put the cursor in the field, because the form lives in the held hero.
+- **The colonnade:** when the whole section fits on a screen at least 900 by 760px, it holds still (sticky inside a 280svh stage) and scrolling opens the three doors in turn. Each door's state is a single value from 0 (shut) to 1 (open): the shut face folds over the first half, the leaf opens over the second, the doors follow one another, and each column of text rises from 70% opacity and 14px down as its door opens. When it does not fit, nothing is held; each door simply opens once as it reaches 78% of the viewport.
 - **Reduced motion and no script:** without the `motion` class every animated door is drawn open and every shut door stays shut, the colonnade text is at full strength, view transitions are off, and all transitions collapse to 0.01ms.
 
 ### Named Rules
-**The One Gesture Rule.** The only animation in the world is a door opening: once on load, and once per door in the colonnade as you scroll. Everything else is hover feedback under 200ms and a 240ms cross-page fade during which the logo stays put.
+**The One Gesture Rule.** The only animation in the world is a door opening: once on load, once as you walk through it, and once per door in the colonnade as you scroll. Everything else is hover feedback under 200ms and a 240ms cross-page fade during which the logo stays put.
 
 **The Finished Picture Rule.** The HTML always holds the final picture. Motion may close a door first in order to open it; it may never be the reason something is visible.
 

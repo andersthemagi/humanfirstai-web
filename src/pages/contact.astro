@@ -5,13 +5,17 @@ const reasons = [
   { value: 'come', label: 'Come to a workshop' },
   { value: 'help', label: 'Help run one' },
   { value: 'host', label: 'Offer a room' },
-  { value: 'write', label: 'Write something with us' },
+  { value: 'fund', label: 'Back this work' },
   { value: 'press', label: 'Press or partnership' },
   { value: 'other', label: 'Something else' },
 ];
 ---
 
-<Base title="Contact" description="Get in touch with Human First AI.">
+<Base
+  title="Contact"
+  description="Offer to help, offer a room, talk to us about backing the workshops, or ask a question. A real person reads every message."
+  takePart={false}
+>
   <header class="wrap page-head">
     <h1>Say hello</h1>
     <p class="lead">A real person reads every message. We are volunteers, so it may take a few days to reply.</p>
@@ -35,9 +39,9 @@ const reasons = [
         <legend>What would you like to do?</legend>
         <div class="reasons__grid">
           {
-            reasons.map((r, i) => (
+            reasons.map((r) => (
               <label class="reason">
-                <input type="radio" name="reason" value={r.value} required checked={i === 0} />
+                <input type="radio" name="reason" value={r.value} required />
                 <span>{r.label}</span>
               </label>
             ))
@@ -58,10 +62,14 @@ const reasons = [
 
       <div class="field">
         <label for="c-message">Your message</label>
-        <textarea id="c-message" name="message" required placeholder="Where you are, what you have in mind, any questions."></textarea>
+        <p class="contact__hint" id="c-message-hint">Tell us where you are and what you have in mind.</p>
+        <textarea id="c-message" name="message" required aria-describedby="c-message-hint"></textarea>
       </div>
 
-      <button class="btn" type="submit">Send message</button>
+      <div class="contact__send">
+        <button class="btn" type="submit">Send message</button>
+        <p class="contact__hint">We use your name and email only to reply to you.</p>
+      </div>
     </form>
   </div>
 </Base>
@@ -75,8 +83,15 @@ const reasons = [
     gap: 28px;
     max-width: 760px;
   }
-  .contact__form .btn {
-    justify-self: start;
+  .contact__send {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+  .contact__hint {
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
   }
   .reasons {
     border: 0;

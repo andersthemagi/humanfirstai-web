@@ -16,7 +16,7 @@ collections:
   - name: events
     label: Events
     label_singular: Event
-    description: Workshops and get-togethers. They move to "Already happened" on their own once the date passes.
+    description: Shown on the Workshops page. They move to "Already happened" on their own once the date passes.
     folder: src/content/events
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
@@ -54,6 +54,7 @@ collections:
   - name: team
     label: Team
     label_singular: Person
+    description: Shown on the About page. Someone gets a portrait once they have a role, a photo or a bio. Until then they are listed by name underneath.
     folder: src/content/team
     create: true
     slug: '{{slug}}'
@@ -89,8 +90,8 @@ collections:
           - { name: headline, label: Headline, widget: string }
           - { name: headlineAccent, label: Headline second line (in orange), widget: string, required: false }
           - { name: standfirst, label: Text under the headline, widget: text }
-          - { name: newsletterLabel, label: Newsletter sign-up line, widget: string }
-          - { name: newsletterButton, label: Newsletter button, widget: string }
+          - { name: newsletterLabel, label: Sign-up line, widget: string, hint: 'The line above the email field. Say what people will hear about.' }
+          - { name: newsletterButton, label: Sign-up button, widget: string }
           - { name: doorwaysTitle, label: Doorways heading, widget: string }
           - name: doorways
             label: The three doorways

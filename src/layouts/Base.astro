@@ -1,29 +1,37 @@
 ---
 import '../styles/global.css';
+import TakePart from '../components/TakePart.astro';
 
 interface Props {
   title?: string;
   description?: string;
   /** Sets the header on Deep Ink, for pages whose first section is ink. */
   inkHead?: boolean;
+  /** The "Take part" band above the footer. Off on pages that already end on their own next step. */
+  takePart?: boolean;
+  /** Keep the page out of search results (the thank-you page). */
+  noindex?: boolean;
 }
 
 const {
   inkHead = false,
+  takePart = true,
+  noindex = false,
   title,
-  description = 'Free, hands-on workshops that make AI usable by everyone. No computer science degree required.',
+  description = 'Free workshops where you try AI on something from your own life, with someone patient beside you. The first one is being planned. Leave your email to hear when.',
 } = Astro.props;
 
-const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Make AI an open door, not a locked lab';
+const pageTitle = title ? `${title} · Human First AI` : 'Human First AI · Free AI workshops in plain words';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const nav = [
   { href: '/about/', label: 'About' },
-  { href: '/team/', label: 'Team' },
-  { href: '/events/', label: 'Events' },
+  { href: '/workshops/', label: 'Workshops' },
   { href: '/blog/', label: 'Writing' },
   { href: '/contact/', label: 'Contact' },
 ];
+// The one step we most want people to take, named the same way everywhere.
+const cta = { href: '/#newsletter', label: 'Come to a workshop' };
 const isCurrent = (href: string) => path === href.replace(/\/$/, '') || path.startsWith(href);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -35,6 +43,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -76,7 +85,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           </ul>
         </nav>
 
-        <a class="btn site-head__cta" href="/#newsletter">Subscribe</a>
+        <a class="btn site-head__cta" href={cta.href}>{cta.label}</a>
 
         <details class="site-menu">
           <summary>Menu</summary>
@@ -90,7 +99,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
                 </li>
               ))
             }
-            <li><a class="btn" href="/#newsletter">Subscribe</a></li>
+            <li><a class="btn" href={cta.href}>{cta.label}</a></li>
           </ul>
         </details>
       </div>
@@ -98,23 +107,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <main id="main">
       <slot />
+      {takePart && <TakePart />}
     </main>
 
     <footer class="site-foot" data-theme="ink">
       <div class="wrap site-foot__inner">
         <div class="site-foot__about">
           <img src="/brand/hfai-horizontal-reversed.svg" alt="Human First AI" width="1154" height="172" />
-          <p>Free workshops. Plain words. Run by volunteers. Nothing we do has a price.</p>
+          <p>Free AI workshops in plain words, run by volunteers. We are planning the first one.</p>
         </div>
         <nav aria-label="Footer">
           <ul>
             {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            <li><a href={cta.href}>{cta.label}</a></li>
+            <li><a href="/contact/?reason=fund">Back this work</a></li>
           </ul>
         </nav>
-        <p class="site-foot__small">
-          Brand assets <a href="https://github.com/hkcarre/humanfirstai">CC BY-NC 4.0</a>. Use them to do the
-          work, not to sell something.
-        </p>
       </div>
     </footer>
   </body>
@@ -243,15 +251,28 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   }
 
   @media (max-width: 940px) {
-    .site-nav,
-    .site-head__cta {
+    .site-nav {
       display: none;
     }
     .site-menu {
       display: block;
     }
+    .site-head__inner {
+      gap: 12px;
+    }
     .site-head__mark img {
       height: 28px;
+    }
+  }
+  /* On a phone there is no room for the button beside the mark; it is the last line of the menu. */
+  @media (max-width: 620px) {
+    .site-head__cta {
+      display: none;
+    }
+  }
+  @media (min-width: 621px) {
+    .site-menu li:has(.btn) {
+      display: none;
     }
   }
 
@@ -291,16 +312,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   }
   .site-foot nav a:hover {
     text-decoration: underline;
-  }
-  .site-foot__small {
-    grid-column: 1 / -1;
-    padding-top: 24px;
-    border-top: 1px solid var(--hf-border);
-    font-size: var(--size-small);
-    color: var(--hf-text-muted);
-  }
-  .site-foot__small a {
-    color: var(--hf-text-link);
   }
   @media (max-width: 720px) {
     .site-foot__inner {

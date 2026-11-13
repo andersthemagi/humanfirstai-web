@@ -3,35 +3,19 @@ title: Why we are doing this
 intro: We want everyone to get the good parts of AI, starting with the people it usually leaves out.
 ---
 
+## What we are doing
+
+We are planning free workshops in libraries, community halls and places like them. You bring something you need to do, and a volunteer sits beside you while you try AI on it.
+
+We are at the very start. No workshop has happened yet. Right now we are writing the session plan and looking for [people to help run the first one](/contact/?reason=help) and [a room to hold it in](/contact/?reason=host).
+
 ## What we believe
 
-Technology can change lives, break down barriers and open doors people never had before. Nobody should be left behind because of where they were born, their background, their schooling or how much money they have.
+Nobody should be left behind by AI because of where they were born, their schooling or how much money they have. Understanding it is the first step past being afraid of it. What happens next with AI should be shaped by everyone, including people who have never worked in tech.
 
-- AI should be a force for good.
-- Everyone deserves the chance to benefit from it, whatever their circumstances.
-- Technology should help people, not replace their sense of purpose or worth.
-- Understanding AI is the first step past being afraid of it.
-- The future of AI should be shaped by everyone, not just a handful of powerful companies.
+## How we work
 
-## What we are building
-
-A movement that makes AI understandable and useful to everyone, especially the people who need it most. We want to replace fear with confidence and curiosity.
-
-That means bringing together people, volunteers, teachers, local groups and businesses who want to share what they know, give some time, and open doors for others. We do not want to just talk about what AI could do. We want people to try it on their own problems, for their families and their neighbourhoods.
-
-We are at the very start. The first workshop is being planned now, and we are looking for people to help run it and places to hold it.
-
-## What we are not
-
-- **Not a company.** Nothing we do has a price, and nothing leads to a sales pitch.
-- **Not an AI lab.** We do not build AI tools. We teach people to use the free ones that already exist.
-- **Not neutral about harm.** When a tool is wrong, biased or unsafe, we say so plainly.
-- **Not cheerleaders.** We are not here to make you like AI. We are here so you can decide for yourself.
-
-## Why there is no hyphen
-
-We are Human First AI, never Human-First AI. Without the hyphen, "human" stands on its own and makes a claim: people come first. With it, the phrase turns into a label for a kind of AI, like "cloud-first" or "mobile-first". Small thing. We think it matters.
-
-## Our promise
-
-AI for everyone. Opportunity for all. The future belongs to all of us, and we want to make sure everyone gets a chance to be part of it.
+- **Nothing has a price.** We are volunteers. Nobody pays to come, and nothing leads to a sales pitch.
+- **We use the free tools that already exist.** We do not build AI and we do not sell it.
+- **We say so when a tool is wrong, biased or unsafe.**
+- **You decide.** We are not here to make you like AI. We are here so you can try it and make up your own mind.

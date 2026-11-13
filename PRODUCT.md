@@ -50,7 +50,9 @@ languages.
 
 ## Capabilities and Constraints
 
-- Pages: Home, About/why, Team, Events, Blog, Contact.
+- Pages: Home, About/why (with the team), Workshops, Writing, Contact.
+- Every page must earn its place: would this make a learner, volunteer, host or backer want to
+  take their next step? Every page ends on one.
 - Events and team bios are edited by non-developers in the CMS.
 - Must load well on slow mobile connections (the brand names rural 3G).
 - **No claims of scale.** The "38 chapters" figure in the brand book is unsourced and must not

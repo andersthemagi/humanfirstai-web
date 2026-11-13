@@ -2,14 +2,14 @@
   "headline": "We open doors",
   "headlineAccent": "to AI for all.",
   "standfirst": "Free workshops where you try AI on something from your own life, with someone patient beside you. We are planning the first one now.",
-  "newsletterLabel": "Hear when the first door opens",
-  "newsletterButton": "Send me the letters",
+  "newsletterLabel": "Hear when the first workshop is on",
+  "newsletterButton": "Tell me when",
   "doorwaysTitle": "Pick a door",
   "doorways": [
     {
       "word": "Come",
       "title": "Come and try it",
-      "body": "Bring something you need to do this week: a letter to your landlord, a price list for your stall, a recipe for what is left in the fridge. We work through it together on tablets we bring. You also learn to check the answer, because these tools sometimes make things up and sound sure while they do it.",
+      "body": "Bring something you need to do this week: a letter to your landlord, a price list for your stall, a recipe for what is left in the fridge. We work through it together on tablets we bring, and we show you how to check the answer.",
       "linkLabel": "Hear when the first one is on",
       "linkHref": "#newsletter"
     },
@@ -47,8 +47,8 @@
       "body": "Nobody here was born knowing this, and we still ask questions every week."
     }
   ],
-  "whyQuote": "We count the people who leave able to do one new thing.",
-  "whyBody": "AI arrived wrapped in jargon, hype and dread, and most of what is said about it is aimed at people who already work in tech. If it only helps them, it will widen every gap it touches. We want people to feel unafraid and able, so the choice of whether to use it, and for what, is theirs.",
+  "whyQuote": "We will count the people who leave able to do one new thing.",
+  "whyBody": "Most of what is said about AI is written for people who already work in tech. If the tools only help them, the people already left out fall further behind. We want everyone to feel able to try it, so the choice of whether to use it, and what for, is theirs.",
   "closing": "The future belongs to all of us.",
-  "closingLabel": "Get the next letter"
+  "closingLabel": "Hear when the first workshop is on"
 }

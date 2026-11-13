@@ -10,10 +10,15 @@ interface Props {
   button?: string;
   note?: string;
 }
-const { id, label, button = 'Subscribe', note } = Astro.props;
+const { id, label, button = 'Tell me when', note } = Astro.props;
 const settings = (await getEntry('settings', 'site'))!.data;
 const substack = settings.newsletterUrl.replace(/\/+$/, '');
-const noteText = note ?? (substack ? 'Free, on Substack. Unsubscribe in one click.' : 'Free. Unsubscribe any time.');
+// The note says what will arrive, so nobody signs up for something they did not expect.
+const noteText =
+  note ??
+  (substack
+    ? 'We will email you when the first workshop has a date and a place. Sent through Substack. You can stop any time.'
+    : 'We will email you when the first workshop has a date and a place. You can stop any time.');
 ---
 
 {

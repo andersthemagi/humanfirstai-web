@@ -18,10 +18,14 @@ const full = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric',
 const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
 ---
 
-<Base title="Events" description="Free Human First AI workshops and get-togethers.">
+<Base
+  title="Workshops"
+  description="Free AI workshops in plain words. The first one is being planned. Leave your email and we will tell you the date and the place."
+  takePart={false}
+>
   <header class="wrap page-head">
-    <h1>Events</h1>
-    <p class="lead">Every workshop is free. No account, no laptop needed, no question too basic.</p>
+    <h1>Workshops</h1>
+    <p class="lead">Workshops are free. We bring the tablets, and no question is too basic.</p>
   </header>
 
   <div class="wrap events">
@@ -30,14 +34,14 @@ const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digi
         <section class="empty" aria-labelledby="empty-title">
           <Door class="empty__door" shut />
           <div class="empty__text">
-            <h2 id="empty-title">Nothing on the calendar yet</h2>
+            <h2 id="empty-title">The first workshop is being planned</h2>
             <p class="lead">
-              Our first workshop is being planned right now. Leave your email and we will tell you the date and the
-              place as soon as we know them.
+              Leave your email and we will tell you the date and the place as soon as we know them.
             </p>
-            <NewsletterForm id="newsletter-events" label="Hear when the first workshop is on" button="Send me the letters" />
+            <NewsletterForm id="newsletter-events" label="Your email" />
             <p class="empty__host">
-              Have a room we could use? <a href="/contact/?reason=host">Offer it here</a>.
+              Have a room we could use, or want to help run it? <a href="/contact/?reason=host">Offer a room</a> or{' '}
+              <a href="/contact/?reason=help">offer to help</a>.
             </p>
           </div>
         </section>
@@ -65,10 +69,12 @@ const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digi
                   <div class="agenda__desc">
                     <e.Content />
                   </div>
-                  {e.data.signupUrl && (
+                  {e.data.signupUrl ? (
                     <a class="btn agenda__cta" href={e.data.signupUrl}>
                       Save me a seat <Arrow external />
                     </a>
+                  ) : (
+                    <p class="agenda__when">No booking needed. Just come.</p>
                   )}
                 </div>
               </li>

@@ -3,12 +3,20 @@ import Base from '../layouts/Base.astro';
 import Door from '../components/Door.astro';
 ---
 
-<Base title="Thank you">
+<Base title="Thank you" takePart={false} noindex>
   <section class="wrap page-head thanks">
     <Door class="thanks__door" />
     <div>
       <h1>Got it. Thank you.</h1>
-      <p class="lead">We will be in touch. In the meantime, you could read <a href="/blog/">something we wrote</a>, or <a href="/">head back home</a>.</p>
+      <p class="lead">
+        If you left your email, we will write to you when the first workshop has a date and a place. If you sent a
+        message, a real person will reply. That may take a few days.
+      </p>
+      <p class="thanks__more">
+        Two things would help while you wait. If you know a library or a hall with a room,{' '}
+        <a href="/contact/?reason=host">tell us about it</a>. If you could help run a workshop,{' '}
+        <a href="/contact/?reason=help">say so here</a>. Or read <a href="/blog/">something we wrote</a>.
+      </p>
     </div>
   </section>
 </Base>
@@ -20,6 +28,10 @@ import Door from '../components/Door.astro';
     gap: 40px 64px;
     align-items: end;
     padding-bottom: var(--section);
+  }
+  .thanks__more {
+    margin-top: 20px;
+    max-width: 38em;
   }
   @media (max-width: 640px) {
     .thanks {

@@ -1,0 +1,130 @@
+---
+// The people behind this, shown on the About page. Someone gets a portrait once they have a
+// role, a bio or a photo in the CMS; until then they are named in the line underneath, so
+// nobody stands on the page as an empty placeholder.
+import { getCollection, render } from 'astro:content';
+
+const people = await Promise.all(
+  (await getCollection('team'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (person) => ({ ...person, Content: (await render(person)).Content, hasBio: Boolean(person.body?.trim()) })),
+);
+const shown = people.filter((p) => p.data.role || p.data.photo || p.hasBio);
+const rest = people.filter((p) => !shown.includes(p)).map((p) => p.data.name);
+const names = new Intl.ListFormat('en-GB', { type: 'conjunction' }).format(rest);
+---
+
+<section class="team" id="team" aria-labelledby="team-title">
+  <h2 id="team-title">Who is behind this</h2>
+  <p class="lead team__lead">
+    {people.length} people so far, in different cities, doing this alongside day jobs.
+  </p>
+
+  <ul class="team__row">
+    {
+      shown.map((p) => (
+        <li class="person">
+          <div class="person__arch">
+            {p.data.photo ? (
+              <img src={p.data.photo} alt={p.data.photoAlt ?? ''} width="400" height="400" loading="lazy" />
+            ) : (
+              <span class="person__initial" aria-hidden="true">
+                {p.data.name.charAt(0)}
+              </span>
+            )}
+          </div>
+          <h3 class="person__name">{p.data.name}</h3>
+          {p.data.role && <p class="person__role">{p.data.role}</p>}
+          {p.data.location && <p class="person__place">{p.data.location}</p>}
+          {p.hasBio && (
+            <div class="person__bio">
+              <p.Content />
+            </div>
+          )}
+          {p.data.link && (
+            <a class="person__link" href={p.data.link}>
+              More about {p.data.name.split(' ')[0]}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  {rest.length > 0 && <p class="team__rest">Also in the team: {names}.</p>}
+</section>
+
+<style>
+  .team {
+    padding-bottom: var(--section);
+  }
+  .team h2 {
+    font-size: var(--size-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .team__lead {
+    margin-top: 16px;
+    margin-bottom: clamp(32px, 5vw, 56px);
+  }
+  .team__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 240px));
+    gap: 56px clamp(24px, 4vw, 56px);
+  }
+  /* Portraits sit in the threshold arch: width : springline : radius = 30 : 21.5 : 15. */
+  .person__arch {
+    position: relative;
+    aspect-ratio: 30 / 36.5;
+    border-radius: 50% 50% 0 0 / 41.1% 41.1% 0 0;
+    overflow: hidden;
+    background: var(--hf-sky);
+  }
+  .person__arch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .person__arch::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 6px;
+    background: var(--hf-ink);
+  }
+  .person__initial {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font: 800 clamp(72px, 9vw, 112px) / 1 var(--font-brand);
+    letter-spacing: -0.04em;
+    color: var(--hf-ink);
+  }
+  .person__name {
+    margin-top: 20px;
+    font-size: var(--size-title);
+  }
+  .person__role {
+    margin-top: 4px;
+    font: 600 var(--size-small) / 1.4 var(--font-brand);
+    color: var(--hf-sunrise-deep);
+  }
+  .person__place {
+    font-size: var(--size-small);
+    color: var(--hf-text-muted);
+  }
+  .person__bio {
+    margin-top: 12px;
+  }
+  .person__link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+  .team__rest {
+    margin-top: 40px;
+    color: var(--hf-text-muted);
+  }
+</style>

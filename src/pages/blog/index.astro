@@ -12,7 +12,7 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
 <Base title="Writing" description="Essays from the people behind Human First AI.">
   <header class="wrap page-head">
     <h1>Writing</h1>
-    <p class="lead">What we are thinking about while we get the first workshops going. Plain words, and honest about the limits.</p>
+    <p class="lead">What we are thinking about while we get the first workshop going.</p>
   </header>
 
   <div class="wrap posts">
@@ -29,14 +29,16 @@ const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', ye
                 <h2>
                   <a href={post.data.externalUrl ?? `/blog/${post.id}/`}>
                     {post.data.title}
-                    {external && <Arrow external />}
+                    {external && (
+                      <>
+                        <Arrow external />
+                        <span class="visually-hidden"> (opens on our articles site)</span>
+                      </>
+                    )}
                   </a>
                 </h2>
                 {post.data.subtitle && <p class="posts__sub">{post.data.subtitle}</p>}
-                <p class="posts__by">
-                  {post.data.author}
-                  {external && <span class="muted"> · illustrated edition, with narration</span>}
-                </p>
+                <p class="posts__by">{post.data.author}</p>
               </div>
             </li>
           );
