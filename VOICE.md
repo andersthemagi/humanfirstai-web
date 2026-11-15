@@ -118,9 +118,9 @@ the site.
   stays as the home page `<title>` and as the large statement in the home page's "why" section,
   above the "Our mission" link. The door is
   also the site's visual device. Do not echo it in words anywhere else: no "pick a door", "this
-  door does not go anywhere", "we open doors". (Known leftover: the share image `public/og.png`
-  and its description `shareAlt` in `ui.ts` still carry "We open doors to AI for all". Redraw
-  the image and change the description together.)
+  door does not go anywhere", "we open doors". The share image `public/og.png` repeats the
+  home headline. If the headline changes, redraw the image and change its description
+  (`shareAlt` in `ui.ts`) at the same time.
 
 ### Sentences
 

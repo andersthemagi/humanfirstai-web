@@ -49,7 +49,7 @@ const en = {
   titleDefault: 'Human First AI · Make AI an open door, not a locked lab',
   description:
     'Human First AI is a volunteer group, starting in Barcelona, that wants AI to be an open door, not a locked lab. Panels, workshops, events and more are in the works. Sign up for email updates.',
-  shareAlt: 'Human First AI. We open doors to AI for all. An open orange doorway on a dark blue wall.',
+  shareAlt: 'Human First AI. We want everyone to understand AI. Make AI an open door, not a locked lab. An open orange doorway on a dark blue wall.',
   skip: 'Skip to content',
   homeLabel: 'Human First AI, home',
   menu: 'Menu',
@@ -176,7 +176,7 @@ const es: Words = {
   titleDefault: 'Human First AI · Que la IA sea una puerta abierta, no un laboratorio cerrado',
   description:
     'Human First AI es un grupo de personas voluntarias que empieza en Barcelona y quiere que la IA sea una puerta abierta, no un laboratorio cerrado. Estamos preparando mesas redondas, talleres, eventos y más. Suscríbete para recibir avisos por correo.',
-  shareAlt: 'Human First AI. Abrimos puertas a la IA para todo el mundo. Una puerta naranja abierta en una pared azul oscuro.',
+  shareAlt: 'Human First AI. Queremos que todo el mundo entienda la IA. Que la IA sea una puerta abierta, no un laboratorio cerrado. Una puerta naranja abierta en una pared azul oscuro.',
   skip: 'Saltar al contenido',
   homeLabel: 'Human First AI, inicio',
   menu: 'Menú',
@@ -300,7 +300,7 @@ const ca: Words = {
   titleDefault: 'Human First AI · Que la IA sigui una porta oberta, no un laboratori tancat',
   description:
     "Human First AI és un grup de persones voluntàries que comença a Barcelona i vol que la IA sigui una porta oberta, no un laboratori tancat. Estem preparant taules rodones, tallers, esdeveniments i més. Subscriu-te per rebre avisos al correu.",
-  shareAlt: 'Human First AI. Obrim portes a la IA per a tothom. Una porta taronja oberta en una paret blau fosc.',
+  shareAlt: 'Human First AI. Volem que tothom entengui la IA. Que la IA sigui una porta oberta, no un laboratori tancat. Una porta taronja oberta en una paret blau fosc.',
   skip: 'Salta al contingut',
   homeLabel: 'Human First AI, inici',
   menu: 'Menú',
