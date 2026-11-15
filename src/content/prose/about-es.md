@@ -1,14 +1,14 @@
 ---
-title: Por qué hacemos esto
-intro: Queremos que lo bueno de la IA llegue a todo el mundo, empezando por quienes suelen quedarse fuera.
+title: Nuestra misión
+intro: Queremos que todo el mundo se beneficie de la IA, sobre todo quienes suelen quedarse fuera.
 ---
 
 ## Dónde estamos
 
-Human First AI es un grupo de personas voluntarias que empieza en Barcelona. Estamos muy al principio. De momento hemos publicado [unos cuantos artículos](/es/blog/) y estamos preparando mesas redondas, talleres, eventos y más.
+Human First AI es un grupo de personas voluntarias que empieza en Barcelona. Acabamos de empezar. De momento hemos publicado [unos cuantos artículos](/es/blog/) y estamos preparando mesas redondas, talleres, eventos y más.
 
-Si quieres ayudar a dar forma a lo que viene, [dínoslo](/es/contact/?reason=help).
+Si quieres ayudar, [escríbenos](/es/contact/?reason=help).
 
 ## En qué creemos
 
-Nadie debería quedarse atrás con la IA por el lugar donde nació, por sus estudios o por el dinero que tiene. Entenderla es el primer paso para dejar de tenerle miedo. Lo que pase a partir de ahora con la IA lo tenemos que decidir entre todo el mundo, también quienes nunca han trabajado en tecnología.
+Nadie debería quedarse atrás con la IA por el lugar donde nació, por sus estudios o por el dinero que tiene. La IA da menos miedo cuando se entiende. Todo el mundo debería poder opinar sobre cómo se usa la IA, también quienes nunca han trabajado en tecnología.

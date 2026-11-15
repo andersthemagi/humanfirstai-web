@@ -1,54 +1,54 @@
 {
-  "headline": "Obrim portes",
-  "headlineAccent": "a la IA per a tothom.",
-  "standfirst": "Som un grup de persones voluntàries que comença a Barcelona, i creiem que la IA ha de ser per a tothom. Estem preparant taules rodones, tallers, esdeveniments i més.",
-  "newsletterLabel": "Assabenta't quan hi hagi alguna cosa",
-  "newsletterButton": "Avisa'm",
-  "doorwaysTitle": "Tria una porta",
+  "headline": "Volem que tothom",
+  "headlineAccent": "entengui la IA.",
+  "standfirst": "Som un grup de persones voluntàries que comença a Barcelona. Estem preparant taules rodones, tallers, esdeveniments i més.",
+  "newsletterLabel": "Rep avisos per correu",
+  "newsletterButton": "Subscriu-me",
+  "doorwaysTitle": "Participa",
   "doorways": [
     {
       "word": "Vine",
-      "title": "Acosta't",
-      "body": "Encara no hi ha res amb data. Deixa el teu correu i ho sabràs abans que ningú quan n'hi hagi.",
-      "linkLabel": "Avisa'm",
+      "title": "Vine a un esdeveniment",
+      "body": "Encara no hi ha res programat. Subscriu-te i t'escriurem quan hi hagi un esdeveniment programat.",
+      "linkLabel": "Subscriu-me",
       "linkHref": "#newsletter"
     },
     {
       "word": "Ajuda",
-      "title": "Ajuda a fer-ho possible",
-      "body": "Ho fem de manera voluntària i hi ha molta feina per fer. Si saps ensenyar, organitzar, traduir, dissenyar o escriure, ens agradaria saber de tu.",
+      "title": "Ajuda",
+      "body": "Busquem persones que sàpiguen ensenyar, organitzar, traduir, dissenyar o escriure.",
       "linkLabel": "Vull ajudar",
       "linkHref": "/contact/?reason=help"
     },
     {
       "word": "Acull",
-      "title": "Deixa'ns un espai",
-      "body": "Una biblioteca, un centre cívic, una oficina fora d'horari, la sala del fons d'un bar. Si tens un espai a Barcelona o a prop, explica'ns-ho.",
+      "title": "Ofereix un espai",
+      "body": "Una biblioteca, un centre cívic, una oficina fora d'horari o una sala d'un bar. Si tens un espai a Barcelona o a prop, digues-nos-ho.",
       "linkLabel": "Oferir un espai",
       "linkHref": "/contact/?reason=host"
     }
   ],
-  "promisesTitle": "El que no som",
+  "promisesTitle": "Com som",
   "promises": [
     {
-      "title": "No som una empresa.",
-      "body": "Ho fem de manera voluntària i no tenim res per vendre't."
+      "title": "Persones voluntàries.",
+      "body": "No som una empresa i no tenim res per vendre't."
     },
     {
       "title": "No som un laboratori d'IA.",
       "body": "No construïm IA ni entrenem models."
     },
     {
-      "title": "No som neutrals davant del dany.",
-      "body": "Quan una eina s'equivoca, té biaixos o no és segura, ho diem clar."
+      "title": "Parlem clar dels problemes.",
+      "body": "Si una eina s'equivoca, té biaixos o no és segura, ho direm."
     },
     {
-      "title": "No som fans de la IA.",
-      "body": "No som aquí perquè t'agradi la IA. Preferim ser útils."
+      "title": "No promocionem la IA.",
+      "body": "No intentarem que t'agradi la IA. Tu decideixes si et serveix."
     }
   ],
   "whyQuote": "Que la IA sigui una porta oberta, no un laboratori tancat.",
-  "whyBody": "Gairebé tot el que es diu sobre la IA està escrit per a qui ja treballa en tecnologia. Si les eines només ajuden aquestes persones, qui ja s'havia quedat fora encara queda més enrere. Volem que tothom se senti capaç de provar-la, perquè la decisió de fer-la servir o no, i per a què, sigui seva.",
-  "closing": "El futur és de tothom.",
-  "closingLabel": "Assabenta't quan hi hagi alguna cosa"
+  "whyBody": "Gairebé tota la informació sobre la IA està escrita per a qui ja treballa en tecnologia. Això ho fa més difícil a la resta. Volem que tothom pugui provar la IA i decidir si fer-la servir i per a què.",
+  "closing": "Apunta't a la llista de correu.",
+  "closingLabel": "Rep avisos per correu"
 }

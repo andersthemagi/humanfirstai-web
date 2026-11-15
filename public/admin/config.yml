@@ -39,7 +39,7 @@ collections:
       - { name: summaryCa, label: 'What happens, in Catalan', widget: text, required: false, hint: 'Plain text. Leave empty and the Catalan page shows the English text.' }
 
   - name: posts
-    label: Writing
+    label: Blog
     label_singular: Post
     folder: src/content/posts
     create: true

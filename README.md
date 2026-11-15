@@ -1,6 +1,6 @@
 # humanfirstai-web
 
-The public site for Human First AI: home, about (with the team), events, writing, contact and
+The public site for Human First AI: home, about (with the team), events, blog, contact and
 privacy, in English, Spanish and Catalan.
 
 Astro (static) · GSAP for motion · Sveltia CMS at `/admin` · Netlify for hosting and forms.
@@ -22,12 +22,12 @@ Netlify rebuilds the site in about a minute.
 | In the editor | What it changes |
 |---|---|
 | **Events** | The Events page. Leave the date empty and the event shows as "to be announced", which is how "Our first event" stands now: fill in its date and place when they are fixed. Tick "Hide from the site" to keep a draft. Past events move to "Already happened" the next time the site rebuilds. There is a hidden example to copy. |
-| **Writing** | The Writing page. Paste a link in "Published elsewhere?" to point at a piece on another site, or write the text here. |
+| **Blog** | The Blog page. Paste a link in "Published elsewhere?" to point at a piece on another site, or write the text here. |
 | **Team** | "Our team" on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles. Only upload a photo the person has agreed to. |
-| **Pages** | Home page wording (headline, the three doors, the four "what we are not" statements, the closing line), the About page and the Privacy page. Each has an English, a Spanish and a Catalan entry. |
+| **Pages** | Home page wording (headline, the three "Get involved" cards, the four "How we work" statements, the closing line), the About page and the Privacy page. Each has an English, a Spanish and a Catalan entry. |
 | **Settings** | The Substack address the newsletter forms use. |
 
-**The sign-up.** Every "Tell me when" form promises one thing: an email when something has a
+**The sign-up.** Every "Sign up" form promises one thing: an email when something has a
 date and a place. If it becomes a regular newsletter, change the note in
 `src/components/NewsletterForm.astro` so it says so. The forms subscribe people to Substack once the
 address is set in the editor under **Settings → Newsletter**. They post straight to Substack's
@@ -117,7 +117,7 @@ Netlify's spam filter can catch real messages. Look in **Forms → (form) → Sp
 
 It is a public site for three kinds of visitor: someone who might come along, someone who might
 help, and someone with a space. Before adding anything, ask: would this make one of them want to
-take their next step? If not, it does not go on. Every page ends on a step (the "Take part" band,
+take their next step? If not, it does not go on. Every page ends on a step (the "Get involved" band,
 or its own form).
 
 Three rules for the wording, until there is something to announce:
@@ -126,6 +126,8 @@ Three rules for the wording, until there is something to announce:
   events and more are in the works". No formats, no promises about how an event will run.
 - **No mention of donations, funding or backing.**
 - **Barcelona, for now.** Say "starting in Barcelona", not a list of cities.
+
+How to word things, with the reasons and the exact labels to use: [`VOICE.md`](VOICE.md).
 
 ## Brand rules this site follows
 
@@ -143,7 +145,7 @@ copied from there. Do not hand-edit it; copy the new file across when the brand 
 ## Motion
 
 The door swings open once on the home page. On screens at least 1100 × 700, scrolling then walks
-you through it: the doorway grows until its light fills the screen, and "Pick a door" is already
+you through it: the doorway grows until its light fills the screen, and "Get involved" is already
 there behind it. If the three doors fit on screen (at least 900 × 760), they hold still while
 scrolling opens them in turn; otherwise each door opens as it comes into view. The holding is done
 by CSS (`position: sticky`); the script only maps scroll progress onto the doors. With "reduce motion" switched on in the operating system, every door is drawn open and

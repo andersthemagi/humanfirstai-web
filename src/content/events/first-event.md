@@ -2,9 +2,9 @@
 title: Our first event
 titleEs: Nuestro primer evento
 titleCa: El nostre primer esdeveniment
-summaryEs: Lo estamos preparando. Cuando tenga fecha y lugar, estarán aquí, y quien haya dejado su correo se enterará antes que nadie.
-summaryCa: L'estem preparant. Quan tingui data i lloc, seran aquí, i qui hagi deixat el seu correu ho sabrà abans que ningú.
+summaryEs: Lo estamos preparando. Publicaremos aquí la fecha y el lugar, y quien se haya suscrito recibirá un correo antes.
+summaryCa: L'estem preparant. Publicarem aquí la data i el lloc, i qui s'hagi subscrit rebrà un correu abans.
 city: Barcelona
 ---
 
-We are planning it now. When it has a date and a place, they will be here, and everyone who left their email will hear first.
+We are planning it now. We will post the date and place here, and everyone who signed up will get an email first.

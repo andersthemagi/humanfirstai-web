@@ -1,54 +1,54 @@
 {
-  "headline": "We open doors",
-  "headlineAccent": "to AI for all.",
-  "standfirst": "We are a volunteer group, starting in Barcelona, and we think AI should be for everyone. Panels, workshops, events and more are in the works.",
-  "newsletterLabel": "Hear when something is on",
-  "newsletterButton": "Tell me when",
-  "doorwaysTitle": "Pick a door",
+  "headline": "We want everyone",
+  "headlineAccent": "to understand AI.",
+  "standfirst": "We are a volunteer group, starting in Barcelona. Panels, workshops, events and more are in the works.",
+  "newsletterLabel": "Get email updates",
+  "newsletterButton": "Sign up",
+  "doorwaysTitle": "Get involved",
   "doorways": [
     {
       "word": "Come",
-      "title": "Come along",
-      "body": "Nothing has a date yet. Leave your email and you will be the first to know when something does.",
-      "linkLabel": "Tell me when",
+      "title": "Come to an event",
+      "body": "Nothing is scheduled yet. Sign up and we will email you when an event is scheduled.",
+      "linkLabel": "Sign up",
       "linkHref": "#newsletter"
     },
     {
       "word": "Help",
-      "title": "Help make it happen",
-      "body": "We are volunteers, and there is plenty to do. If you can teach, organise, translate, design or write, we would like to hear from you.",
-      "linkLabel": "Offer to help",
+      "title": "Volunteer",
+      "body": "We need people who can teach, organise, translate, design or write.",
+      "linkLabel": "Volunteer",
       "linkHref": "/contact/?reason=help"
     },
     {
       "word": "Host",
-      "title": "Lend us a space",
-      "body": "A library, a community hall, an office after hours, the back room of a café. If you have a space in or near Barcelona, tell us about it.",
-      "linkLabel": "Offer a space",
+      "title": "Offer a venue",
+      "body": "A library, a community hall, an office after hours or a room in a café. If you have a space in or near Barcelona, let us know.",
+      "linkLabel": "Offer a venue",
       "linkHref": "/contact/?reason=host"
     }
   ],
-  "promisesTitle": "What we are not",
+  "promisesTitle": "How we work",
   "promises": [
     {
-      "title": "Not a company.",
-      "body": "We are volunteers, and we have nothing to sell you."
+      "title": "Volunteers.",
+      "body": "We are not a company and we have nothing to sell you."
     },
     {
       "title": "Not an AI lab.",
-      "body": "We do not build AI and we do not train models."
+      "body": "We do not build AI or train models."
     },
     {
-      "title": "Not neutral about harm.",
-      "body": "When a tool is wrong, biased or unsafe, we say so plainly."
+      "title": "Honest about problems.",
+      "body": "If a tool is wrong, biased or unsafe, we will say so."
     },
     {
-      "title": "Not cheerleaders.",
-      "body": "We are not here to make you like AI. We would rather be useful."
+      "title": "Not here to promote AI.",
+      "body": "We will not try to make you like AI. You decide if it is useful to you."
     }
   ],
   "whyQuote": "Make AI an open door, not a locked lab.",
-  "whyBody": "Most of what is said about AI is written for people who already work in tech. If the tools only help them, the people already left out fall further behind. We want everyone to feel able to try it, so the choice of whether to use it, and what for, is theirs.",
-  "closing": "The future belongs to all of us.",
-  "closingLabel": "Hear when something is on"
+  "whyBody": "Most information about AI is written for people who already work in tech. That makes it harder for everyone else to get started. We want anyone to be able to try AI and decide for themselves whether to use it, and what for.",
+  "closing": "Join the mailing list.",
+  "closingLabel": "Get email updates"
 }

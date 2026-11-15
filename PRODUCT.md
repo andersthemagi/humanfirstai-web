@@ -57,7 +57,7 @@ Decided by Andrés (13 Nov 2026), and binding on every page:
 
 ## Capabilities and Constraints
 
-- Pages: Home, About/why (with the team), Events, Writing, Contact.
+- Pages: Home, About/mission (with the team), Events, Blog, Contact.
 - Every page must earn its place: would this make a visitor, volunteer or host want to
   take their next step? Every page ends on one.
 - Events and team bios are edited by non-developers in the CMS.
@@ -80,6 +80,8 @@ Binding, from the brand repository (hkcarre/humanfirstai, `docs/`):
   gradients, dot grids, robots, circuits or glowing brains.
 - Voice: the neighbourhood teacher. Plain words, reading age twelve, no exclamation marks, no
   "unlock/revolutionise/seamless/AI-powered". Say what a tool cannot do in the same breath.
+  On this site the copy is also plain and literal: labels name what they lead to, and the
+  tagline is the only metaphor. Rules, reasons and canonical labels are in `VOICE.md`.
 
 ## Evidence on Hand
 
