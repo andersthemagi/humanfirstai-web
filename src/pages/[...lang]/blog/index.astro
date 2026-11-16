@@ -16,7 +16,7 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .map((post) => {
     const d = post.data;
-    const own = lang === 'es' ? { title: d.titleEs, subtitle: d.subtitleEs, url: d.urlEs } : lang === 'ca' ? { title: d.titleCa, subtitle: d.subtitleCa, url: d.urlCa } : {};
+    const own = lang === 'es' ? { title: d.titleEs, subtitle: d.subtitleEs, url: d.urlEs } : {};
     const translated = Boolean(own.title && own.url);
     return {
       date: d.date,

@@ -31,7 +31,7 @@ const full = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', 
 const time = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' });
 
 // Title and summary in the language being read, when the event has them; English otherwise.
-const suffix = lang === 'es' ? 'Es' : lang === 'ca' ? 'Ca' : '';
+const suffix = lang === 'es' ? 'Es' : '';
 const titleOf = (e: Event) => (suffix && e.data[`title${suffix}` as 'titleEs']) || e.data.title;
 const summaryOf = (e: Event) => (suffix ? e.data[`summary${suffix}` as 'summaryEs'] : undefined);
 const kind = (e: Event) =>

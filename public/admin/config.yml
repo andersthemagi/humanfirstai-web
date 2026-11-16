@@ -25,7 +25,6 @@ collections:
     fields:
       - { name: title, label: Title, widget: string, hint: 'Say plainly what it is, so someone who has never heard of us knows whether to come.' }
       - { name: titleEs, label: Title in Spanish, widget: string, required: false, hint: 'Leave empty and the Spanish page shows the English title.' }
-      - { name: titleCa, label: Title in Catalan, widget: string, required: false, hint: 'Leave empty and the Catalan page shows the English title.' }
       - { name: type, label: Type, widget: select, options: [Panel, Workshop, Talk, Social], default: Workshop }
       - { name: start, label: Starts, widget: datetime, required: false, hint: 'Leave empty until the date is fixed. The event is then shown as "to be announced".' }
       - { name: end, label: Ends, widget: datetime, required: false }
@@ -36,7 +35,6 @@ collections:
       - { name: draft, label: Hide from the site, widget: boolean, default: false }
       - { name: body, label: What happens, widget: markdown, hint: 'Two or three short sentences. What to bring, who it is for, how to get there.' }
       - { name: summaryEs, label: 'What happens, in Spanish', widget: text, required: false, hint: 'Plain text. Leave empty and the Spanish page shows the English text.' }
-      - { name: summaryCa, label: 'What happens, in Catalan', widget: text, required: false, hint: 'Plain text. Leave empty and the Catalan page shows the English text.' }
 
   - name: posts
     label: Blog
@@ -55,9 +53,6 @@ collections:
       - { name: titleEs, label: Title in Spanish, widget: string, required: false, hint: 'Only if a Spanish version of the piece exists. Needs the link below too. Otherwise the Spanish page lists the piece as "In English".' }
       - { name: subtitleEs, label: Subtitle in Spanish, widget: string, required: false }
       - { name: urlEs, label: Link to the Spanish version, widget: string, required: false }
-      - { name: titleCa, label: Title in Catalan, widget: string, required: false, hint: 'Only if a Catalan version of the piece exists. Needs the link below too.' }
-      - { name: subtitleCa, label: Subtitle in Catalan, widget: string, required: false }
-      - { name: urlCa, label: Link to the Catalan version, widget: string, required: false }
       - { name: draft, label: Hide from the site, widget: boolean, default: false }
       - { name: body, label: Text, widget: markdown, required: false }
 
@@ -88,7 +83,7 @@ collections:
           - { name: newsletterUrl, label: Substack address, widget: string, required: false, hint: 'e.g. https://humanfirstai.substack.com. While empty, sign-ups are kept in Netlify under Forms > newsletter, ready to import into Substack. When you set this, update the Privacy pages too: they say no newsletter service is used yet.' }
           - { name: newsletterName, label: Newsletter name, widget: string }
 
-  # Each page exists once per language. The Spanish and Catalan files reuse the English fields.
+  # Each page exists once per language. The Spanish files reuse the English fields.
   - name: pages
     label: Pages
     files:
@@ -128,10 +123,6 @@ collections:
         label: Home page · Español
         file: src/content/pages/home-es.json
         fields: *home_fields
-      - name: home-ca
-        label: Home page · Català
-        file: src/content/pages/home-ca.json
-        fields: *home_fields
       - name: about
         label: About page · English
         file: src/content/prose/about.md
@@ -142,10 +133,6 @@ collections:
       - name: about-es
         label: About page · Español
         file: src/content/prose/about-es.md
-        fields: *prose_fields
-      - name: about-ca
-        label: About page · Català
-        file: src/content/prose/about-ca.md
         fields: *prose_fields
       - name: privacy
         label: Privacy page · English
@@ -159,8 +146,4 @@ collections:
       - name: privacy-es
         label: Privacy page · Español
         file: src/content/prose/privacy-es.md
-        fields: *privacy_fields
-      - name: privacy-ca
-        label: Privacy page · Català
-        file: src/content/prose/privacy-ca.md
         fields: *privacy_fields

@@ -1,21 +1,21 @@
-// The three languages of the site and every sentence that is not edited in the CMS.
-// English lives at /, Spanish at /es/, Catalan at /ca/. Pages share one file each
-// (src/pages/[...lang]/) and read their words from here.
+// The languages of the site and every sentence that is not edited in the CMS.
+// English lives at /, Spanish at /es/. Pages share one file each
+// (src/pages/[...lang]/) and read their words from here. Catalan is off the site for now;
+// its words are kept in parked/catalan/.
 //
-// To change a sentence: change it in all three blocks below. Spanish and Catalan address the
-// reader as "tú" / "tu", use no exclamation marks, and say only what has already happened.
+// To change a sentence: change it in both blocks below. Spanish addresses the reader as "tú",
+// uses no exclamation marks, and says only what has already happened.
 
 export const languages = {
   en: { name: 'English', short: 'EN', intl: 'en-GB', og: 'en_GB' },
   es: { name: 'Español', short: 'ES', intl: 'es-ES', og: 'es_ES' },
-  ca: { name: 'Català', short: 'CA', intl: 'ca-ES', og: 'ca_ES' },
 } as const;
 
 export type Lang = keyof typeof languages;
 export const defaultLang: Lang = 'en';
 export const langs = Object.keys(languages) as Lang[];
 
-/** One page per language from a single file: /about/, /es/about/, /ca/about/. */
+/** One page per language from a single file: /about/, /es/about/. */
 export const langPaths = () => langs.map((lang) => ({ params: { lang: lang === defaultLang ? undefined : lang } }));
 
 /** The language of the page at this address. */
@@ -35,14 +35,14 @@ export function pathWithoutLang(url: URL) {
   return path.endsWith('/') ? path : `${path}/`;
 }
 
-/** Content files carry their language in the name: home.json, home-es.json, home-ca.json. */
+/** Content files carry their language in the name: home.json, home-es.json. */
 export const entryId = (base: string, lang: Lang) => (lang === defaultLang ? base : `${base}-${lang}`);
 
 /** Fills {name} gaps in a sentence. */
 export const fill = (text: string, values: Record<string, string | number>) =>
   text.replace(/\{(\w+)\}/g, (_, key) => String(values[key] ?? ''));
 
-/** Dates come out of Intl in lower case in Spanish and Catalan; a line that starts with one needs its capital. */
+/** Dates come out of Intl in lower case in Spanish; a line that starts with one needs its capital. */
 export const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 const en = {
@@ -296,131 +296,7 @@ const es: Words = {
   },
 };
 
-const ca: Words = {
-  titleDefault: 'Human First AI · Que la IA sigui una porta oberta, no un laboratori tancat',
-  description:
-    "Human First AI és un grup de persones voluntàries que comença a Barcelona i vol que la IA sigui una porta oberta, no un laboratori tancat. Estem preparant taules rodones, tallers, esdeveniments i més. Subscriu-te per rebre avisos al correu.",
-  shareAlt: 'Human First AI. Volem que tothom entengui la IA. Que la IA sigui una porta oberta, no un laboratori tancat. Una porta taronja oberta en una paret blau fosc.',
-  skip: 'Salta al contingut',
-  homeLabel: 'Human First AI, inici',
-  menu: 'Menú',
-  nav: { about: 'Qui som', events: 'Esdeveniments', blog: 'Blog', contact: 'Contacte' },
-  cta: 'Rebre avisos',
-  aria: { main: 'Principal', footer: 'Peu de pàgina', language: 'Idioma' },
-  privacy: 'Privacitat',
-  footLine: 'Un grup de persones voluntàries de Barcelona.',
-
-  news: {
-    button: "Subscriu-me",
-    note: "T'escriurem quan alguna cosa tingui data i lloc. Et pots donar de baixa quan vulguis.",
-    noteSubstack: "T'escriurem quan alguna cosa tingui data i lloc. Ho enviem amb Substack. Et pots donar de baixa quan vulguis.",
-    placeholder: 'nom@exemple.com',
-    honeypot: 'Deixa això buit',
-    privacy: 'Com fem servir el teu correu',
-  },
-
-  take: {
-    title: 'Participa',
-    steps: [
-      {
-        title: 'Vine a un esdeveniment',
-        body: "Encara no hi ha res programat. Subscriu-te i t'escriurem quan hi hagi un esdeveniment programat.",
-        link: 'Subscriu-me',
-      },
-      {
-        title: 'Ajuda',
-        body: 'Busquem persones que sàpiguen ensenyar, organitzar, traduir, dissenyar o escriure.',
-        link: 'Vull ajudar',
-      },
-      {
-        title: 'Ofereix un espai',
-        body: "Una biblioteca, una sala o una oficina fora d'horari. Si tens un espai a Barcelona o a prop, digues-nos-ho.",
-        link: 'Oferir un espai',
-      },
-    ],
-  },
-
-  home: {
-    why: 'La nostra missió',
-    also: 'També pots <a href="{help}">ajudar</a> o <a href="{host}">oferir un espai</a>.',
-  },
-
-  about: { title: 'Qui som' },
-
-  team: {
-    title: 'El nostre equip',
-    lead: 'De moment som {n} persones, i hi ha lloc per a més.',
-    onLinkedIn: '{name} a LinkedIn',
-    more: 'Més sobre {name}',
-    portrait: 'Retrat de {name}',
-  },
-
-  events: {
-    title: 'Esdeveniments',
-    description:
-      "Estem preparant taules rodones, tallers, esdeveniments i més, començant per Barcelona. Subscriu-te i t'escriurem quan hi hagi alguna cosa programada.",
-    lead: 'Estem preparant taules rodones, tallers, esdeveniments i més, començant per Barcelona.',
-    emptyTitle: 'Encara no hi ha esdeveniments programats',
-    emptyLead: "Subscriu-te i t'escriurem quan n'hi hagi un.",
-    emailLabel: 'El teu correu',
-    host: 'Tens un espai que puguem fer servir o vols ajudar? <a href="{host}">Ofereix un espai</a> o <a href="{help}">ajuda\'ns</a>.',
-    comingUp: 'Properament',
-    timeRange: 'de {from} a {to}',
-    typeIn: '{type} en {language}',
-    types: { Panel: 'Taula rodona', Workshop: 'Taller', Talk: 'Xerrada', Social: 'Trobada' },
-    languages: { english: 'anglès', spanish: 'castellà', catalan: 'català' },
-    tba: 'Data i lloc per anunciar',
-    dateTba: 'Data per anunciar',
-    placeTba: 'Lloc per anunciar',
-    hearFirst: 'Rep un correu quan tingui data',
-    hearNext: 'Rep un correu sobre el següent',
-    seat: "Inscriu-m'hi",
-    past: 'Ja han passat',
-  },
-
-  contact: {
-    title: 'Contacte',
-    description: "Ajuda'ns, ofereix un espai o fes-nos una pregunta. Cada missatge el llegeix una persona de l'equip.",
-    heading: 'Escriu-nos',
-    lead: "Cada missatge el llegeix una persona de l'equip. Ho fem de manera voluntària, així que podem trigar uns dies a respondre.",
-    reasons: { help: 'Vull ajudar', host: 'Oferir un espai', press: 'Premsa o aliances', other: 'Una altra cosa' },
-    legend: "Què t'agradaria fer?",
-    name: 'El teu nom',
-    email: 'Correu electrònic',
-    message: 'El teu missatge',
-    hint: "Explica'ns on ets i què tens al cap.",
-    send: 'Envia el missatge',
-    use: 'Fem servir el teu nom i el teu correu només per respondre\'t. <a href="{privacy}">Privacitat</a>',
-  },
-
-  thanks: {
-    title: 'Gràcies',
-    heading: 'Gràcies',
-    lead: "Si t'has subscrit, t'escriurem quan hi hagi alguna cosa programada. Si has enviat un missatge, et respondrà algú de l'equip. Pot trigar uns dies.",
-    more: 'Mentrestant, pots llegir <a href="{blog}">el nostre blog</a>, <a href="{host}">oferir un espai</a> o <a href="{help}">ajudar-nos</a>.',
-  },
-
-  lost: {
-    title: 'Pàgina no trobada',
-    heading: 'Pàgina no trobada',
-    lead: 'No hem trobat aquesta pàgina. Potser ha canviat de lloc. Torna a la <a href="{home}">pàgina d\'inici</a> o <a href="{contact}">explica\'ns què buscaves</a>.',
-  },
-
-  blog: {
-    title: 'Blog',
-    lead: "Articles de l'equip de Human First AI.",
-    external: "(s'obre al nostre web d'articles)",
-    inEnglish: 'En anglès',
-    more: 'Més articles',
-  },
-
-  privacyPage: {
-    draft: 'Aquesta pàgina és un esborrany. El nostre equip encara no ha acabat de revisar-la.',
-    updated: 'Última modificació: {date}.',
-  },
-};
-
-const ui: Record<Lang, Words> = { en, es, ca };
+const ui: Record<Lang, Words> = { en, es };
 
 /** The words for one language. */
 export const useT = (lang: Lang) => ui[lang];

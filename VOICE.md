@@ -2,7 +2,7 @@
 
 How the words on this site are written, why, and how to write more of them. Read this before
 changing any visible text: buttons, headings, page copy, form notes, event entries, meta
-descriptions, in any of the three languages.
+descriptions, in either language.
 
 Where this sits:
 
@@ -59,10 +59,11 @@ as generated, the reader's next question is whether anything here was written by
 
 ### It survives translation
 
-The site runs in English, Spanish and Catalan, and each version must read as if it were
-written in that language. Literal labels have a natural equivalent in every language: Blog,
+The site runs in English and Spanish, and each version must read as if it were written in that
+language. Catalan is off the site for now (`parked/catalan/`); the Catalan labels below are kept
+for when it comes back. Literal labels have a natural equivalent in every language: Blog,
 Eventos, Contacte. Wordplay does not ("Pick a door" becomes a puzzle in translation). Plain
-copy keeps the three versions saying the same thing.
+copy keeps the versions saying the same thing.
 
 ## What it does for the next step
 
@@ -201,16 +202,17 @@ From the November 2026 rewrite. The reason is the part to copy.
 | This door does not go anywhere | Page not found | Someone who is lost needs to know what happened, at once. |
 | Got it. Thank you. | Thank you | Shorter, same meaning. |
 
-## Spanish and Catalan
+## Spanish
 
-- Write each version natively. Do not translate word for word.
-- Address the reader as *tú* / *tu*.
+- Write it natively. Do not translate word for word.
+- Address the reader as *tú*.
 - Avoid gendered forms for people: "personas voluntarias", "Quiero ayudar", "alguien del
   equipo". Not "voluntario", "hazte voluntario".
-- Use the canonical labels above. When a label changes, change all three languages in the same
+- Use the canonical labels above. When a label changes, change both languages in the same
   commit.
-- Keep "colaboración/col·laboració" for press and partners only, so it is never confused with
-  volunteering.
+- Keep "colaboración" for press and partners only, so it is never confused with volunteering.
+
+When Catalan comes back, the same rules apply to it (*tu*, "col·laboració").
 
 ## Checking a draft
 
@@ -222,6 +224,5 @@ Before you submit copy, check each item.
 3. You can name which of the three visitors each section serves, and its step.
 4. No pattern from "Patterns to avoid" appears. Read the text aloud. If any line sounds like a
    poster, rewrite it.
-5. Spanish and Catalan say the same thing, read naturally, use *tú*/*tu*, and have no gendered
-   forms.
+5. The Spanish says the same thing, reads naturally, uses *tú*, and has no gendered forms.
 6. `npm run build` passes. Strings in `ui.ts` with apostrophes are double-quoted or escaped.

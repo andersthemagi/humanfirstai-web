@@ -1,7 +1,8 @@
 # humanfirstai-web
 
 The public site for Human First AI: home, about (with the team), events, blog, contact and
-privacy, in English, Spanish and Catalan.
+privacy, in English and Spanish. Catalan is off the site for now; its text and the steps to
+bring it back are in [`parked/catalan/`](parked/catalan/README.md).
 
 Astro (static) · GSAP for motion · Sveltia CMS at `/admin` · Netlify for hosting and forms.
 Running cost: $0.
@@ -24,7 +25,7 @@ Netlify rebuilds the site in about a minute.
 | **Events** | The Events page. Leave the date empty and the event shows as "to be announced", which is how "Our first event" stands now: fill in its date and place when they are fixed. Tick "Hide from the site" to keep a draft. Past events move to "Already happened" the next time the site rebuilds. There is a hidden example to copy. |
 | **Blog** | The Blog page. Paste a link in "Published elsewhere?" to point at a piece on another site, or write the text here. |
 | **Team** | "Our team" on the About page. Everyone gets the same card: a photo (or their initial until there is one), their name and a link. No titles. Only upload a photo the person has agreed to. |
-| **Pages** | Home page wording (headline, the three "Get involved" cards, the four "How we work" statements, the closing line), the About page and the Privacy page. Each has an English, a Spanish and a Catalan entry. |
+| **Pages** | Home page wording (headline, the three "Get involved" cards, the four "How we work" statements, the closing line), the About page and the Privacy page. Each has an English and a Spanish entry. |
 | **Settings** | The Substack address the newsletter forms use. |
 
 **The sign-up.** Every "Sign up" form promises one thing: an email when something has a
@@ -38,22 +39,21 @@ kept in Netlify under **Forms → newsletter**. Export them as CSV and import th
 Contact messages arrive in Netlify under **Forms → contact**. Turn on email notifications there
 so they reach a person.
 
-## Three languages
+## Two languages
 
-English is at `/`, Spanish at `/es/` and Catalan at `/ca/`, with the same addresses after that
-(`/es/events/`, `/ca/events/`). The EN · ES · CA links in the header, menu and footer lead to the
-same page in the other language.
+English is at `/` and Spanish at `/es/`, with the same addresses after that (`/es/events/`).
+The EN · ES links in the header, menu and footer lead to the same page in the other language.
 
-| What | Where its three versions live |
+| What | Where its two versions live |
 |---|---|
 | Buttons, menus, form labels, short lines | `src/i18n/ui.ts`, one block per language |
-| Home, About, Privacy | **Pages** in the editor: `home.json`, `home-es.json`, `home-ca.json` and so on |
-| An event | One entry. Its Spanish and Catalan title and text are extra fields; without them the English shows |
-| An article | One entry. Give it a Spanish or Catalan title and link if that version exists; otherwise it is listed as "in English" |
+| Home, About, Privacy | **Pages** in the editor: `home.json`, `home-es.json` and so on |
+| An event | One entry. Its Spanish title and text are extra fields; without them the English shows |
+| An article | One entry. Give it a Spanish title and link if that version exists; otherwise it is listed as "in English" |
 
-Change a page in one language and the other two stay as they were, so change all three. Spanish
-and Catalan address the reader as *tú* / *tu*. A wrong address under `/es/` or `/ca/` gets the
-"not found" page in that language (the two redirects in `netlify.toml`).
+Change a page in one language and the other stays as it was, so change both. Spanish addresses
+the reader as *tú*. A wrong address under `/es/` gets the "not found" page in Spanish (the
+redirect in `netlify.toml`).
 
 Still in English only: articles written on this site (`/blog/<name>/`) and the share picture.
 
@@ -61,7 +61,7 @@ Still in English only: articles written on this site (`/blog/<name>/`) and the s
 
 `/privacy/` says what the two forms collect and what the site does not do (no cookies, no
 analytics, nothing loaded from other companies). Keep it true: if the newsletter moves to
-Substack, or visitor counting is added, change the page in all three languages first.
+Substack, or visitor counting is added, change the page in both languages first.
 
 It carries a "this page is a draft" note until someone unticks **Show the "draft, not yet
 checked" note** in the editor. Before that happens the team needs to agree who answers requests

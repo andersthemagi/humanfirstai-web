@@ -1,9 +1,7 @@
 ---
 title: Our first event
 titleEs: Nuestro primer evento
-titleCa: El nostre primer esdeveniment
 summaryEs: Lo estamos preparando. Publicaremos aquí la fecha y el lugar, y quien se haya suscrito recibirá un correo antes.
-summaryCa: L'estem preparant. Publicarem aquí la data i el lloc, i qui s'hagi subscrit rebrà un correu abans.
 city: Barcelona
 ---
 

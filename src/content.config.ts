@@ -17,14 +17,11 @@ const posts = defineCollection({
     date: z.coerce.date(),
     // Pieces published elsewhere (e.g. the illustrated article site) link out instead.
     externalUrl: z.string().url().optional(),
-    // Articles are written in English. One that also exists in Spanish or Catalan is listed on
-    // /es/blog/ or /ca/blog/ under its own title and links to that version.
+    // Articles are written in English. One that also exists in Spanish is listed on
+    // /es/blog/ under its own title and links to that version.
     titleEs: z.string().optional(),
     subtitleEs: z.string().optional(),
     urlEs: z.string().url().optional(),
-    titleCa: z.string().optional(),
-    subtitleCa: z.string().optional(),
-    urlCa: z.string().url().optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -41,11 +38,9 @@ const events = defineCollection({
     city: z.string(),
     language: z.string().default('English'),
     signupUrl: z.preprocess(blank, z.string().url().optional()),
-    // The title and a short description for /es/events/ and /ca/events/. Without them the English is shown.
+    // The title and a short description for /es/events/. Without them the English is shown.
     titleEs: z.string().optional(),
     summaryEs: z.string().optional(),
-    titleCa: z.string().optional(),
-    summaryCa: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
