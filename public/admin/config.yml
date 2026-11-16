@@ -7,7 +7,7 @@ backend:
   branch: main
   base_url: https://api.netlify.com # Netlify signs editors in with GitHub (Site settings > Access & security > OAuth)
 
-site_url: https://human-first-ai.netlify.app
+site_url: https://humanfirstai-global.netlify.app
 logo_url: /favicon.svg
 media_folder: public/uploads
 public_folder: /uploads

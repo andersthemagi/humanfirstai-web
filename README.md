@@ -90,17 +90,17 @@ flat-topped panel.
 
 ## Deploying by hand
 
-Until the repo is linked (step 2), nothing deploys itself. The Netlify project is `human-first-ai`.
+Until the repo is linked (step 2), nothing deploys itself. The Netlify project is `humanfirstai-global`.
 Run `npx netlify-cli login` once, then `npx netlify-cli link` in this folder and pick that project.
 
-A draft for people to click through, at `https://draft--human-first-ai.netlify.app`:
+A draft for people to click through, at `https://draft--humanfirstai-global.netlify.app`:
 
 ```bash
-SITE_DRAFT=1 SITE_URL=https://draft--human-first-ai.netlify.app npm run build
+SITE_DRAFT=1 SITE_URL=https://draft--humanfirstai-global.netlify.app npm run build
 npx netlify-cli deploy --dir dist --alias draft --no-build
 ```
 
-The real site, at `https://human-first-ai.netlify.app`:
+The real site, at `https://humanfirstai-global.netlify.app`:
 
 ```bash
 npm run build
